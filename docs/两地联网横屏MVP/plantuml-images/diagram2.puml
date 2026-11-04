@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName SansSerif
+skinparam backgroundColor white
+title 双人投入与恢复
+actor 玩家甲 as A
+participant 游戏服务 as S
+actor 玩家乙 as B
+A -> S: 确认投入 请求编号甲
+S -> S: 校验本人属性并扣除一次
+S --> A: 本人剩余属性和确认结果
+S --> B: 公共投入与阶段更新
+B -> S: 确认投入 请求编号乙
+S -> S: 扣除一次并生成共同结算
+S --> A: 相同地点结果
+S --> B: 相同地点结果
+S -> S: 检测甲连接中断 暂停对局
+S --> B: 暂停 等待同伴
+A -> S: 使用原凭证恢复
+S --> A: 原身份 原阶段 原尝试
+A -> S: 在线可见 确认继续
+B -> S: 在线可见 确认继续
+S --> A: 恢复当前行动
+S --> B: 恢复当前行动
+@enduml

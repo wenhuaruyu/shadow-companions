@@ -1,0 +1,22 @@
+# Local dependencies and runtime state
+node_modules/
+.env
+.env.*
+!.env.example
+.runtime/
+coverage/
+.DS_Store
+*.log
+
+# Existing standalone demonstration sites
+/seven-days-demo/
+/seven-days-duel/
+/*-preview.png
+
+# Document authoring and visual QA intermediates
+/docs/**/qa/
+/docs/**/qa-*/
+/docs/**/build_docx.py
+/docs/**/render_diagrams.py
+/docs/**/update_orientation.py
+~$*.docx

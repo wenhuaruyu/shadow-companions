@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName SansSerif
+skinparam backgroundColor white
+title 两地点横屏联网体验主流程
+start
+:发起人创建邀请链接;
+:另一台手机加入;
+:双方准备完成;
+:各自领取个人指令;
+:通用玩法教学与双方就绪;
+:地图进入黄慕兰寓所;
+:各自完成一次智力或武力事件;
+:双方协商并确认扣除投入;
+if (两项合计达标) then (是)
+  :第一地点共同成功;
+  :双方继续后解锁避风塘;
+  :各自完成一次事件;
+  :双方协商并确认扣除投入;
+  if (两项合计达标) then (是)
+    :两地体验完成;
+  else (否)
+    :第二地点共同失败;
+  endif
+else (否)
+  :第一地点共同失败;
+endif
+stop
+@enduml
