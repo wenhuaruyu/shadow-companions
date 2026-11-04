@@ -1,13 +1,10 @@
 import { createServer } from 'node:http';
-
-const port = Number(process.env.PORT || 3000);
-const host = process.env.HOST || '127.0.0.1';
-createServer((req, res) => {
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  if (req.method === 'GET' && req.url === '/health') {
-    res.writeHead(200).end(JSON.stringify({ status: 'ok', service: 'anxian-server', stage: 'project-setup' }));
-    return;
-  }
-  res.writeHead(404).end(JSON.stringify({ error: { code: 'NOT_FOUND', message: '该接口尚未实现' } }));
-}).listen(port, host, () => console.log(`Server skeleton: http://${host}:${port}`));
+import { readFile, mkdir, writeFile, rename } from 'node:fs/promises';
+import { resolve, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { rooms, create, join, player, view, act, tick } from './game.js';
+const root=fileURLToPath(new URL('../../web/',import.meta.url));
+const dataDir=process.env.DATA_DIR||fileURLToPath(new URL('../data/',import.meta.url));
+await mkdir(dataDir,{recursive:true});try{for(const r of JSON.parse(await readFile(resolve(dataDir,'rooms.json'),'utf8'))){r.tick=Date.now();rooms.set(r.id,r);}}catch{}
+let saving=false;setInterval(async()=>{for(const r of rooms.values()){tick(r);if(Date.now()-r.created>86400000)rooms.delete(r.id);}if(saving)return;saving=true;try{await writeFile(resolve(dataDir,'rooms.tmp'),JSON.stringify([...rooms.values()]));await rename(resolve(dataDir,'rooms.tmp'),resolve(dataDir,'rooms.json'));}finally{saving=false;}},250);
+createServer(async(req,res)=>{res.setHeader('Cache-Control','no-store');try{const url=new URL(req.url,'http://localhost');if(url.pathname==='/health'){res.end(JSON.stringify({status:'ok'}));return;}if(url.pathname.startsWith('/api/')){res.setHeader('Content-Type','application/json; charset=utf-8');let body={};if(req.method==='POST'){let raw='';for await(const c of req){raw+=c;if(raw.length>12000)throw Error('请求过大');}body=JSON.parse(raw||'{}');}let result;if(url.pathname==='/api/create'&&req.method==='POST'){const r=create(),p=join(r);result={id:r.id,token:p.token};}else{const id=url.searchParams.get('room')||body.room;const r=rooms.get(id);if(!r)throw Error('邀请已失效或对局不存在');if(url.pathname==='/api/join'&&req.method==='POST'){const p=join(r);result={id:r.id,token:p.token};}else{const p=player(r,req.headers.authorization?.replace('Bearer ',''));tick(r);if(url.pathname==='/api/state')result=view(r,p);else if(url.pathname==='/api/instruction'&&p.role)result={title:'个人指令',text:p.role==='secret'?'你另有秘密任务。先与同伴完成转移，谨慎决定为共同任务付出多少，保存行动实力。本次只开放前两个地点，不会触发最终抉择。完整故事中，你可在最终阶段选择泄密并以剩余属性争取对决优势；不泄密或对决失败将进入被枪决结局。':'你的任务是与同伴完成转移行动。利用现有智力与武力，合理分担任务消耗，把联络资料安全交到下一站。封签与记录上的异常，也值得留意。'};else if(url.pathname==='/api/action'&&req.method==='POST'){act(r,p,body.kind,body.data);result=view(r,p);}else throw Error('接口不存在');}}res.end(JSON.stringify(result));return;}const path=resolve(root,'.'+(url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname)));if(!path.startsWith(root)||!['.html','.css','.js'].includes(extname(path)))throw Error('Not found');res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'})[extname(path)]);res.end(await readFile(path));}catch(e){res.writeHead(400,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify({error:e.message}));}}).listen(Number(process.env.PORT||3000),process.env.HOST||'0.0.0.0',()=>console.log('暗线同行者 http://localhost:3000'));

@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "暗线同行者 两地移动横屏双人联网体验版",
-  "workspaces": ["apps/web", "apps/server"],
+  "workspaces": [
+    "apps/web",
+    "apps/server"
+  ],
   "scripts": {
     "dev:web": "npm run dev --workspace @anxian/web",
     "dev:server": "npm run dev --workspace @anxian/server",
-    "check": "node --check apps/web/src/main.js && node --check apps/server/src/index.js"
+    "check": "node --check apps/web/src/main.js && node --check apps/server/src/index.js && node --check apps/server/src/game.js",
+    "start": "node apps/server/src/index.js",
+    "test": "node --test apps/server/test/*.test.js"
   }
 }

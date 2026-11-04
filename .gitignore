@@ -20,3 +20,5 @@ coverage/
 /docs/**/render_diagrams.py
 /docs/**/update_orientation.py
 ~$*.docx
+
+/apps/server/data/

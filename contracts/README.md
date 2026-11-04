@@ -1,14 +1,17 @@
-# 前后端业务契约
+# API 契约 v1
 
-当前为第一天待冻结的契约清单，业务接口尚未实现。页面不得把模拟数据误当成真实联网结果。
+所有 API 返回 JSON，失败为 HTTP 400 `{ "error": "中文原因" }`。私有接口使用 `Authorization: Bearer <token>`，凭证不得写入邀请链接。
 
-| 操作 | 核心输入 | 核心输出与限制 |
-| --- | --- | --- |
-| 创建对局 | 请求编号、内容版本 | 本局编号、邀请链接、本人座位与恢复凭证 |
-| 加入对局 | 邀请标识、请求编号 | 本人座位与恢复凭证、公共状态；第三人不可加入 |
-| 读取状态 | 本人凭证、本局编号、已知版本 | 两个公共座位与阶段；不返回对方身份或凭证 |
-| 本人恢复 | 本人凭证、本局编号 | 原座位和公共进度；邀请链接不能接管已占座位 |
+| 接口 | 输入 | 返回 |
+|---|---|---|
+| POST /api/create | 空对象 | id、本人 token |
+| POST /api/join | room | id、加入者 token |
+| GET /api/state?room=… | 本人鉴权 | 公共双人状态、本人尝试、无答案题面 |
+| GET /api/instruction?room=… | 本人鉴权 | 仅本人的个人指令 |
+| POST /api/action | room、kind、data | 更新后的本人视图 |
 
-第一天需确定实际 API 路径、字段、响应样例、错误清单与前端调用方式。邀请链接仅用于加入；恢复凭证只交给对应玩家。创建、加入均需防止重复请求产生重复座位。
+kind：presence（visible）、ready、instruction、tutorial、enter、read、start（type=int/str）、answers（answers 数组）、hit（zone=0/1/2）、finish、invest（int/str 非负整数）、continue、exit。
 
-计时、私密身份、事件、加点与扣除接口按 PRD 后续阶段补齐。
+公共玩家字段：name/int/str/ready/instruction/tutorial/entered/read/continued/online/event/investment。状态：lobby、brief、map、story、event、invest、result、complete、failed、ended。paused 独立于当前阶段，暂停期间除 presence/exit 外拒绝操作。
+
+服务端保存身份、计时、正确答案和账本；不接受客户端奖励或最终属性。事件和投资通过每人每地点唯一记录保证一次结算。凭证仅恢复本人座位，邀请不能接管座位。
