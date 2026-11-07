@@ -37,7 +37,7 @@ export class RpcRoomService {
         return body;
       }
       const known = businessErrors[body?.message];
-      if (body?.code === 'P0001' && known) throw new ApiError(known[0], body.message, known[1]);
+      if (['P0001', 'DATABASE_P0001'].includes(body?.code) && known) throw new ApiError(known[0], body.message, known[1]);
       if (['40001', '40P01'].includes(body?.code) && attempt < 2) continue;
       const upstreamCode = typeof body?.code === 'string' && /^[A-Za-z0-9_]{1,64}$/.test(body.code)
         ? body.code : 'UNKNOWN';

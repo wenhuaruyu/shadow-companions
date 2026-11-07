@@ -30,6 +30,16 @@ test('RPC首次部署可启动，邀请地址未配置时拒绝创建', async ()
   await assert.rejects(service.enter(entry()), { code: 'PUBLIC_ORIGIN_REQUIRED', status: 503 });
 });
 
+test('RPC识别CloudBase包装后的业务错误码', async () => {
+  for (const code of ['P0001', 'DATABASE_P0001']) {
+    for (const [message, status] of [['ROOM_FULL', 409], ['INVALID_CREDENTIAL', 401]]) {
+      const service = new RpcRoomService('https://gateway.example.com/rpc', 'secret', 'https://game.example.com',
+        async () => new Response(JSON.stringify({ code, message }), { status: 400 }));
+      await assert.rejects(service.enter(entry()), { code: message, status });
+    }
+  }
+});
+
 test('RPC通过真实PostgreSQL验证角色、并发去重和失败回滚', { skip: !process.env.PG_TEST_URL }, async () => {
   const { default: pg } = await import('pg');
   const pool = new pg.Pool({ connectionString: process.env.PG_TEST_URL, max: 5 });
