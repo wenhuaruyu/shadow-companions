@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node src/index.js",
-    "start:v2": "node src/v2/index.js",
-    "test:db": "node scripts/test-postgres.js"
+    "start:v2": "node --env-file-if-exists=../../.env src/v2/index.js",
+    "test:db": "node scripts/test-postgres.js",
+    "db:migrate": "node --env-file-if-exists=../../.env scripts/migrate.mjs"
   },
   "dependencies": {
     "pg": "^8.16.3"

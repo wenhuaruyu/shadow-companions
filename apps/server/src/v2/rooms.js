@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { gameSnapshot } from './snapshot.js';
 
 export class ApiError extends Error {
   constructor(status, code, message) {
@@ -6,6 +7,25 @@ export class ApiError extends Error {
     this.status = status;
     this.code = code;
   }
+}
+
+const businessErrors = {
+  INVALID_INPUT: [400, '输入格式错误'],
+  CONTENT_VERSION_UNSUPPORTED: [400, '内容版本不受支持'],
+  REQUEST_ID_CONFLICT: [409, '请求编号已用于不同参数'],
+  ACTION_ALREADY_DONE: [409, '已占有座位，请使用原请求编号恢复'],
+  ROOM_FULL: [409, '本次行动已有两名玩家'],
+  ROOM_NOT_FOUND: [404, '对局不存在'],
+  INVITE_EXPIRED: [410, '邀请已过期'],
+  INVALID_CREDENTIAL: [401, '本人凭证无效']
+};
+
+export function databaseError(error) {
+  const known = businessErrors[error?.message];
+  if (['P0001', 'DATABASE_P0001'].includes(error?.code) && known) {
+    return new ApiError(known[0], error.message, known[1]);
+  }
+  return null;
 }
 
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -118,13 +138,31 @@ export class RoomService {
     if (!me) reject(401, 'INVALID_CREDENTIAL', '本人凭证无效');
     const { rows: rooms } = await connection.query('SELECT * FROM anxian.game_rooms WHERE id=$1', [roomId]);
     const room = rooms[0];
-    return { id: roomId, version: Number(room.version), contentVersion: room.content_version,
-      rulesVersion: 'mvp-rules-1', phase: 'lobby', chapter: 0, ended: false,
-      outcome: null, paused: false, pause: null, requirements: { int: 5, str: 5 },
-      me: me.seat, players: players.map(player => ({ name: player.seat ? '顾宁' : '林舟',
-        int: 5, str: 5, ready: false, instruction: false, tutorial: false,
-        entered: false, read: false, continued: false, online: false, event: null, investment: null })),
-      attempt: null, questions: null, investmentDraft: null, records: [] };
+    return gameSnapshot({ id: roomId, version: Number(room.version), contentVersion: room.content_version,
+      state: room.game_state, seat: me.seat, playerCount: players.length });
+  }
+
+  async gameQuery(sql, parameters) {
+    const connection = await this.pool.connect();
+    try {
+      await connection.query('BEGIN');
+      await connection.query("SELECT set_config('request.jwt.claims',$1,true)", [JSON.stringify({ role: 'service_role' })]);
+      const result = await connection.query(sql, parameters);
+      await connection.query('COMMIT');
+      return result.rows[0].result;
+    } catch (error) {
+      await connection.query('ROLLBACK');
+      throw databaseError(error) || error;
+    } finally { connection.release(); }
+  }
+
+  async loadGame(room, token, requestId) {
+    return this.gameQuery('SELECT public.anxian_game_load($1,$2,$3) AS result', [room, hash(token), requestId ?? null]);
+  }
+
+  async commitGame(document, token, requestId, payload) {
+    return this.gameQuery('SELECT public.anxian_game_commit($1,$2,$3,$4,$5,$6) AS result',
+      [document.id, hash(token), document.version, JSON.stringify(document.state), requestId ?? null, payload ?? null]);
   }
 
   async state(roomId, token) {

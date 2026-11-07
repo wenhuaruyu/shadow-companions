@@ -1,6 +1,6 @@
 # 后端接口契约 v2（第一阶段评审稿）
 
-本文是待实现的目标契约，不代表当前服务已经支持。当前代码仍使用旧契约：无请求去重、无预期版本检查、准备取反、统一返回 400。v2 必须前后端配套发布；不允许旧客户端无意调用新写接口。
+本文包含当前实现与后续目标。v2 后端已实现创建、加入、状态读取、本人指令，以及 ready、instruction、tutorial、enter、read 动作，流程可推进到第一地点 event。小游戏、投入结算和暂停恢复仍为后续目标。旧演示入口仍使用旧协议，前端需按上述已实现范围联调。
 
 ## 约定与权限
 
@@ -87,7 +87,7 @@ GET state 的 version 是同步版本，覆盖加入、公开确认、本人草�
 
 现有前端需新增契约请求头、请求编号持久队列、明确 ready 值、状态版本处理、resume UI、本人草稿恢复和本地计时插值。现有 `id/phase/chapter/players/me/attempt/questions/records` 在 snapshot 中保留；ready 等公开字段保留。新增 ended、outcome、pause、requirements、contentVersion/rulesVersion、investmentDraft。
 
-旧代码尚不支持上述协议；第一阶段只交付文档及样例。后续前后端同批切换 v2；若独立部署需协调版本窗口，不能依靠返回 error 字段解决协议差异。
+上述已实现接口使用 v2 服务入口。尚未实现的动作不开放，返回 INVALID_INPUT。前后端切换 v2 时需协调版本窗口，不能依靠返回 error 字段解决协议差异。
 
 开发可以分离，正式入口建议同域 `/` 与 `/api`。若开发服务器跨域，只允许指定开发来源，显式支持 Authorization/X-Contract-Version 预检，不使用任意来源放行私密接口。
 

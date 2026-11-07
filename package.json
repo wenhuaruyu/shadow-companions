@@ -9,9 +9,18 @@
   ],
   "scripts": {
     "dev:web": "npm run dev --workspace @anxian/web",
-    "dev:server": "npm run dev --workspace @anxian/server",
-    "check": "node --check apps/web/src/main.js && node --check apps/server/src/index.js && node --check apps/server/src/game.js && node --check apps/server/src/v2/index.js && node --check apps/server/src/v2/server.js && node --check apps/server/src/v2/rooms.js && node --check apps/server/scripts/test-postgres.js && node --check apps/server/test/rooms-v2.test.js && node --check apps/server/src/v2/rpc.js && node --check apps/server/test/rpc-v2.test.js",
-    "start": "node apps/server/src/index.js",
-    "test": "node --test apps/server/test/*.test.js"
+    "dev:server": "npm run start:v2 --workspace @anxian/server",
+    "check": "node scripts/check.mjs",
+    "start": "npm run start:v2 --workspace @anxian/server",
+    "test": "node --test apps/server/test/*.test.js apps/web/test/*.test.js",
+    "dev:legacy": "npm run dev --workspace @anxian/server",
+    "start:legacy": "node apps/server/src/index.js",
+    "test:web": "npm test --workspace @anxian/web",
+    "test:db": "npm run test:db --workspace @anxian/server",
+    "build": "npm run build --workspace @anxian/web",
+    "db:migrate": "npm run db:migrate --workspace @anxian/server"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

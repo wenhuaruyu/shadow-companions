@@ -1,7 +1,9 @@
 import { createServer } from 'node:http';
 import { ApiError, RoomService } from './rooms.js';
+import { GameplayService } from './gameplay.js';
 
 export function createRoomServer(pool, publicOrigin, service = new RoomService(pool, publicOrigin)) {
+  if (!(service instanceof GameplayService)) service = new GameplayService(service);
   return createServer(async (request, response) => {
     response.setHeader('Content-Type', 'application/json; charset=utf-8');
     response.setHeader('Cache-Control', 'no-store');
@@ -17,7 +19,7 @@ export function createRoomServer(pool, publicOrigin, service = new RoomService(p
       }
       let result;
       let status = 200;
-      if (['/api/create', '/api/join'].includes(url.pathname) && request.method === 'POST') {
+      if (['/api/create', '/api/join', '/api/action'].includes(url.pathname) && request.method === 'POST') {
         const chunks = [];
         let size = 0;
         for await (const chunk of request) {
@@ -29,8 +31,19 @@ export function createRoomServer(pool, publicOrigin, service = new RoomService(p
         try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
         catch { throw new ApiError(400, 'INVALID_INPUT', 'JSON格式错误'); }
         requestId = typeof body?.requestId === 'string' ? body.requestId : undefined;
-        result = await service.enter(body, url.pathname === '/api/join');
-        status = result.replayed ? 200 : 201;
+        if (url.pathname === '/api/action') {
+          const token = request.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
+          result = await service.action(body, token);
+        } else {
+          result = await service.enter(body, url.pathname === '/api/join');
+          status = result.replayed ? 200 : 201;
+        }
+      } else if (url.pathname === '/api/instruction' && request.method === 'GET') {
+        if ([...url.searchParams.keys()].some(key => key !== 'room')) {
+          throw new ApiError(400, 'INVALID_INPUT', '个人指令仅按本人凭证读取');
+        }
+        const token = request.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
+        result = await service.instruction(url.searchParams.get('room'), token);
       } else if (url.pathname === '/api/state' && request.method === 'GET') {
         const token = request.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
         const snapshot = await service.state(url.searchParams.get('room'), token);
@@ -46,7 +59,7 @@ export function createRoomServer(pool, publicOrigin, service = new RoomService(p
       response.statusCode = expected ? error.status : 503;
       const message = expected ? error.message : '服务暂时不可用，请稍后重试';
       response.end(JSON.stringify({ code: expected ? error.code : 'TEMPORARILY_UNAVAILABLE',
-        message, error: message, requestId, retryable: !expected }));
+        message, error: message, requestId, currentVersion: error.currentVersion, retryable: !expected || error.status === 503 }));
     }
   });
 }

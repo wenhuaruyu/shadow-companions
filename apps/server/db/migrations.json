@@ -1,0 +1,18 @@
+[
+  {
+    "id": "001_room_schema",
+    "file": "apps/server/src/v2/schema.sql"
+  },
+  {
+    "id": "002_room_rpc",
+    "file": "apps/server/src/v2/rpc.sql"
+  },
+  {
+    "id": "003_gameplay_transactions",
+    "file": "cloudbase/migrations/20261107160000_gameplay_transactions.sql"
+  },
+  {
+    "id": "004_restrict_gameplay_rpc",
+    "file": "cloudbase/migrations/20261107160001_restrict_gameplay_rpc.sql"
+  }
+]

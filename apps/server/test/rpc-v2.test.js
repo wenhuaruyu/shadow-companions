@@ -50,7 +50,8 @@ test('RPC通过真实PostgreSQL验证角色、并发去重和失败回滚', { sk
     try {
       await client.query('BEGIN');
       if (role !== null) await client.query("SELECT set_config('request.jwt.claims',$1,true)", [JSON.stringify({ role })]);
-      const keys = name === 'anxian_room_enter' ? args : ['p_room', 'p_token_hash'];
+      const keys = name === 'anxian_room_enter' ? args
+        : name === 'anxian_game_load' ? ['p_room', 'p_token_hash', 'p_request_id'] : ['p_room', 'p_token_hash'];
       const result = await client.query(`SELECT public.${name}(${keys.map((_, index) => '$' + (index + 1)).join(',')}) AS result`, keys.map(key => parameters[key]));
       await client.query('COMMIT');
       return result.rows[0].result;
@@ -65,7 +66,7 @@ test('RPC通过真实PostgreSQL验证角色、并发去重和失败回滚', { sk
       let text = '';
       for await (const chunk of request) text += chunk;
       const name = request.url.split('/').at(-1);
-      if (!['anxian_room_enter', 'anxian_room_state'].includes(name)) throw new Error('Unknown RPC');
+      if (!['anxian_room_enter', 'anxian_room_state', 'anxian_game_load'].includes(name)) throw new Error('Unknown RPC');
       const role = request.headers.authorization === 'Bearer test-service-token' ? 'service_role' : 'anon';
       response.end(JSON.stringify(await invoke(name, JSON.parse(text), role)));
     } catch (error) {

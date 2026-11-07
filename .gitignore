@@ -22,3 +22,7 @@ coverage/
 ~$*.docx
 
 /apps/server/data/
+
+# Frontend build artifacts and local parallel worktrees
+/.worktrees/
+/apps/web/dist/

@@ -3,7 +3,7 @@ import { readFile, mkdir, writeFile, rename } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { rooms, create, join, player, view, act, tick } from './game.js';
-const root=fileURLToPath(new URL('../../web/',import.meta.url));
+const root=fileURLToPath(new URL('../legacy-web/',import.meta.url));
 const dataDir=process.env.DATA_DIR||fileURLToPath(new URL('../data/',import.meta.url));
 await mkdir(dataDir,{recursive:true});try{for(const r of JSON.parse(await readFile(resolve(dataDir,'rooms.json'),'utf8'))){r.tick=Date.now();rooms.set(r.id,r);}}catch{}
 let saving=false;setInterval(async()=>{for(const r of rooms.values()){tick(r);if(Date.now()-r.created>86400000)rooms.delete(r.id);}if(saving)return;saving=true;try{await writeFile(resolve(dataDir,'rooms.tmp'),JSON.stringify([...rooms.values()]));await rename(resolve(dataDir,'rooms.tmp'),resolve(dataDir,'rooms.json'));}finally{saving=false;}},250);

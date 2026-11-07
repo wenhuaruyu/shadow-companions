@@ -1,15 +1,5 @@
-import { ApiError, validateEntry, entryIdentity, tokenDigest } from './rooms.js';
-
-const businessErrors = {
-  INVALID_INPUT: [400, '输入格式错误'],
-  CONTENT_VERSION_UNSUPPORTED: [400, '内容版本不受支持'],
-  REQUEST_ID_CONFLICT: [409, '请求编号已用于不同参数'],
-  ACTION_ALREADY_DONE: [409, '已占有座位，请使用原请求编号恢复'],
-  ROOM_FULL: [409, '本次行动已有两名玩家'],
-  ROOM_NOT_FOUND: [404, '对局不存在'],
-  INVITE_EXPIRED: [410, '邀请已过期'],
-  INVALID_CREDENTIAL: [401, '本人凭证无效']
-};
+import { gameSnapshot } from './snapshot.js';
+import { ApiError, validateEntry, entryIdentity, tokenDigest, databaseError } from './rooms.js';
 
 export class RpcRoomService {
   constructor(endpoint, serviceToken, publicOrigin, fetcher = fetch) {
@@ -36,8 +26,8 @@ export class RpcRoomService {
         if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('RPC响应格式错误');
         return body;
       }
-      const known = businessErrors[body?.message];
-      if (['P0001', 'DATABASE_P0001'].includes(body?.code) && known) throw new ApiError(known[0], body.message, known[1]);
+      const expected = databaseError(body);
+      if (expected) throw expected;
       if (['40001', '40P01'].includes(body?.code) && attempt < 2) continue;
       const upstreamCode = typeof body?.code === 'string' && /^[A-Za-z0-9_]{1,64}$/.test(body.code)
         ? body.code : 'UNKNOWN';
@@ -61,8 +51,18 @@ export class RpcRoomService {
     return { ...result, token: body.recoverySecret, inviteUrl: `${this.publicOrigin}/?invite=${result.id}` };
   }
 
+  async loadGame(room, token, requestId) {
+    return this.call('anxian_game_load', { p_room: room, p_token_hash: tokenDigest(token), p_request_id: requestId ?? null });
+  }
+
+  async commitGame(document, token, requestId, payload) {
+    return this.call('anxian_game_commit', { p_room: document.id, p_token_hash: tokenDigest(token),
+      p_version: document.version, p_state: document.state,
+      p_request_id: requestId ?? null, p_payload: payload ?? null });
+  }
+
   async state(room, token) {
     if (typeof room !== 'string' || typeof token !== 'string') throw new ApiError(401, 'INVALID_CREDENTIAL', '本人凭证无效');
-    return this.call('anxian_room_state', { p_room: room, p_token_hash: tokenDigest(token) });
+    return gameSnapshot(await this.loadGame(room, token));
   }
 }
