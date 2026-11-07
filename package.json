@@ -10,7 +10,7 @@
   "scripts": {
     "dev:web": "npm run dev --workspace @anxian/web",
     "dev:server": "npm run dev --workspace @anxian/server",
-    "check": "node --check apps/web/src/main.js && node --check apps/server/src/index.js && node --check apps/server/src/game.js",
+    "check": "node --check apps/web/src/main.js && node --check apps/server/src/index.js && node --check apps/server/src/game.js && node --check apps/server/src/v2/index.js && node --check apps/server/src/v2/server.js && node --check apps/server/src/v2/rooms.js && node --check apps/server/scripts/test-postgres.js && node --check apps/server/test/rooms-v2.test.js && node --check apps/server/src/v2/rpc.js && node --check apps/server/test/rpc-v2.test.js",
     "start": "node apps/server/src/index.js",
     "test": "node --test apps/server/test/*.test.js"
   }

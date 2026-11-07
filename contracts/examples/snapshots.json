@@ -1,0 +1,35 @@
+{
+  "description": "目标协议样例，不是当前接口抓包；所有标识均为占位值",
+  "stateResponse": {
+    "contractVersion": 2,
+    "serverTime": "2026-11-05T02:00:00.000Z",
+    "changed": true,
+    "version": 12,
+    "snapshot": {
+      "id": "room-example",
+      "version": 12,
+      "contentVersion": "mvp-two-sites-1",
+      "rulesVersion": "mvp-rules-1",
+      "chapter": 0,
+      "phase": "invest",
+      "ended": false,
+      "outcome": null,
+      "paused": false,
+      "pause": null,
+      "requirements": { "int": 5, "str": 5 },
+      "players": [
+        { "name": "林舟", "int": 15, "str": 5, "ready": true, "instruction": true, "tutorial": true, "entered": true, "read": true, "continued": false, "online": true, "event": { "type": "int", "done": true, "reward": 10 }, "investment": null },
+        { "name": "顾宁", "int": 5, "str": 10, "ready": true, "instruction": true, "tutorial": true, "entered": true, "read": true, "continued": false, "online": true, "event": { "type": "str", "done": true, "reward": 5 }, "investment": null }
+      ],
+      "me": 0,
+      "attempt": { "id": "attempt-example", "type": "int", "duration": 60000, "elapsed": 30000, "timingAsOf": "2026-11-05T02:00:00.000Z", "inputSeq": 3, "answers": [1, 0, 2], "done": true, "score": 3, "reward": 10 },
+      "questions": null,
+      "investmentDraft": { "int": 2, "str": 2, "inputSeq": 1 },
+      "records": []
+    }
+  },
+  "unchangedResponse": { "contractVersion": 2, "changed": false, "version": 12, "serverTime": "2026-11-05T02:00:01.000Z" },
+  "instructionResponse": { "contractVersion": 2, "serverTime": "2026-11-05T02:00:00.000Z", "title": "个人指令", "text": "仅返回经鉴权的本人指令。具体正文使用冻结的内容版本。" },
+  "pausedExample": { "paused": true, "pause": { "id": "pause-example", "reason": "peer_hidden", "startedAt": "2026-11-05T02:00:00.000Z", "deadlineAt": "2026-11-05T02:02:00.000Z", "resumeConfirmed": [false, false] } },
+  "errorResponse": { "code": "VERSION_CONFLICT", "message": "状态已变化，请刷新", "error": "状态已变化，请刷新", "requestId": "request-example", "currentVersion": 13, "retryable": false }
+}

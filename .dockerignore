@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+.runtime
+node_modules
+**/node_modules
+apps/server/data
+**/*.log
+design
+seven-days-demo
+seven-days-duel
+**/*.png
