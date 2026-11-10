@@ -14,5 +14,9 @@
   {
     "id": "004_restrict_gameplay_rpc",
     "file": "cloudbase/migrations/20261107160001_restrict_gameplay_rpc.sql"
+  },
+  {
+    "id": "005_minigame_rewards",
+    "file": "cloudbase/migrations/20261108050000_minigame_rewards.sql"
   }
 ]

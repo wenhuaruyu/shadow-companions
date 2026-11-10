@@ -160,9 +160,9 @@ export class RoomService {
     return this.gameQuery('SELECT public.anxian_game_load($1,$2,$3) AS result', [room, hash(token), requestId ?? null]);
   }
 
-  async commitGame(document, token, requestId, payload) {
-    return this.gameQuery('SELECT public.anxian_game_commit($1,$2,$3,$4,$5,$6) AS result',
-      [document.id, hash(token), document.version, JSON.stringify(document.state), requestId ?? null, payload ?? null]);
+  async commitGame(document, token, rewards, requestId, payload) {
+    return this.gameQuery('SELECT public.anxian_game_reward_commit($1,$2,$3,$4,$5,$6,$7) AS result',
+      [document.id, hash(token), document.version, JSON.stringify(document.state), JSON.stringify(rewards), requestId ?? null, payload ?? null]);
   }
 
   async state(roomId, token) {

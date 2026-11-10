@@ -1,0 +1,41 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>后巷转移 · 灰盒</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#171d25;color:#eef2f7;font:16px system-ui}main{max-width:1100px;margin:auto;padding:16px}header{display:flex;gap:18px;align-items:center;flex-wrap:wrap}h1{font-size:21px}button{font:inherit;color:inherit;background:#344154;border:1px solid #738299;border-radius:8px;min-height:46px;padding:10px 18px;touch-action:none}button:active{background:#587291}canvas{width:100%;display:block;background:#202936;touch-action:none;border:1px solid #687588;margin:12px 0}footer{display:flex;justify-content:space-between;align-items:center;gap:20px}.pad{display:grid;grid-template-columns:62px 62px 62px;gap:5px;user-select:none}.pad button{height:52px;padding:0}.up{grid-column:2}.left{grid-column:1}p{line-height:1.7;margin:6px 0}.legend{font-size:14px;color:#c4ccd7}#message{min-height:28px;color:#f2d37b}small{color:#b4bfce}@media(max-width:600px){main{padding:8px}footer{align-items:flex-start}.pad{grid-template-columns:48px 48px 48px}h1{font-size:17px}.legend{font-size:12px}}</style>
+<main><header><h1>后巷转移 · 可玩灰盒</h1><b id="timer">60.0秒</b><span id="progress">进度 0 / 3</span><button id="restart">开始 / 重新开始</button></header><p id="message">依次经过 C1、C2，抵达 E。点击开始后计时。</p><canvas id="map" width="910" height="630" aria-label="13列9行灰盒地图"></canvas><footer><div><p class="legend">蓝色 P 玩家 · 红色 G 巡逻守卫 · 黄色 L 固定危险区<br>绿色 C 检查点 · 青色 E 出口 · 灰色墙体 · 浅色可走区域</p><p>按住方向键移动，也可用键盘方向键或 WASD。<br>黄色灯区封住直路，请从旁边绕行。小凹槽可避让守卫。</p><small>本地玩法验证 · 每步200毫秒 · 守卫每步600毫秒<br>切后台自动暂停，回前台点击继续。奖励仅为本地预览。</small><p><button id="resume" hidden>继续测试</button></p></div><div class="pad"><button class="up" data-dir="up">↑</button><button class="left" data-dir="left">←</button><button data-dir="down">↓</button><button data-dir="right">→</button></div></footer></main>
+<script>
+const rows=[
+'##...#.######',
+'#...........#',
+'###.#######.#',
+'######.####.#',
+'#...........#',
+'#.###########',
+'#.#####...###',
+'#...........#',
+'#############'];
+const start=[1,1], checkpoints=[[11,2],[1,5]],exit=[11,7],lights=[[3,1],[8,7]];
+const routes=[[[4,1],[5,1],[6,1],[7,1],[8,1],[7,1],[6,1],[5,1]],[[8,4],[7,4],[6,4],[5,4],[4,4],[5,4],[6,4],[7,4]]];
+const vectors={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+const message=document.querySelector('#message'),timer=document.querySelector('#timer'),progress=document.querySelector('#progress');
+let player=[...start],stage=0,elapsed=0,active=false,paused=false,direction=null,last=0,moveClock=0,guardClock=0,guardStep=0,blockedUntil=0,caught=0;
+const same=(a,b)=>a[0]===b[0]&&a[1]===b[1];
+const walk=([x,y])=>rows[y]?.[x]==='.';
+const guards=()=>routes.map(r=>r[guardStep%r.length]);
+function stop(){direction=null;moveClock=0;}
+function reset(){player=[...start];stage=0;elapsed=0;moveClock=0;guardClock=0;guardStep=0;blockedUntil=0;caught=0;paused=false;active=true;stop();document.querySelector('#resume').hidden=true;message.textContent='前往 C1，黄色灯区封住直路，请走上方绕行通道。';}
+function hit(){caught++;player=[...(stage?checkpoints[stage-1]:start)];blockedUntil=elapsed+600;stop();message.textContent='被发现，退回掩护处。受阻 '+caught+' 次，进度保留。';}
+function finish(success){active=false;stop();const reward=[0,3,6,10][stage];message.textContent=(success?'抵达安全区！':'时间结束。')+' 本地奖励预览 +'+reward+' 武力，受阻 '+caught+' 次。';}
+function move(){if(!direction||elapsed<blockedUntil)return;const v=vectors[direction],next=[player[0]+v[0],player[1]+v[1]];if(!walk(next))return;player=next;if(lights.some(p=>same(p,player))||guards().some(p=>same(p,player))){hit();return;}if(stage<2&&same(player,checkpoints[stage])){stage++;message.textContent='已激活 C'+stage+'，受阻后从这里恢复。';}if(same(player,exit)){if(stage===2){stage=3;finish(true);}else message.textContent='请先依次经过两个检查点。';}}
+function tick(dt){elapsed+=dt;if(elapsed>=60000){elapsed=60000;finish(false);return;}moveClock+=dt;guardClock+=dt;if(moveClock>=200){moveClock-=200;move();}if(!active)return;if(guardClock>=600){guardClock-=600;guardStep++;if(guards().some(p=>same(p,player)))hit();}}
+function draw(){const size=70;ctx.clearRect(0,0,910,630);rows.forEach((row,y)=>[...row].forEach((c,x)=>{ctx.fillStyle=c==='.'?'#c4cbd1':'#343e4d';ctx.fillRect(x*size+1,y*size+1,size-2,size-2);}));function tile(p,color,text){ctx.fillStyle=color;ctx.fillRect(p[0]*size+7,p[1]*size+7,size-14,size-14);ctx.fillStyle='#14202b';ctx.font='bold 23px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,(p[0]+.5)*size,(p[1]+.5)*size);}tile(start,'#8fadd2','S');checkpoints.forEach((p,i)=>tile(p,stage>i?'#46d58b':'#a3d7aa','C'+(i+1)));tile(exit,'#5dd5dd','E');lights.forEach(p=>tile(p,'#edc54f','L'));guards().forEach(p=>tile(p,'#ed7474','G'));tile(player,'#64a7ff','P');timer.textContent=((60000-elapsed)/1000).toFixed(1)+'秒';progress.textContent='进度 '+stage+' / 3';}
+function frame(now){const dt=Math.min(now-(last||now),100);last=now;if(active&&!paused)tick(dt);draw();requestAnimationFrame(frame);}requestAnimationFrame(frame);
+document.querySelector('#restart').onclick=reset;
+document.querySelector('#resume').onclick=()=>{paused=false;last=0;document.querySelector('#resume').hidden=true;message.textContent='继续测试。';};
+for(const button of document.querySelectorAll('[data-dir]')){button.onpointerdown=e=>{e.preventDefault();if(!active||paused)return;button.setPointerCapture(e.pointerId);direction=button.dataset.dir;moveClock=0;move();};button.onpointerup=button.onpointercancel=()=>stop();button.onlostpointercapture=()=>stop();}
+const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'};
+window.onkeydown=e=>{if(keys[e.key]){e.preventDefault();if(active&&!paused&&!e.repeat){direction=keys[e.key];moveClock=0;move();}}};window.onkeyup=e=>{if(keys[e.key]===direction)stop();};window.onblur=()=>{stop();if(active){paused=true;document.querySelector('#resume').hidden=false;}};
+document.onvisibilitychange=()=>{stop();if(document.hidden&&active){paused=true;document.querySelector('#resume').hidden=false;message.textContent='测试已暂停，点击继续恢复。';}};
+// Deterministic geometry checks, also visible to local browser verification.
+function reachable(from,to,removed){const queue=[from],seen=new Set([from.join(',')]);for(let i=0;i<queue.length;i++){const p=queue[i];if(same(p,to))return true;for(const v of Object.values(vectors)){const q=[p[0]+v[0],p[1]+v[1]],key=q.join(',');if(walk(q)&&!same(q,removed||[-1,-1])&&!seen.has(key)){seen.add(key);queue.push(q);}}}return false;}
+if(!reachable(start,exit)||checkpoints.some(p=>reachable(start,exit,p)))throw Error('地图连通性或必经检查点验证失败');
+</script></html>

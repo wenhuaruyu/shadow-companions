@@ -55,9 +55,9 @@ export class RpcRoomService {
     return this.call('anxian_game_load', { p_room: room, p_token_hash: tokenDigest(token), p_request_id: requestId ?? null });
   }
 
-  async commitGame(document, token, requestId, payload) {
-    return this.call('anxian_game_commit', { p_room: document.id, p_token_hash: tokenDigest(token),
-      p_version: document.version, p_state: document.state,
+  async commitGame(document, token, rewards, requestId, payload) {
+    return this.call('anxian_game_reward_commit', { p_room: document.id, p_token_hash: tokenDigest(token),
+      p_version: document.version, p_state: document.state, p_rewards: rewards,
       p_request_id: requestId ?? null, p_payload: payload ?? null });
   }
 

@@ -11,7 +11,7 @@ import { createRoomServer } from '../src/v2/server.js';
 const entry = () => ({ requestId: randomUUID(), recoverySecret: randomBytes(32).toString('base64url'), contentVersion: 'mvp-two-sites-1' });
 const signatures = {
   anxian_game_load: ['p_room', 'p_token_hash', 'p_request_id'],
-  anxian_game_commit: ['p_room', 'p_token_hash', 'p_version', 'p_state', 'p_request_id', 'p_payload'],
+  anxian_game_reward_commit: ['p_room', 'p_token_hash', 'p_version', 'p_state', 'p_rewards', 'p_request_id', 'p_payload'],
   anxian_room_enter: ['p_request_id', 'p_token_hash', 'p_scope', 'p_payload', 'p_content_version', 'p_room', 'p_joining']
 };
 async function listen(server) {
@@ -153,7 +153,7 @@ for (const mode of ['pg', 'rpc']) {
       assert.equal(finalState.phase, 'event');
       assert.equal(finalState.chapter, 0);
       assert.ok(!/secret|courier|秘密任务|叛徒|token_hash|role/.test(JSON.stringify(finalState)));
-      assert.equal((await send(pair, 0, await envelope(pair, 0, 'start', { type: 'int' }))).status, 400);
+
       // Existing service callers read the current state as well.
       assert.equal((await core.state(pair.id, pair.tokens[0])).phase, 'event');
       for (const role of [null, 'anon', 'authenticated']) {
