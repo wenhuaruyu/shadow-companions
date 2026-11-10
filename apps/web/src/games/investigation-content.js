@@ -1,3 +1,11 @@
+export const game = Object.freeze({
+  id: "chapter-1-intelligence",
+  chapter: 1,
+  type: "int",
+  label: "第一章智力游戏",
+  title: "名单调换调查",
+});
+
 export const suspects = [
   {
     "id": "su",

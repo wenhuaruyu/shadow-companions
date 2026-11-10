@@ -1,4 +1,4 @@
-import { suspects } from "./investigation-content.js";
+import { game, suspects } from "./investigation-content.js";
 import { escapeHtml } from "../components/dom.js";
 
 const root = document.querySelector("#investigation");
@@ -46,7 +46,7 @@ function portrait(id) {
 }
 
 function header() {
-  return `<header><div><p class="kicker">第一章 · 线索调查</p><h1>名单调换调查</h1></div><p class="status">${progress.solved ? "调查已完成" : progress.expired ? "调查时间已到" : progress.deadline ? `<span id="countdown" role="timer"></span> · 剩余判断 ${3 - progress.excluded.length} 次` : "准备调查"}</p></header>`;
+  return `<header><div><p class="kicker">${game.label}</p><h1>${game.title}</h1></div><p class="status">${progress.solved ? "调查已完成" : progress.expired ? "调查时间已到" : progress.deadline ? `<span id="countdown" role="timer"></span> · 剩余判断 ${3 - progress.excluded.length} 次` : "准备调查"}</p></header>`;
 }
 
 function render() {

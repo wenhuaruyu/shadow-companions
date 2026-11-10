@@ -1,3 +1,11 @@
+export const GAME = Object.freeze({
+  id: "chapter-1-strength",
+  chapter: 1,
+  type: "str",
+  label: "第一章武力游戏",
+  title: "后巷转移",
+});
+
 export const VERSION = 'back-alley-touch-1';
 export const DURATION = 90000;
 export const STEP_MS = 200;
@@ -15,7 +23,7 @@ export const same = (a, b) => a[0] === b[0] && a[1] === b[1];
 export const walkable = ([x,y]) => map[y]?.[x] === '.';
 export const positions = (routes, tick, period) => routes.map(route => route[Math.floor(tick / period) % route.length]);
 export function createRun() {
-  return { version: VERSION, tick: 0, position: [...start], checkpoint: 0, caught: 0, blockedUntil: 0, done: false };
+  return { gameId: GAME.id, chapter: GAME.chapter, type: GAME.type, version: VERSION, tick: 0, position: [...start], checkpoint: 0, caught: 0, blockedUntil: 0, done: false };
 }
 export function reward(run) { return [0,3,6,10][run.checkpoint]; }
 function discover(run) {
