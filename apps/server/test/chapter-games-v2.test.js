@@ -193,6 +193,41 @@ for (const mode of ['pg', 'rpc']) {
       const afterInstructions = await Promise.all(main.tokens.map(token => game.instruction(main.id, token)));
       assert.deepEqual(afterInstructions, beforeInstructions);
 
+      const failed = await room(); await reachEvent(failed);
+      for (const seat of [0,1]) {
+        await action(failed, seat, 'start', { type: 'int' });
+        await action(failed, seat, 'judge', { suspectId: 'chen' });
+      }
+      const invalid = await envelope(failed, 0, 'invest', { int: 16, str: 0 });
+      assert.equal((await send(failed, 0, invalid)).status, 400);
+      assert.equal((await state(failed)).players[0].int, 15);
+      const concurrent = await Promise.all([0,1].map(seat => envelope(failed, seat, 'invest', { int: 1, str: 0 })));
+      const results = await Promise.all(concurrent.map((body,seat) => send(failed, seat, body)));
+      assert.equal(results.filter(result => result.status === 200).length, 1);
+      const losingSeat = results.findIndex(result => result.status === 409);
+      await action(failed, losingSeat, 'invest', { int: 1, str: 0 });
+      const failedResult = await state(failed);
+      assert.equal(failedResult.phase, 'result');
+      assert.equal(failedResult.records.length, 1);
+      assert.equal(failedResult.records[0].success, false);
+      assert.ok(failedResult.players.every(player => player.int === 14));
+      const recovered = new GameplayService(store, () => now);
+      assert.equal((await recovered.state(failed.id, failed.tokens[0])).records[0].sums.int, 2);
+      for (const seat of [0,1]) await action(failed, seat, 'continue');
+      assert.equal((await state(failed)).phase, 'failed');
+      assert.equal((await state(failed)).ended, true);
+
+      const exited = await room(); await reachEvent(exited);
+      await action(exited, 0, 'start', { type: 'int' });
+      const exitAction = await envelope(exited, 0, 'exit', { confirmed: true });
+      assert.equal((await send(exited, 0, exitAction)).snapshot.phase, 'exited');
+      assert.equal((await send(exited, 0, exitAction)).replayed, true);
+      now += 90000;
+      const exitedState = await state(exited, 1);
+      assert.equal(exitedState.ended, true);
+      assert.ok(exitedState.players.every(player => player.int === 5));
+      assert.equal(Number((await pool.query('SELECT count(*) FROM anxian.resource_ledger WHERE room_id=$1', [exited.id])).rows[0].count), 0);
+
       // Deadline wins over a late judgment and repeated reads do not duplicate rewards.
       const expired = await room(); await reachEvent(expired);
       await action(expired, 0, 'start', { type: 'int' });

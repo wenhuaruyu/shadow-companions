@@ -14,7 +14,7 @@ const canonical = value => {
 const inputKinds = ['answers', 'hit', ...chapterInputs];
 const chapterKinds = ['enter', 'read', 'invest', 'continue'];
 const eventKinds = ['start', 'answers', 'hit', 'finish', 'abandon', ...chapterInputs];
-const kinds = ['ready', 'instruction', 'tutorial', 'enter', 'read', ...eventKinds, 'invest', 'continue'];
+const kinds = ['ready', 'instruction', 'tutorial', 'enter', 'read', ...eventKinds, 'invest', 'continue', 'exit'];
 
 function initialState() {
   return { phase: 'lobby', chapter: 0, players: [0, 1].map(() => ({
@@ -42,6 +42,7 @@ function finish(state, seat, rewards, now, abandoned = false) {
 }
 
 function settleExpired(state, rewards, now) {
+  if (['failed', 'complete', 'exited'].includes(state.phase)) return false;
   if (state.rulesVersion === CHAPTER_RULES) return settleChapterGames(state, rewards, now);
   let changed = false;
   for (let seat = 0; seat < state.players.length; seat++) {
@@ -60,7 +61,7 @@ export function gameSnapshot(document, now) {
   return {
     id: document.id, version: document.version, contentVersion: document.contentVersion,
     rulesVersion: state.rulesVersion || 'mvp-rules-1', phase: state.phase, chapter: state.chapter,
-    ended: ['failed', 'complete'].includes(state.phase), outcome: state.phase === 'complete' ? 'success' : state.phase === 'failed' ? 'failed' : null, paused: false, pause: null,
+    reason: state.reason || null, ended: ['failed', 'complete', 'exited'].includes(state.phase), outcome: state.phase === 'complete' ? 'success' : state.phase === 'failed' ? 'failed' : null, paused: false, pause: null,
     requirements: state.chapter ? { int: 6, str: 4 } : { int: 5, str: 5 },
     me: document.seat, players: state.players.slice(0, document.playerCount).map((player, seat) => ({
       name: seat ? '顾宁' : '林舟', int: player.int, str: player.str,
@@ -112,7 +113,13 @@ function apply(state, document, body, rewards, now) {
     return;
   }
   if (state.rulesVersion !== CHAPTER_RULES && chapterInputs.includes(body.kind)) fail(400, 'INVALID_INPUT', '本房间使用旧版玩法');
+  if (['failed', 'complete', 'exited'].includes(state.phase)) fail(409, 'GAME_ENDED', '本次行动已结束');
   switch (body.kind) {
+    case 'exit':
+      if (body.data.confirmed !== true) fail(400, 'INVALID_INPUT', '退出须明确确认');
+      state.phase = 'exited';
+      state.reason = '一位同伴已退出，本次行动结束。';
+      return;
     case 'invest': {
       requirePhase('invest');
       if (player.investment) fail(409, 'ALREADY_INVESTED', '本章投入已确认');
