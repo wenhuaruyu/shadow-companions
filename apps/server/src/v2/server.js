@@ -1,15 +1,19 @@
 import { createServer } from 'node:http';
 import { ApiError, RoomService } from './rooms.js';
 import { GameplayService } from './gameplay.js';
+import { CooperativeService } from './cooperative.js';
+import { serveCooperativeAsset } from './cooperative-assets.js';
 
 export function createRoomServer(pool, publicOrigin, service = new RoomService(pool, publicOrigin)) {
   if (!(service instanceof GameplayService)) service = new GameplayService(service);
+  const cooperative = new CooperativeService(service.rooms);
   return createServer(async (request, response) => {
     response.setHeader('Content-Type', 'application/json; charset=utf-8');
     response.setHeader('Cache-Control', 'no-store');
     let requestId;
     try {
       const url = new URL(request.url, 'http://localhost');
+      if (await serveCooperativeAsset(request, response, url.pathname)) return;
       if (url.pathname === '/api/health' && request.method === 'GET') {
         response.end(JSON.stringify({ status: 'ok', contractVersion: 2 }));
         return;
@@ -19,7 +23,7 @@ export function createRoomServer(pool, publicOrigin, service = new RoomService(p
       }
       let result;
       let status = 200;
-      if (['/api/create', '/api/join', '/api/action'].includes(url.pathname) && request.method === 'POST') {
+      if (['/api/create', '/api/join', '/api/action', '/api/coop/create', '/api/coop/join', '/api/coop/action'].includes(url.pathname) && request.method === 'POST') {
         const chunks = [];
         let size = 0;
         for await (const chunk of request) {
@@ -31,13 +35,17 @@ export function createRoomServer(pool, publicOrigin, service = new RoomService(p
         try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
         catch { throw new ApiError(400, 'INVALID_INPUT', 'JSON格式错误'); }
         requestId = typeof body?.requestId === 'string' ? body.requestId : undefined;
-        if (url.pathname === '/api/action') {
+        const target = url.pathname.startsWith('/api/coop/') ? cooperative : service;
+        if (url.pathname.endsWith('/action')) {
           const token = request.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
-          result = await service.action(body, token);
+          result = await target.action(body, token);
         } else {
-          result = await service.enter(body, url.pathname === '/api/join');
+          result = await target.enter(body, url.pathname.endsWith('/join'));
           status = result.replayed ? 200 : 201;
         }
+      } else if (url.pathname === '/api/coop/state' && request.method === 'GET') {
+        const token = request.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
+        result = { snapshot: await cooperative.state(url.searchParams.get('room'), token) };
       } else if (url.pathname === '/api/instruction' && request.method === 'GET') {
         if ([...url.searchParams.keys()].some(key => key !== 'room')) {
           throw new ApiError(400, 'INVALID_INPUT', '个人指令仅按本人凭证读取');
