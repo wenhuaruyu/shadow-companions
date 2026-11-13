@@ -1,67 +1,23 @@
 <!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>暗线同行者 · 营救行动</title>
-    <link rel="stylesheet" href="/src/styles/game.css" />
-  </head>
-  <body>
-    <main class="landscape-canvas">
-      <section class="map">
-        <header>
-          <span class="seal">密</span>
-          <div>
-            <p class="eyebrow">THE SILENT PASSAGE / 1941—1942</p>
-            <h1>暗线<span>同行者</span></h1>
-          </div>
-        </header>
-        <div class="cartography">
-          <svg
-            viewBox="0 0 700 500"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              class="land"
-              d="M0 0H700V240L630 254 590 228 545 295 492 277 445 320 398 286 353 350 300 320 258 350 201 298 140 340 72 297 0 320Z"
-            />
-            <path
-              class="island"
-              d="M270 430L315 378 385 370 430 340 490 360 550 337 622 381 680 390 700 450 610 476 510 455 440 485 350 460Z"
-            />
-            <path
-              class="roads"
-              d="M0 80 Q200 150 430 75T700 100 M50 200 Q300 130 620 240 M100 0 Q240 150 200 300 M500 0 Q400 200 450 300"
-            />
-            <path
-              class="route"
-              d="M100 115L300 95 535 160 300 295 460 400"
-            /></svg
-          ><span class="sea-label">维 多 利 亚 港</span>
-          <div id="locations"></div>
-          <div class="compass">✧<small>北 / N</small></div>
-        </div>
-        <footer>
-          <span class="status-dot"></span> 营救网络示意 · 非精确导航<span
-            >两地行动体验版</span
-          >
-        </footer>
-      </section>
-      <aside>
-        <div class="panel-top">
-          <span>行动档案 <b>№ 041</b></span
-          ><button id="help" class="text-btn">玩法 / 史实</button>
-        </div>
-        <div id="players"></div>
-        <div id="panel"></div>
-        <div id="notice" role="status"></div>
-      </aside>
-    </main>
-    <dialog id="modal">
-      <div id="modal-content"></div>
-      <button id="close-modal">我已了解</button>
-    </dialog>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#091714">
+  <title>暗渡 1941</title>
+  <link rel="stylesheet" href="/src/styles/figma.css">
+  <link rel="stylesheet" href="/src/styles/figma-player.css">
+  <link rel="stylesheet" href="/src/styles/figma-motion.css">
+</head>
+<body>
+  <nav class="preview-toolbar" aria-label="遊戲與設計預覽">
+    <span id="mode-label">暗渡 1941</span>
+    <select id="scene-picker" aria-label="查看Figma場景"></select>
+    <button id="preview-entry" type="button">設計預覽</button>
+    <button id="online-entry" type="button">雙人聯網</button>
+  </nav>
+  <main class="stage-viewport"><div id="figma-stage"></div></main>
+  <p id="preview-notice" role="status"></p>
+  <script type="module" src="/src/figma-player.js"></script>
+</body>
 </html>

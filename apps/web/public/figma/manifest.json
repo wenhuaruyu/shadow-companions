@@ -1,0 +1,4750 @@
+{
+  "fileKey": "CxjPDwymw9dsB720bgldgw",
+  "syncedAt": "2026-11-13",
+  "width": 844,
+  "height": 390,
+  "scenes": [
+    {
+      "id": "3:25",
+      "name": "01 / 电影开场 · 光影中的同行者",
+      "file": "/figma/scenes/3-25.html",
+      "links": [
+        {
+          "id": "20:109",
+          "name": "开始入口 / 4.5秒后出现",
+          "trigger": "ON_CLICK",
+          "destination": "3:80"
+        },
+        {
+          "id": "20:111",
+          "name": "玩法入口",
+          "trigger": "ON_CLICK",
+          "destination": "28:103"
+        },
+        {
+          "id": "20:113",
+          "name": "跳过片头 / 不阻断操作",
+          "trigger": "ON_CLICK",
+          "destination": "21:105"
+        }
+      ]
+    },
+    {
+      "id": "3:80",
+      "name": "02 / 邀请 · 等待同伴加入",
+      "file": "/figma/scenes/3-80.html",
+      "links": [
+        {
+          "id": "3:124",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "3:131",
+          "name": "按钮 / 复制邀请链接",
+          "trigger": "ON_CLICK",
+          "destination": "3:137"
+        },
+        {
+          "id": "3:133",
+          "name": "按钮 / 分享指引",
+          "trigger": "ON_CLICK",
+          "destination": "6:1996"
+        },
+        {
+          "id": "3:135",
+          "name": "按钮 / 退出当前对局",
+          "trigger": "ON_CLICK",
+          "destination": "6:2476"
+        }
+      ]
+    },
+    {
+      "id": "3:137",
+      "name": "03 / 邀请 · 复制成功",
+      "file": "/figma/scenes/3-137.html",
+      "links": [
+        {
+          "id": "3:181",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "3:188",
+          "name": "按钮 / 查看双方准备状态",
+          "trigger": "ON_CLICK",
+          "destination": "3:245"
+        },
+        {
+          "id": "3:190",
+          "name": "按钮 / 退出当前对局",
+          "trigger": "ON_CLICK",
+          "destination": "6:2476"
+        }
+      ]
+    },
+    {
+      "id": "3:192",
+      "name": "04 / 加入 · 接到行动邀请",
+      "file": "/figma/scenes/3-192.html",
+      "links": [
+        {
+          "id": "3:236",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "3:243",
+          "name": "按钮 / 加入游戏",
+          "trigger": "ON_CLICK",
+          "destination": "3:245"
+        }
+      ]
+    },
+    {
+      "id": "3:245",
+      "name": "05 / 准备 · 双方未准备",
+      "file": "/figma/scenes/3-245.html",
+      "links": [
+        {
+          "id": "3:289",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "3:302",
+          "name": "按钮 / 准备",
+          "trigger": "ON_CLICK",
+          "destination": "3:306"
+        },
+        {
+          "id": "3:304",
+          "name": "按钮 / 退出当前对局",
+          "trigger": "ON_CLICK",
+          "destination": "6:2476"
+        }
+      ]
+    },
+    {
+      "id": "3:306",
+      "name": "06 / 准备 · 一人准备",
+      "file": "/figma/scenes/3-306.html",
+      "links": [
+        {
+          "id": "3:350",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "3:363",
+          "name": "按钮 / 取消准备",
+          "trigger": "ON_CLICK",
+          "destination": "3:245"
+        },
+        {
+          "id": "3:365",
+          "name": "按钮 / 同伴准备完成 · 演示",
+          "trigger": "ON_CLICK",
+          "destination": "30:108"
+        }
+      ]
+    },
+    {
+      "id": "3:367",
+      "name": "07 / 个人指令 · 交通员",
+      "file": "/figma/scenes/3-367.html",
+      "links": [
+        {
+          "id": "280:376",
+          "name": "按钮 / 我已记住",
+          "trigger": "ON_CLICK",
+          "destination": "3:471"
+        }
+      ]
+    },
+    {
+      "id": "3:419",
+      "name": "08 / 第一章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-419.html",
+      "links": [
+        {
+          "id": "3:419",
+          "name": "08 / 第一章 / 全屏地图 · 点击发光地点",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 2.4000000953674316,
+          "destination": "40:765"
+        },
+        {
+          "id": "3:433",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:438",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:443",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:448",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:453",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        }
+      ]
+    },
+    {
+      "id": "3:471",
+      "name": "09 / 第一章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-471.html",
+      "links": [
+        {
+          "id": "3:471",
+          "name": "09 / 第一章 / 全屏地图 · 点击发光地点",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 2.4000000953674316,
+          "destination": "40:839"
+        },
+        {
+          "id": "3:485",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:490",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:495",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:500",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:505",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        }
+      ]
+    },
+    {
+      "id": "3:525",
+      "name": "10 / 第一章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-525.html",
+      "links": [
+        {
+          "id": "3:525",
+          "name": "10 / 第一章 / 全屏地图 · 点击发光地点",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 2.4000000953674316,
+          "destination": "40:915"
+        },
+        {
+          "id": "3:539",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:544",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:549",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:554",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:559",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        }
+      ]
+    },
+    {
+      "id": "3:580",
+      "name": "11 / 第一章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-580.html",
+      "links": [
+        {
+          "id": "3:580",
+          "name": "11 / 第一章 / 全屏地图 · 点击发光地点",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 2.4000000953674316,
+          "destination": "40:992"
+        },
+        {
+          "id": "3:594",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:599",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:604",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:609",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:614",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        }
+      ]
+    },
+    {
+      "id": "3:639",
+      "name": "12 / 第一章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-639.html",
+      "links": [
+        {
+          "id": "3:639",
+          "name": "12 / 第一章 / 全屏地图 · 点击发光地点",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 2.4000000953674316,
+          "destination": "40:1073"
+        },
+        {
+          "id": "3:653",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:658",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:663",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "3:668",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:673",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        }
+      ]
+    },
+    {
+      "id": "3:698",
+      "name": "13 / 第一章 · 开场 1",
+      "file": "/figma/scenes/3-698.html",
+      "links": [
+        {
+          "id": "280:385",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:639"
+        },
+        {
+          "id": "280:387",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:757"
+        }
+      ]
+    },
+    {
+      "id": "3:757",
+      "name": "14 / 第一章 · 开场 2",
+      "file": "/figma/scenes/3-757.html",
+      "links": [
+        {
+          "id": "280:396",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "280:399",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:816"
+        }
+      ]
+    },
+    {
+      "id": "3:816",
+      "name": "15 / 第一章 · 开场 3",
+      "file": "/figma/scenes/3-816.html",
+      "links": [
+        {
+          "id": "280:415",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:757"
+        },
+        {
+          "id": "280:418",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:875"
+        }
+      ]
+    },
+    {
+      "id": "3:875",
+      "name": "16 / 第一章 · 开场 4",
+      "file": "/figma/scenes/3-875.html",
+      "links": [
+        {
+          "id": "280:434",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:816"
+        },
+        {
+          "id": "280:437",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "147:199"
+        }
+      ]
+    },
+    {
+      "id": "147:199",
+      "name": "17 / 第一章 · 开场 5",
+      "file": "/figma/scenes/147-199.html",
+      "links": [
+        {
+          "id": "280:685",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:875"
+        },
+        {
+          "id": "280:688",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "147:301"
+        }
+      ]
+    },
+    {
+      "id": "147:301",
+      "name": "18 / 第一章 · 开场 6",
+      "file": "/figma/scenes/147-301.html",
+      "links": [
+        {
+          "id": "280:704",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "147:199"
+        },
+        {
+          "id": "280:707",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:209"
+        }
+      ]
+    },
+    {
+      "id": "170:209",
+      "name": "19 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-209.html",
+      "links": [
+        {
+          "id": "280:716",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "147:301"
+        },
+        {
+          "id": "280:719",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:302"
+        }
+      ]
+    },
+    {
+      "id": "170:302",
+      "name": "20 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-302.html",
+      "links": [
+        {
+          "id": "280:735",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:209"
+        },
+        {
+          "id": "280:738",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:395"
+        }
+      ]
+    },
+    {
+      "id": "170:395",
+      "name": "21 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-395.html",
+      "links": [
+        {
+          "id": "280:754",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:302"
+        },
+        {
+          "id": "280:757",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:488"
+        }
+      ]
+    },
+    {
+      "id": "170:488",
+      "name": "22 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-488.html",
+      "links": [
+        {
+          "id": "280:773",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:395"
+        },
+        {
+          "id": "280:776",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:581"
+        }
+      ]
+    },
+    {
+      "id": "170:581",
+      "name": "23 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-581.html",
+      "links": [
+        {
+          "id": "280:792",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:488"
+        },
+        {
+          "id": "280:795",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:674"
+        }
+      ]
+    },
+    {
+      "id": "170:674",
+      "name": "24 / 第一章 · 場景1",
+      "file": "/figma/scenes/170-674.html",
+      "links": [
+        {
+          "id": "280:811",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:581"
+        },
+        {
+          "id": "280:814",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:81"
+        }
+      ]
+    },
+    {
+      "id": "350:81",
+      "name": "25 / 第一章 · 廟後槍聲",
+      "file": "/figma/scenes/350-81.html",
+      "links": [
+        {
+          "id": "350:100",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "170:674"
+        },
+        {
+          "id": "350:102",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:104"
+        }
+      ]
+    },
+    {
+      "id": "350:104",
+      "name": "26 / 第一章 · 血跡與銅扣",
+      "file": "/figma/scenes/350-104.html",
+      "links": [
+        {
+          "id": "350:123",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:81"
+        },
+        {
+          "id": "350:125",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:127"
+        }
+      ]
+    },
+    {
+      "id": "350:127",
+      "name": "27 / 第一章 · 半張戲票",
+      "file": "/figma/scenes/350-127.html",
+      "links": [
+        {
+          "id": "350:146",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:104"
+        },
+        {
+          "id": "350:148",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:239"
+        }
+      ]
+    },
+    {
+      "id": "178:239",
+      "name": "28 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-239.html",
+      "links": [
+        {
+          "id": "280:823",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:127"
+        },
+        {
+          "id": "280:826",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:332"
+        }
+      ]
+    },
+    {
+      "id": "178:332",
+      "name": "29 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-332.html",
+      "links": [
+        {
+          "id": "280:842",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:239"
+        },
+        {
+          "id": "280:845",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:425"
+        }
+      ]
+    },
+    {
+      "id": "178:425",
+      "name": "30 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-425.html",
+      "links": [
+        {
+          "id": "280:861",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:332"
+        },
+        {
+          "id": "280:864",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:518"
+        }
+      ]
+    },
+    {
+      "id": "178:518",
+      "name": "31 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-518.html",
+      "links": [
+        {
+          "id": "280:880",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:425"
+        },
+        {
+          "id": "280:883",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:611"
+        }
+      ]
+    },
+    {
+      "id": "178:611",
+      "name": "32 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-611.html",
+      "links": [
+        {
+          "id": "280:899",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:518"
+        },
+        {
+          "id": "280:902",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:704"
+        }
+      ]
+    },
+    {
+      "id": "178:704",
+      "name": "33 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-704.html",
+      "links": [
+        {
+          "id": "280:918",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:611"
+        },
+        {
+          "id": "280:921",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:797"
+        }
+      ]
+    },
+    {
+      "id": "178:797",
+      "name": "34 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-797.html",
+      "links": [
+        {
+          "id": "280:937",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:704"
+        },
+        {
+          "id": "280:940",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:890"
+        }
+      ]
+    },
+    {
+      "id": "178:890",
+      "name": "35 / 第一章 · 場景 2",
+      "file": "/figma/scenes/178-890.html",
+      "links": [
+        {
+          "id": "280:949",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "178:797"
+        },
+        {
+          "id": "280:952",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:934"
+        }
+      ]
+    },
+    {
+      "id": "3:934",
+      "name": "36 / 第一章 · 选择一次事件",
+      "file": "/figma/scenes/3-934.html",
+      "links": [
+        {
+          "id": "3:991",
+          "name": "按钮 / 智力 · 查看线索",
+          "trigger": "ON_CLICK",
+          "destination": "3:996"
+        },
+        {
+          "id": "3:994",
+          "name": "按钮 / 武力 · 准备掩护",
+          "trigger": "ON_CLICK",
+          "destination": "3:1364"
+        }
+      ]
+    },
+    {
+      "id": "3:996",
+      "name": "37 / 智力 · 开始前说明",
+      "file": "/figma/scenes/3-996.html",
+      "links": [
+        {
+          "id": "3:1053",
+          "name": "按钮 / 开始 · 消耗本地点一次行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:1055"
+        }
+      ]
+    },
+    {
+      "id": "3:1055",
+      "name": "38 / 智力 · 题目 1",
+      "file": "/figma/scenes/3-1055.html",
+      "links": [
+        {
+          "id": "3:1112",
+          "name": "按钮 / 竹",
+          "trigger": "ON_CLICK",
+          "destination": "3:1118"
+        },
+        {
+          "id": "3:1114",
+          "name": "按钮 / 海",
+          "trigger": "ON_CLICK",
+          "destination": "3:1118"
+        },
+        {
+          "id": "3:1116",
+          "name": "按钮 / 舟",
+          "trigger": "ON_CLICK",
+          "destination": "3:1118"
+        }
+      ]
+    },
+    {
+      "id": "3:1118",
+      "name": "39 / 智力 · 题目 2",
+      "file": "/figma/scenes/3-1118.html",
+      "links": [
+        {
+          "id": "3:1175",
+          "name": "按钮 / 竹海舟",
+          "trigger": "ON_CLICK",
+          "destination": "3:1181"
+        },
+        {
+          "id": "3:1177",
+          "name": "按钮 / 海竹舟",
+          "trigger": "ON_CLICK",
+          "destination": "3:1181"
+        },
+        {
+          "id": "3:1179",
+          "name": "按钮 / 舟海竹",
+          "trigger": "ON_CLICK",
+          "destination": "3:1181"
+        }
+      ]
+    },
+    {
+      "id": "3:1181",
+      "name": "40 / 智力 · 题目 3",
+      "file": "/figma/scenes/3-1181.html",
+      "links": [
+        {
+          "id": "3:1238",
+          "name": "按钮 / 圆印单折",
+          "trigger": "ON_CLICK",
+          "destination": "3:1244"
+        },
+        {
+          "id": "3:1240",
+          "name": "按钮 / 方印双折",
+          "trigger": "ON_CLICK",
+          "destination": "3:1244"
+        },
+        {
+          "id": "3:1242",
+          "name": "按钮 / 圆印双折",
+          "trigger": "ON_CLICK",
+          "destination": "3:1244"
+        }
+      ]
+    },
+    {
+      "id": "3:1244",
+      "name": "41 / 智力 · 提交确认",
+      "file": "/figma/scenes/3-1244.html",
+      "links": [
+        {
+          "id": "3:1301",
+          "name": "按钮 / 确认提交",
+          "trigger": "ON_CLICK",
+          "destination": "3:1305"
+        },
+        {
+          "id": "3:1303",
+          "name": "按钮 / 返回检查",
+          "trigger": "ON_CLICK",
+          "destination": "3:1055"
+        }
+      ]
+    },
+    {
+      "id": "3:1305",
+      "name": "42 / 智力 · 结果到账",
+      "file": "/figma/scenes/3-1305.html",
+      "links": [
+        {
+          "id": "3:1362",
+          "name": "按钮 / 双方事件完成 · 协商投入",
+          "trigger": "ON_CLICK",
+          "destination": "3:1666"
+        }
+      ]
+    },
+    {
+      "id": "3:1364",
+      "name": "43 / 武力 · 开始前说明",
+      "file": "/figma/scenes/3-1364.html",
+      "links": [
+        {
+          "id": "3:1421",
+          "name": "按钮 / 开始 · 消耗本地点一次行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:1423"
+        }
+      ]
+    },
+    {
+      "id": "3:1423",
+      "name": "44 / 武力 · 目标与警戒",
+      "file": "/figma/scenes/3-1423.html",
+      "links": [
+        {
+          "id": "3:1481",
+          "name": "按钮 / × 警戒",
+          "trigger": "ON_CLICK",
+          "destination": "3:1548"
+        },
+        {
+          "id": "3:1483",
+          "name": "按钮 / ● 通行",
+          "trigger": "ON_CLICK",
+          "destination": "3:1489"
+        },
+        {
+          "id": "3:1485",
+          "name": "按钮 / × 警戒",
+          "trigger": "ON_CLICK",
+          "destination": "3:1548"
+        },
+        {
+          "id": "3:1487",
+          "name": "按钮 / 完成十次机会 · 演示结果",
+          "trigger": "ON_CLICK",
+          "destination": "3:1607"
+        }
+      ]
+    },
+    {
+      "id": "3:1489",
+      "name": "45 / 武力 · 首触命中",
+      "file": "/figma/scenes/3-1489.html",
+      "links": [
+        {
+          "id": "3:1546",
+          "name": "按钮 / 下次机会",
+          "trigger": "ON_CLICK",
+          "destination": "3:1423"
+        }
+      ]
+    },
+    {
+      "id": "3:1548",
+      "name": "46 / 武力 · 误触反馈",
+      "file": "/figma/scenes/3-1548.html",
+      "links": [
+        {
+          "id": "3:1605",
+          "name": "按钮 / 下次机会",
+          "trigger": "ON_CLICK",
+          "destination": "3:1423"
+        }
+      ]
+    },
+    {
+      "id": "3:1607",
+      "name": "47 / 武力 · 结果到账",
+      "file": "/figma/scenes/3-1607.html",
+      "links": [
+        {
+          "id": "3:1664",
+          "name": "按钮 / 双方事件完成 · 协商投入",
+          "trigger": "ON_CLICK",
+          "destination": "3:1666"
+        }
+      ]
+    },
+    {
+      "id": "3:1666",
+      "name": "48 / 第一章 · 协商投入",
+      "file": "/figma/scenes/3-1666.html",
+      "links": [
+        {
+          "id": "3:1725",
+          "name": "按钮 / 确认投入并扣除",
+          "trigger": "ON_CLICK",
+          "destination": "3:1727"
+        }
+      ]
+    },
+    {
+      "id": "3:1727",
+      "name": "49 / 第一章 · 扣除二次确认",
+      "file": "/figma/scenes/3-1727.html",
+      "links": [
+        {
+          "id": "3:1784",
+          "name": "按钮 / 确认扣除",
+          "trigger": "ON_CLICK",
+          "destination": "3:1788"
+        },
+        {
+          "id": "3:1786",
+          "name": "按钮 / 返回修改",
+          "trigger": "ON_CLICK",
+          "destination": "3:1666"
+        }
+      ]
+    },
+    {
+      "id": "3:1788",
+      "name": "50 / 第一章 · 已扣除待结算",
+      "file": "/figma/scenes/3-1788.html",
+      "links": [
+        {
+          "id": "3:1845",
+          "name": "按钮 / 同伴已确认 · 演示结算",
+          "trigger": "ON_CLICK",
+          "destination": "3:1847"
+        }
+      ]
+    },
+    {
+      "id": "3:1847",
+      "name": "51 / 第一章 · 成功与接续",
+      "file": "/figma/scenes/3-1847.html",
+      "links": [
+        {
+          "id": "322:260",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:1788"
+        },
+        {
+          "id": "322:262",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:279"
+        }
+      ]
+    },
+    {
+      "id": "179:279",
+      "name": "52 / 第一章· 暫告",
+      "file": "/figma/scenes/179-279.html",
+      "links": [
+        {
+          "id": "280:961",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:1847"
+        },
+        {
+          "id": "280:964",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:372"
+        }
+      ]
+    },
+    {
+      "id": "179:372",
+      "name": "53 / 第一章· 暫告",
+      "file": "/figma/scenes/179-372.html",
+      "links": [
+        {
+          "id": "280:973",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:279"
+        },
+        {
+          "id": "280:976",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:465"
+        }
+      ]
+    },
+    {
+      "id": "179:465",
+      "name": "54 / 第一章· 暫告",
+      "file": "/figma/scenes/179-465.html",
+      "links": [
+        {
+          "id": "280:992",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:372"
+        },
+        {
+          "id": "280:995",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:558"
+        }
+      ]
+    },
+    {
+      "id": "179:558",
+      "name": "55 / 第一章· 暫告",
+      "file": "/figma/scenes/179-558.html",
+      "links": [
+        {
+          "id": "280:1011",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:465"
+        },
+        {
+          "id": "280:1014",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:651"
+        }
+      ]
+    },
+    {
+      "id": "179:651",
+      "name": "56 / 第一章· 暫告",
+      "file": "/figma/scenes/179-651.html",
+      "links": [
+        {
+          "id": "280:1023",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "179:558"
+        },
+        {
+          "id": "280:1026",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:1906"
+        }
+      ]
+    },
+    {
+      "id": "3:1906",
+      "name": "57 / 第二章 / 全屏地图 · 点击发光地点",
+      "file": "/figma/scenes/3-1906.html",
+      "links": [
+        {
+          "id": "3:1935",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "3:1940",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "3:1967"
+        }
+      ]
+    },
+    {
+      "id": "3:1967",
+      "name": "58 / 第二章／開場 · 時代背景",
+      "file": "/figma/scenes/3-1967.html",
+      "links": [
+        {
+          "id": "280:455",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:1906"
+        },
+        {
+          "id": "280:457",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:81"
+        }
+      ]
+    },
+    {
+      "id": "287:81",
+      "name": "59 / 第二章／開場 · 營救的線索",
+      "file": "/figma/scenes/287-81.html",
+      "links": [
+        {
+          "id": "287:176",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:1967"
+        },
+        {
+          "id": "287:178",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:180"
+        }
+      ]
+    },
+    {
+      "id": "287:180",
+      "name": "60 / 第二章／開場 · 潮汐中的接應",
+      "file": "/figma/scenes/287-180.html",
+      "links": [
+        {
+          "id": "287:275",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:81"
+        },
+        {
+          "id": "287:277",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:279"
+        }
+      ]
+    },
+    {
+      "id": "287:279",
+      "name": "61 / 第二章／開場 · 同乘小船",
+      "file": "/figma/scenes/287-279.html",
+      "links": [
+        {
+          "id": "287:374",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:180"
+        },
+        {
+          "id": "287:376",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:378"
+        }
+      ]
+    },
+    {
+      "id": "287:378",
+      "name": "62 / 第二章／開場 · 接頭點",
+      "file": "/figma/scenes/287-378.html",
+      "links": [
+        {
+          "id": "287:473",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:279"
+        },
+        {
+          "id": "287:475",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:477"
+        }
+      ]
+    },
+    {
+      "id": "287:477",
+      "name": "63 / 第二章／開場 · 名單",
+      "file": "/figma/scenes/287-477.html",
+      "links": [
+        {
+          "id": "287:572",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:378"
+        },
+        {
+          "id": "287:574",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:576"
+        }
+      ]
+    },
+    {
+      "id": "287:576",
+      "name": "64 / 第二章／開場 · 前路",
+      "file": "/figma/scenes/287-576.html",
+      "links": [
+        {
+          "id": "287:671",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:477"
+        },
+        {
+          "id": "287:673",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:675"
+        }
+      ]
+    },
+    {
+      "id": "287:675",
+      "name": "65 / 第二章／場景一 · 抵達紅磡碼頭",
+      "file": "/figma/scenes/287-675.html",
+      "links": [
+        {
+          "id": "287:770",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:576"
+        },
+        {
+          "id": "287:772",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:774"
+        }
+      ]
+    },
+    {
+      "id": "287:774",
+      "name": "66 / 第二章／場景一 · 撤離日期",
+      "file": "/figma/scenes/287-774.html",
+      "links": [
+        {
+          "id": "287:869",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:675"
+        },
+        {
+          "id": "287:871",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:873"
+        }
+      ]
+    },
+    {
+      "id": "287:873",
+      "name": "67 / 第二章／場景一 · 遲疑",
+      "file": "/figma/scenes/287-873.html",
+      "links": [
+        {
+          "id": "287:968",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:774"
+        },
+        {
+          "id": "287:970",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:972"
+        }
+      ]
+    },
+    {
+      "id": "287:972",
+      "name": "68 / 第二章／場景一 · 抉擇",
+      "file": "/figma/scenes/287-972.html",
+      "links": [
+        {
+          "id": "287:1067",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:873"
+        },
+        {
+          "id": "287:1069",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1071"
+        }
+      ]
+    },
+    {
+      "id": "287:1071",
+      "name": "69 / 第二章／場景一 · 分歧",
+      "file": "/figma/scenes/287-1071.html",
+      "links": [
+        {
+          "id": "287:1166",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:972"
+        },
+        {
+          "id": "287:1168",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1170"
+        }
+      ]
+    },
+    {
+      "id": "287:1170",
+      "name": "70 / 第二章／場景一 · 沉默",
+      "file": "/figma/scenes/287-1170.html",
+      "links": [
+        {
+          "id": "287:1265",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1071"
+        },
+        {
+          "id": "287:1267",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1269"
+        }
+      ]
+    },
+    {
+      "id": "287:1269",
+      "name": "71 / 第二章／場景一 · 登船之後",
+      "file": "/figma/scenes/287-1269.html",
+      "links": [
+        {
+          "id": "287:1364",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1170"
+        },
+        {
+          "id": "287:1366",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1368"
+        }
+      ]
+    },
+    {
+      "id": "287:1368",
+      "name": "72 / 第二章／場景一 · 夜色無言",
+      "file": "/figma/scenes/287-1368.html",
+      "links": [
+        {
+          "id": "287:1463",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1269"
+        },
+        {
+          "id": "287:1465",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1467"
+        }
+      ]
+    },
+    {
+      "id": "287:1467",
+      "name": "73 / 第二章／場景一 · 謹慎行動",
+      "file": "/figma/scenes/287-1467.html",
+      "links": [
+        {
+          "id": "287:1562",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1368"
+        },
+        {
+          "id": "287:1564",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1566"
+        }
+      ]
+    },
+    {
+      "id": "287:1566",
+      "name": "74 / 第二章／場景一 · 保護名單",
+      "file": "/figma/scenes/287-1566.html",
+      "links": [
+        {
+          "id": "287:1661",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1467"
+        },
+        {
+          "id": "287:1663",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1665"
+        }
+      ]
+    },
+    {
+      "id": "287:1665",
+      "name": "75 / 第二章／場景一 · 保持聯絡",
+      "file": "/figma/scenes/287-1665.html",
+      "links": [
+        {
+          "id": "287:1760",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1566"
+        },
+        {
+          "id": "287:1762",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:2203"
+        }
+      ]
+    },
+    {
+      "id": "3:2203",
+      "name": "76 / 第二章 · 事件选择",
+      "file": "/figma/scenes/3-2203.html",
+      "links": [
+        {
+          "id": "3:2260",
+          "name": "按钮 / 智力 · 核对船期",
+          "trigger": "ON_CLICK",
+          "destination": "3:2265"
+        },
+        {
+          "id": "3:2263",
+          "name": "按钮 / 武力 · 掩护登船",
+          "trigger": "ON_CLICK",
+          "destination": "3:2454"
+        }
+      ]
+    },
+    {
+      "id": "3:2265",
+      "name": "77 / 第二章智力 · 题目 1",
+      "file": "/figma/scenes/3-2265.html",
+      "links": [
+        {
+          "id": "3:2322",
+          "name": "按钮 / 一号",
+          "trigger": "ON_CLICK",
+          "destination": "3:2328"
+        },
+        {
+          "id": "3:2324",
+          "name": "按钮 / 二号",
+          "trigger": "ON_CLICK",
+          "destination": "3:2328"
+        },
+        {
+          "id": "3:2326",
+          "name": "按钮 / 三号",
+          "trigger": "ON_CLICK",
+          "destination": "3:2328"
+        }
+      ]
+    },
+    {
+      "id": "3:2328",
+      "name": "78 / 第二章智力 · 题目 2",
+      "file": "/figma/scenes/3-2328.html",
+      "links": [
+        {
+          "id": "3:2385",
+          "name": "按钮 / 人员",
+          "trigger": "ON_CLICK",
+          "destination": "3:2391"
+        },
+        {
+          "id": "3:2387",
+          "name": "按钮 / 行李",
+          "trigger": "ON_CLICK",
+          "destination": "3:2391"
+        },
+        {
+          "id": "3:2389",
+          "name": "按钮 / 联络袋",
+          "trigger": "ON_CLICK",
+          "destination": "3:2391"
+        }
+      ]
+    },
+    {
+      "id": "3:2391",
+      "name": "79 / 第二章智力 · 题目 3",
+      "file": "/figma/scenes/3-2391.html",
+      "links": [
+        {
+          "id": "3:2448",
+          "name": "按钮 / 二号方印",
+          "trigger": "ON_CLICK",
+          "destination": "3:2515"
+        },
+        {
+          "id": "3:2450",
+          "name": "按钮 / 一号圆印",
+          "trigger": "ON_CLICK",
+          "destination": "3:2515"
+        },
+        {
+          "id": "3:2452",
+          "name": "按钮 / 二号圆印",
+          "trigger": "ON_CLICK",
+          "destination": "3:2515"
+        }
+      ]
+    },
+    {
+      "id": "3:2454",
+      "name": "80 / 第二章武力 · 登船信号",
+      "file": "/figma/scenes/3-2454.html",
+      "links": [
+        {
+          "id": "3:2511",
+          "name": "按钮 / ● 通行",
+          "trigger": "ON_CLICK",
+          "destination": "3:2515"
+        },
+        {
+          "id": "3:2513",
+          "name": "按钮 / × 警戒",
+          "trigger": "ON_CLICK",
+          "destination": "3:2515"
+        }
+      ]
+    },
+    {
+      "id": "3:2515",
+      "name": "81 / 第二章 · 事件完成",
+      "file": "/figma/scenes/3-2515.html",
+      "links": [
+        {
+          "id": "3:2572",
+          "name": "按钮 / 双方已完成 · 协商投入",
+          "trigger": "ON_CLICK",
+          "destination": "3:2574"
+        }
+      ]
+    },
+    {
+      "id": "3:2574",
+      "name": "82 / 第二章 · 资源分担",
+      "file": "/figma/scenes/3-2574.html",
+      "links": [
+        {
+          "id": "3:2632",
+          "name": "按钮 / 确认投入并扣除",
+          "trigger": "ON_CLICK",
+          "destination": "287:1764"
+        }
+      ]
+    },
+    {
+      "id": "287:1764",
+      "name": "83 / 第二章／結尾 · 最後一批",
+      "file": "/figma/scenes/287-1764.html",
+      "links": [
+        {
+          "id": "287:1859",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:2574"
+        },
+        {
+          "id": "287:1861",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1863"
+        }
+      ]
+    },
+    {
+      "id": "287:1863",
+      "name": "84 / 第二章／結尾 · 確認離岸",
+      "file": "/figma/scenes/287-1863.html",
+      "links": [
+        {
+          "id": "287:1958",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1764"
+        },
+        {
+          "id": "287:1960",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1962"
+        }
+      ]
+    },
+    {
+      "id": "287:1962",
+      "name": "85 / 第二章／結尾 · 還有人在等",
+      "file": "/figma/scenes/287-1962.html",
+      "links": [
+        {
+          "id": "287:2057",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1863"
+        },
+        {
+          "id": "287:2059",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:2061"
+        }
+      ]
+    },
+    {
+      "id": "287:2061",
+      "name": "86 / 第二章／結尾 · 下一次聯絡",
+      "file": "/figma/scenes/287-2061.html",
+      "links": [
+        {
+          "id": "287:2156",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:1962"
+        },
+        {
+          "id": "287:2158",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:2160"
+        }
+      ]
+    },
+    {
+      "id": "287:2160",
+      "name": "87 / 第二章／結尾 · 夜色中的告別",
+      "file": "/figma/scenes/287-2160.html",
+      "links": [
+        {
+          "id": "287:2255",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:2061"
+        },
+        {
+          "id": "287:2257",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:2259"
+        }
+      ]
+    },
+    {
+      "id": "287:2259",
+      "name": "88 / 第二章／結尾 · 接往惠陽",
+      "file": "/figma/scenes/287-2259.html",
+      "links": [
+        {
+          "id": "287:2354",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "287:2160"
+        },
+        {
+          "id": "287:2356",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "368:120"
+        }
+      ]
+    },
+    {
+      "id": "368:120",
+      "name": "89 / 第三章／惠陽茶園 · 全屏地圖",
+      "file": "/figma/scenes/368-120.html",
+      "links": [
+        {
+          "id": "368:146",
+          "name": "地圖點／惠陽茶園・當前行動",
+          "trigger": "ON_CLICK",
+          "destination": "367:81"
+        },
+        {
+          "id": "368:151",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "368:156",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "3:1967"
+        }
+      ]
+    },
+    {
+      "id": "367:81",
+      "name": "90 / 第三章／開場 · 首批文化人",
+      "file": "/figma/scenes/367-81.html",
+      "links": [
+        {
+          "id": "367:81",
+          "name": "90 / 第三章／開場 · 首批文化人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:104"
+        },
+        {
+          "id": "367:81",
+          "name": "90 / 第三章／開場 · 首批文化人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:104"
+        },
+        {
+          "id": "367:81",
+          "name": "90 / 第三章／開場 · 首批文化人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:104"
+        },
+        {
+          "id": "367:100",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "368:120"
+        },
+        {
+          "id": "367:102",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:104"
+        }
+      ]
+    },
+    {
+      "id": "367:104",
+      "name": "91 / 第三章／開場 · 茶園隱蔽",
+      "file": "/figma/scenes/367-104.html",
+      "links": [
+        {
+          "id": "367:104",
+          "name": "91 / 第三章／開場 · 茶園隱蔽",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:127"
+        },
+        {
+          "id": "367:104",
+          "name": "91 / 第三章／開場 · 茶園隱蔽",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:127"
+        },
+        {
+          "id": "367:104",
+          "name": "91 / 第三章／開場 · 茶園隱蔽",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:127"
+        },
+        {
+          "id": "367:123",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:81"
+        },
+        {
+          "id": "367:125",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:127"
+        }
+      ]
+    },
+    {
+      "id": "367:127",
+      "name": "92 / 第三章／開場 · 短暫通行窗口",
+      "file": "/figma/scenes/367-127.html",
+      "links": [
+        {
+          "id": "367:127",
+          "name": "92 / 第三章／開場 · 短暫通行窗口",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:150"
+        },
+        {
+          "id": "367:127",
+          "name": "92 / 第三章／開場 · 短暫通行窗口",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:150"
+        },
+        {
+          "id": "367:127",
+          "name": "92 / 第三章／開場 · 短暫通行窗口",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:150"
+        },
+        {
+          "id": "367:146",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:104"
+        },
+        {
+          "id": "367:148",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:150"
+        }
+      ]
+    },
+    {
+      "id": "367:150",
+      "name": "93 / 第三章／茶園 · 清晨",
+      "file": "/figma/scenes/367-150.html",
+      "links": [
+        {
+          "id": "367:150",
+          "name": "93 / 第三章／茶園 · 清晨",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:173"
+        },
+        {
+          "id": "367:150",
+          "name": "93 / 第三章／茶園 · 清晨",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:173"
+        },
+        {
+          "id": "367:150",
+          "name": "93 / 第三章／茶園 · 清晨",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:173"
+        },
+        {
+          "id": "367:169",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:127"
+        },
+        {
+          "id": "367:171",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:173"
+        }
+      ]
+    },
+    {
+      "id": "367:173",
+      "name": "94 / 第三章／茶園 · 熱茶與接應",
+      "file": "/figma/scenes/367-173.html",
+      "links": [
+        {
+          "id": "367:173",
+          "name": "94 / 第三章／茶園 · 熱茶與接應",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:204"
+        },
+        {
+          "id": "367:173",
+          "name": "94 / 第三章／茶園 · 熱茶與接應",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:204"
+        },
+        {
+          "id": "367:173",
+          "name": "94 / 第三章／茶園 · 熱茶與接應",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:204"
+        },
+        {
+          "id": "367:193",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:150"
+        },
+        {
+          "id": "367:195",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:204"
+        }
+      ]
+    },
+    {
+      "id": "367:204",
+      "name": "95 / 第三章／茶園 · 茅盾的感謝",
+      "file": "/figma/scenes/367-204.html",
+      "links": [
+        {
+          "id": "367:204",
+          "name": "95 / 第三章／茶園 · 茅盾的感謝",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:235"
+        },
+        {
+          "id": "367:204",
+          "name": "95 / 第三章／茶園 · 茅盾的感謝",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:235"
+        },
+        {
+          "id": "367:204",
+          "name": "95 / 第三章／茶園 · 茅盾的感謝",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:235"
+        },
+        {
+          "id": "367:224",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:173"
+        },
+        {
+          "id": "367:226",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:235"
+        }
+      ]
+    },
+    {
+      "id": "367:235",
+      "name": "96 / 第三章／茶園 · 前路有變",
+      "file": "/figma/scenes/367-235.html",
+      "links": [
+        {
+          "id": "367:235",
+          "name": "96 / 第三章／茶園 · 前路有變",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:258"
+        },
+        {
+          "id": "367:235",
+          "name": "96 / 第三章／茶園 · 前路有變",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:258"
+        },
+        {
+          "id": "367:235",
+          "name": "96 / 第三章／茶園 · 前路有變",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:258"
+        },
+        {
+          "id": "367:254",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:204"
+        },
+        {
+          "id": "367:256",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:258"
+        }
+      ]
+    },
+    {
+      "id": "367:258",
+      "name": "97 / 第三章／偵察 · 石橋坑主道",
+      "file": "/figma/scenes/367-258.html",
+      "links": [
+        {
+          "id": "367:258",
+          "name": "97 / 第三章／偵察 · 石橋坑主道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:289"
+        },
+        {
+          "id": "367:258",
+          "name": "97 / 第三章／偵察 · 石橋坑主道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:289"
+        },
+        {
+          "id": "367:258",
+          "name": "97 / 第三章／偵察 · 石橋坑主道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:289"
+        },
+        {
+          "id": "367:278",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:235"
+        },
+        {
+          "id": "367:280",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:289"
+        }
+      ]
+    },
+    {
+      "id": "367:289",
+      "name": "98 / 第三章／偵察 · 臨時關卡",
+      "file": "/figma/scenes/367-289.html",
+      "links": [
+        {
+          "id": "367:289",
+          "name": "98 / 第三章／偵察 · 臨時關卡",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:320"
+        },
+        {
+          "id": "367:289",
+          "name": "98 / 第三章／偵察 · 臨時關卡",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:320"
+        },
+        {
+          "id": "367:289",
+          "name": "98 / 第三章／偵察 · 臨時關卡",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:320"
+        },
+        {
+          "id": "367:309",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:258"
+        },
+        {
+          "id": "367:311",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:320"
+        }
+      ]
+    },
+    {
+      "id": "367:320",
+      "name": "99 / 第三章／商議 · 尋找盲區",
+      "file": "/figma/scenes/367-320.html",
+      "links": [
+        {
+          "id": "367:320",
+          "name": "99 / 第三章／商議 · 尋找盲區",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:351"
+        },
+        {
+          "id": "367:320",
+          "name": "99 / 第三章／商議 · 尋找盲區",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:351"
+        },
+        {
+          "id": "367:320",
+          "name": "99 / 第三章／商議 · 尋找盲區",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:351"
+        },
+        {
+          "id": "367:340",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:289"
+        },
+        {
+          "id": "367:342",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:351"
+        }
+      ]
+    },
+    {
+      "id": "367:351",
+      "name": "100 / 第三章／備選路線 · 南邊伐木道",
+      "file": "/figma/scenes/367-351.html",
+      "links": [
+        {
+          "id": "367:351",
+          "name": "100 / 第三章／備選路線 · 南邊伐木道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:382"
+        },
+        {
+          "id": "367:351",
+          "name": "100 / 第三章／備選路線 · 南邊伐木道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:382"
+        },
+        {
+          "id": "367:351",
+          "name": "100 / 第三章／備選路線 · 南邊伐木道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:382"
+        },
+        {
+          "id": "367:371",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:320"
+        },
+        {
+          "id": "367:373",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:382"
+        }
+      ]
+    },
+    {
+      "id": "367:382",
+      "name": "101 / 第三章／備選路線 · 北邊古道",
+      "file": "/figma/scenes/367-382.html",
+      "links": [
+        {
+          "id": "367:382",
+          "name": "101 / 第三章／備選路線 · 北邊古道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:562"
+        },
+        {
+          "id": "367:382",
+          "name": "101 / 第三章／備選路線 · 北邊古道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:562"
+        },
+        {
+          "id": "367:382",
+          "name": "101 / 第三章／備選路線 · 北邊古道",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:562"
+        },
+        {
+          "id": "367:402",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:351"
+        },
+        {
+          "id": "367:404",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:562"
+        }
+      ]
+    },
+    {
+      "id": "367:562",
+      "name": "102 / 第三章／接續 · 分工",
+      "file": "/figma/scenes/367-562.html",
+      "links": [
+        {
+          "id": "367:562",
+          "name": "102 / 第三章／接續 · 分工",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:593"
+        },
+        {
+          "id": "367:562",
+          "name": "102 / 第三章／接續 · 分工",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:593"
+        },
+        {
+          "id": "367:562",
+          "name": "102 / 第三章／接續 · 分工",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:593"
+        },
+        {
+          "id": "367:582",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:382"
+        },
+        {
+          "id": "367:584",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:593"
+        }
+      ]
+    },
+    {
+      "id": "367:593",
+      "name": "103 / 第三章／接續 · 布穀暗號",
+      "file": "/figma/scenes/367-593.html",
+      "links": [
+        {
+          "id": "367:593",
+          "name": "103 / 第三章／接續 · 布穀暗號",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:624"
+        },
+        {
+          "id": "367:593",
+          "name": "103 / 第三章／接續 · 布穀暗號",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:624"
+        },
+        {
+          "id": "367:593",
+          "name": "103 / 第三章／接續 · 布穀暗號",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:624"
+        },
+        {
+          "id": "367:613",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:562"
+        },
+        {
+          "id": "367:615",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:624"
+        }
+      ]
+    },
+    {
+      "id": "367:624",
+      "name": "104 / 第三章／接續 · 消失在茶林",
+      "file": "/figma/scenes/367-624.html",
+      "links": [
+        {
+          "id": "367:624",
+          "name": "104 / 第三章／接續 · 消失在茶林",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:647"
+        },
+        {
+          "id": "367:624",
+          "name": "104 / 第三章／接續 · 消失在茶林",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:647"
+        },
+        {
+          "id": "367:624",
+          "name": "104 / 第三章／接續 · 消失在茶林",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:647"
+        },
+        {
+          "id": "367:643",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:593"
+        },
+        {
+          "id": "367:645",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:647"
+        }
+      ]
+    },
+    {
+      "id": "367:647",
+      "name": "105 / 第三章／章末 · 接力北上",
+      "file": "/figma/scenes/367-647.html",
+      "links": [
+        {
+          "id": "367:647",
+          "name": "105 / 第三章／章末 · 接力北上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "367:647",
+          "name": "105 / 第三章／章末 · 接力北上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "367:647",
+          "name": "105 / 第三章／章末 · 接力北上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "367:670",
+          "name": "操作／0／回看本幕",
+          "trigger": "ON_CLICK",
+          "destination": "367:81"
+        },
+        {
+          "id": "367:672",
+          "name": "操作／進入第四幕・直達開場",
+          "trigger": "ON_CLICK",
+          "destination": "367:690"
+        }
+      ]
+    },
+    {
+      "id": "368:192",
+      "name": "106 / 第四章／曲江五里亭 · 全屏地圖",
+      "file": "/figma/scenes/368-192.html",
+      "links": [
+        {
+          "id": "368:192",
+          "name": "106 / 第四章／曲江五里亭 · 全屏地圖",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "368:192",
+          "name": "106 / 第四章／曲江五里亭 · 全屏地圖",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "368:192",
+          "name": "106 / 第四章／曲江五里亭 · 全屏地圖",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "368:192",
+          "name": "106 / 第四章／曲江五里亭 · 全屏地圖",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:647"
+        },
+        {
+          "id": "368:213",
+          "name": "地圖點／曲江五里亭・當前行動",
+          "trigger": "ON_CLICK",
+          "destination": "367:690"
+        },
+        {
+          "id": "368:218",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "367:81"
+        },
+        {
+          "id": "368:223",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "368:228",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "3:1967"
+        }
+      ]
+    },
+    {
+      "id": "367:690",
+      "name": "107 / 第四章／開場 · 僑興行的交通網",
+      "file": "/figma/scenes/367-690.html",
+      "links": [
+        {
+          "id": "367:690",
+          "name": "107 / 第四章／開場 · 僑興行的交通網",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:713"
+        },
+        {
+          "id": "367:690",
+          "name": "107 / 第四章／開場 · 僑興行的交通網",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:713"
+        },
+        {
+          "id": "367:690",
+          "name": "107 / 第四章／開場 · 僑興行的交通網",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:713"
+        },
+        {
+          "id": "367:690",
+          "name": "107 / 第四章／開場 · 僑興行的交通網",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "368:192"
+        },
+        {
+          "id": "367:709",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "368:192"
+        },
+        {
+          "id": "367:711",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:713"
+        }
+      ]
+    },
+    {
+      "id": "367:713",
+      "name": "108 / 第四章／開場 · 韶關聯絡站",
+      "file": "/figma/scenes/367-713.html",
+      "links": [
+        {
+          "id": "367:713",
+          "name": "108 / 第四章／開場 · 韶關聯絡站",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:736"
+        },
+        {
+          "id": "367:713",
+          "name": "108 / 第四章／開場 · 韶關聯絡站",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:736"
+        },
+        {
+          "id": "367:713",
+          "name": "108 / 第四章／開場 · 韶關聯絡站",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:736"
+        },
+        {
+          "id": "367:713",
+          "name": "108 / 第四章／開場 · 韶關聯絡站",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:690"
+        },
+        {
+          "id": "367:732",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:690"
+        },
+        {
+          "id": "367:734",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:736"
+        }
+      ]
+    },
+    {
+      "id": "367:736",
+      "name": "109 / 第四章／賬房 · 急報",
+      "file": "/figma/scenes/367-736.html",
+      "links": [
+        {
+          "id": "367:736",
+          "name": "109 / 第四章／賬房 · 急報",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:759"
+        },
+        {
+          "id": "367:736",
+          "name": "109 / 第四章／賬房 · 急報",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:759"
+        },
+        {
+          "id": "367:736",
+          "name": "109 / 第四章／賬房 · 急報",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:759"
+        },
+        {
+          "id": "367:736",
+          "name": "109 / 第四章／賬房 · 急報",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:713"
+        },
+        {
+          "id": "367:755",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:713"
+        },
+        {
+          "id": "367:757",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:759"
+        }
+      ]
+    },
+    {
+      "id": "367:759",
+      "name": "110 / 第四章／賬房 · 貨單被盯上",
+      "file": "/figma/scenes/367-759.html",
+      "links": [
+        {
+          "id": "367:759",
+          "name": "110 / 第四章／賬房 · 貨單被盯上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:789"
+        },
+        {
+          "id": "367:759",
+          "name": "110 / 第四章／賬房 · 貨單被盯上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:789"
+        },
+        {
+          "id": "367:759",
+          "name": "110 / 第四章／賬房 · 貨單被盯上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:789"
+        },
+        {
+          "id": "367:759",
+          "name": "110 / 第四章／賬房 · 貨單被盯上",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:736"
+        },
+        {
+          "id": "367:778",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:736"
+        },
+        {
+          "id": "367:780",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:789"
+        }
+      ]
+    },
+    {
+      "id": "367:789",
+      "name": "111 / 第四章／賬房 · 明早押回審查",
+      "file": "/figma/scenes/367-789.html",
+      "links": [
+        {
+          "id": "367:789",
+          "name": "111 / 第四章／賬房 · 明早押回審查",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:819"
+        },
+        {
+          "id": "367:789",
+          "name": "111 / 第四章／賬房 · 明早押回審查",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:819"
+        },
+        {
+          "id": "367:789",
+          "name": "111 / 第四章／賬房 · 明早押回審查",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:819"
+        },
+        {
+          "id": "367:789",
+          "name": "111 / 第四章／賬房 · 明早押回審查",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:759"
+        },
+        {
+          "id": "367:808",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:759"
+        },
+        {
+          "id": "367:810",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:819"
+        }
+      ]
+    },
+    {
+      "id": "367:819",
+      "name": "112 / 第四章／賬房 · 商議對策",
+      "file": "/figma/scenes/367-819.html",
+      "links": [
+        {
+          "id": "367:819",
+          "name": "112 / 第四章／賬房 · 商議對策",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:842"
+        },
+        {
+          "id": "367:819",
+          "name": "112 / 第四章／賬房 · 商議對策",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:842"
+        },
+        {
+          "id": "367:819",
+          "name": "112 / 第四章／賬房 · 商議對策",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:842"
+        },
+        {
+          "id": "367:819",
+          "name": "112 / 第四章／賬房 · 商議對策",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:789"
+        },
+        {
+          "id": "367:838",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:789"
+        },
+        {
+          "id": "367:840",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:842"
+        }
+      ]
+    },
+    {
+      "id": "367:842",
+      "name": "113 / 第四章／商議 · 不能讓人被帶走",
+      "file": "/figma/scenes/367-842.html",
+      "links": [
+        {
+          "id": "367:842",
+          "name": "113 / 第四章／商議 · 不能讓人被帶走",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:873"
+        },
+        {
+          "id": "367:842",
+          "name": "113 / 第四章／商議 · 不能讓人被帶走",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:873"
+        },
+        {
+          "id": "367:842",
+          "name": "113 / 第四章／商議 · 不能讓人被帶走",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:873"
+        },
+        {
+          "id": "367:842",
+          "name": "113 / 第四章／商議 · 不能讓人被帶走",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:819"
+        },
+        {
+          "id": "367:862",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:819"
+        },
+        {
+          "id": "367:864",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:873"
+        }
+      ]
+    },
+    {
+      "id": "367:873",
+      "name": "114 / 第四章／商議 · 假收貨章",
+      "file": "/figma/scenes/367-873.html",
+      "links": [
+        {
+          "id": "367:873",
+          "name": "114 / 第四章／商議 · 假收貨章",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:904"
+        },
+        {
+          "id": "367:873",
+          "name": "114 / 第四章／商議 · 假收貨章",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:904"
+        },
+        {
+          "id": "367:873",
+          "name": "114 / 第四章／商議 · 假收貨章",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:904"
+        },
+        {
+          "id": "367:873",
+          "name": "114 / 第四章／商議 · 假收貨章",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:842"
+        },
+        {
+          "id": "367:893",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:842"
+        },
+        {
+          "id": "367:895",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:904"
+        }
+      ]
+    },
+    {
+      "id": "367:904",
+      "name": "115 / 第四章／商議 · 以勢壓人",
+      "file": "/figma/scenes/367-904.html",
+      "links": [
+        {
+          "id": "367:904",
+          "name": "115 / 第四章／商議 · 以勢壓人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:935"
+        },
+        {
+          "id": "367:904",
+          "name": "115 / 第四章／商議 · 以勢壓人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:935"
+        },
+        {
+          "id": "367:904",
+          "name": "115 / 第四章／商議 · 以勢壓人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:935"
+        },
+        {
+          "id": "367:904",
+          "name": "115 / 第四章／商議 · 以勢壓人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:873"
+        },
+        {
+          "id": "367:924",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:873"
+        },
+        {
+          "id": "367:926",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:935"
+        }
+      ]
+    },
+    {
+      "id": "367:935",
+      "name": "116 / 第四章／商議 · 唱一出雙簧",
+      "file": "/figma/scenes/367-935.html",
+      "links": [
+        {
+          "id": "367:935",
+          "name": "116 / 第四章／商議 · 唱一出雙簧",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1094"
+        },
+        {
+          "id": "367:935",
+          "name": "116 / 第四章／商議 · 唱一出雙簧",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1094"
+        },
+        {
+          "id": "367:935",
+          "name": "116 / 第四章／商議 · 唱一出雙簧",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1094"
+        },
+        {
+          "id": "367:935",
+          "name": "116 / 第四章／商議 · 唱一出雙簧",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:904"
+        },
+        {
+          "id": "367:955",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:904"
+        },
+        {
+          "id": "367:957",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1094"
+        }
+      ]
+    },
+    {
+      "id": "367:1094",
+      "name": "117 / 第四章／接續 · 簽字放行",
+      "file": "/figma/scenes/367-1094.html",
+      "links": [
+        {
+          "id": "367:1094",
+          "name": "117 / 第四章／接續 · 簽字放行",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1117"
+        },
+        {
+          "id": "367:1094",
+          "name": "117 / 第四章／接續 · 簽字放行",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1117"
+        },
+        {
+          "id": "367:1094",
+          "name": "117 / 第四章／接續 · 簽字放行",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1117"
+        },
+        {
+          "id": "367:1094",
+          "name": "117 / 第四章／接續 · 簽字放行",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:935"
+        },
+        {
+          "id": "367:1113",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:935"
+        },
+        {
+          "id": "367:1115",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1117"
+        }
+      ]
+    },
+    {
+      "id": "367:1117",
+      "name": "118 / 第四章／接續 · 暫鬆一口氣",
+      "file": "/figma/scenes/367-1117.html",
+      "links": [
+        {
+          "id": "367:1117",
+          "name": "118 / 第四章／接續 · 暫鬆一口氣",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1148"
+        },
+        {
+          "id": "367:1117",
+          "name": "118 / 第四章／接續 · 暫鬆一口氣",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1148"
+        },
+        {
+          "id": "367:1117",
+          "name": "118 / 第四章／接續 · 暫鬆一口氣",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1148"
+        },
+        {
+          "id": "367:1117",
+          "name": "118 / 第四章／接續 · 暫鬆一口氣",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1094"
+        },
+        {
+          "id": "367:1137",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1094"
+        },
+        {
+          "id": "367:1139",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1148"
+        }
+      ]
+    },
+    {
+      "id": "367:1148",
+      "name": "119 / 第四章／接續 · 新的追捕",
+      "file": "/figma/scenes/367-1148.html",
+      "links": [
+        {
+          "id": "367:1148",
+          "name": "119 / 第四章／接續 · 新的追捕",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1179"
+        },
+        {
+          "id": "367:1148",
+          "name": "119 / 第四章／接續 · 新的追捕",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1179"
+        },
+        {
+          "id": "367:1148",
+          "name": "119 / 第四章／接續 · 新的追捕",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1179"
+        },
+        {
+          "id": "367:1148",
+          "name": "119 / 第四章／接續 · 新的追捕",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1117"
+        },
+        {
+          "id": "367:1168",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1117"
+        },
+        {
+          "id": "367:1170",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1179"
+        }
+      ]
+    },
+    {
+      "id": "367:1179",
+      "name": "120 / 第四章／接續 · 軍統上線",
+      "file": "/figma/scenes/367-1179.html",
+      "links": [
+        {
+          "id": "367:1179",
+          "name": "120 / 第四章／接續 · 軍統上線",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1210"
+        },
+        {
+          "id": "367:1179",
+          "name": "120 / 第四章／接續 · 軍統上線",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1210"
+        },
+        {
+          "id": "367:1179",
+          "name": "120 / 第四章／接續 · 軍統上線",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1210"
+        },
+        {
+          "id": "367:1179",
+          "name": "120 / 第四章／接續 · 軍統上線",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1148"
+        },
+        {
+          "id": "367:1199",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1148"
+        },
+        {
+          "id": "367:1201",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1210"
+        }
+      ]
+    },
+    {
+      "id": "367:1210",
+      "name": "121 / 第四章／接續 · 收起笑容",
+      "file": "/figma/scenes/367-1210.html",
+      "links": [
+        {
+          "id": "367:1210",
+          "name": "121 / 第四章／接續 · 收起笑容",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1233"
+        },
+        {
+          "id": "367:1210",
+          "name": "121 / 第四章／接續 · 收起笑容",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1233"
+        },
+        {
+          "id": "367:1210",
+          "name": "121 / 第四章／接續 · 收起笑容",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1233"
+        },
+        {
+          "id": "367:1210",
+          "name": "121 / 第四章／接續 · 收起笑容",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1179"
+        },
+        {
+          "id": "367:1229",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1179"
+        },
+        {
+          "id": "367:1231",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1233"
+        }
+      ]
+    },
+    {
+      "id": "367:1233",
+      "name": "122 / 第四章／接續 · 最後一列火車",
+      "file": "/figma/scenes/367-1233.html",
+      "links": [
+        {
+          "id": "367:1233",
+          "name": "122 / 第四章／接續 · 最後一列火車",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1264"
+        },
+        {
+          "id": "367:1233",
+          "name": "122 / 第四章／接續 · 最後一列火車",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1264"
+        },
+        {
+          "id": "367:1233",
+          "name": "122 / 第四章／接續 · 最後一列火車",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1264"
+        },
+        {
+          "id": "367:1233",
+          "name": "122 / 第四章／接續 · 最後一列火車",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1210"
+        },
+        {
+          "id": "367:1253",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1210"
+        },
+        {
+          "id": "367:1255",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1264"
+        }
+      ]
+    },
+    {
+      "id": "367:1264",
+      "name": "123 / 第四章／接續 · 留在曲江",
+      "file": "/figma/scenes/367-1264.html",
+      "links": [
+        {
+          "id": "367:1264",
+          "name": "123 / 第四章／接續 · 留在曲江",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1295"
+        },
+        {
+          "id": "367:1264",
+          "name": "123 / 第四章／接續 · 留在曲江",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1295"
+        },
+        {
+          "id": "367:1264",
+          "name": "123 / 第四章／接續 · 留在曲江",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1295"
+        },
+        {
+          "id": "367:1264",
+          "name": "123 / 第四章／接續 · 留在曲江",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1233"
+        },
+        {
+          "id": "367:1284",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1233"
+        },
+        {
+          "id": "367:1286",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "367:1295"
+        }
+      ]
+    },
+    {
+      "id": "367:1295",
+      "name": "124 / 第四章／章末 · 通行證歸還",
+      "file": "/figma/scenes/367-1295.html",
+      "links": [
+        {
+          "id": "367:1295",
+          "name": "124 / 第四章／章末 · 通行證歸還",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:186"
+        },
+        {
+          "id": "367:1295",
+          "name": "124 / 第四章／章末 · 通行證歸還",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:186"
+        },
+        {
+          "id": "367:1295",
+          "name": "124 / 第四章／章末 · 通行證歸還",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:186"
+        },
+        {
+          "id": "367:1295",
+          "name": "124 / 第四章／章末 · 通行證歸還",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "367:1264"
+        },
+        {
+          "id": "472:121",
+          "name": "唯一出口／進入第五章・桂林",
+          "trigger": "ON_CLICK",
+          "destination": "443:186"
+        },
+        {
+          "id": "472:122",
+          "name": "确认行动",
+          "trigger": "ON_CLICK",
+          "destination": "443:186"
+        }
+      ]
+    },
+    {
+      "id": "443:121",
+      "name": "125 / 第五章／桂林 · 全屏地圖",
+      "file": "/figma/scenes/443-121.html",
+      "links": [
+        {
+          "id": "443:139",
+          "name": "地圖點／桂林 · 進入第五幕",
+          "trigger": "ON_CLICK",
+          "destination": "443:186"
+        },
+        {
+          "id": "443:144",
+          "name": "地圖點／曲江五里亭 · 回看第四幕",
+          "trigger": "ON_CLICK",
+          "destination": "367:690"
+        },
+        {
+          "id": "443:149",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "367:81"
+        },
+        {
+          "id": "443:154",
+          "name": "地圖點／銅鑼灣聯絡寓所",
+          "trigger": "ON_CLICK",
+          "destination": "3:698"
+        },
+        {
+          "id": "443:159",
+          "name": "地圖點／紅磡碼頭",
+          "trigger": "ON_CLICK",
+          "destination": "3:1967"
+        }
+      ]
+    },
+    {
+      "id": "443:186",
+      "name": "126 / 第五章／抵達 · 山水初明",
+      "file": "/figma/scenes/443-186.html",
+      "links": [
+        {
+          "id": "443:186",
+          "name": "126 / 第五章／抵達 · 山水初明",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:209"
+        },
+        {
+          "id": "443:186",
+          "name": "126 / 第五章／抵達 · 山水初明",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:209"
+        },
+        {
+          "id": "443:186",
+          "name": "126 / 第五章／抵達 · 山水初明",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:209"
+        },
+        {
+          "id": "443:205",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:121"
+        },
+        {
+          "id": "443:207",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:209"
+        }
+      ]
+    },
+    {
+      "id": "443:209",
+      "name": "127 / 第五章／安置 · 名單上的人",
+      "file": "/figma/scenes/443-209.html",
+      "links": [
+        {
+          "id": "443:209",
+          "name": "127 / 第五章／安置 · 名單上的人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:232"
+        },
+        {
+          "id": "443:209",
+          "name": "127 / 第五章／安置 · 名單上的人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:232"
+        },
+        {
+          "id": "443:209",
+          "name": "127 / 第五章／安置 · 名單上的人",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:232"
+        },
+        {
+          "id": "443:228",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:186"
+        },
+        {
+          "id": "443:230",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:232"
+        }
+      ]
+    },
+    {
+      "id": "443:232",
+      "name": "128 / 第五章／交接 · 平安到岸",
+      "file": "/figma/scenes/443-232.html",
+      "links": [
+        {
+          "id": "443:232",
+          "name": "128 / 第五章／交接 · 平安到岸",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:255"
+        },
+        {
+          "id": "443:232",
+          "name": "128 / 第五章／交接 · 平安到岸",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:255"
+        },
+        {
+          "id": "443:232",
+          "name": "128 / 第五章／交接 · 平安到岸",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:255"
+        },
+        {
+          "id": "443:251",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:209"
+        },
+        {
+          "id": "443:253",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:255"
+        }
+      ]
+    },
+    {
+      "id": "443:255",
+      "name": "129 / 第五章／轉場 · 1942年冬",
+      "file": "/figma/scenes/443-255.html",
+      "links": [
+        {
+          "id": "443:255",
+          "name": "129 / 第五章／轉場 · 1942年冬",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:278"
+        },
+        {
+          "id": "443:255",
+          "name": "129 / 第五章／轉場 · 1942年冬",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:278"
+        },
+        {
+          "id": "443:255",
+          "name": "129 / 第五章／轉場 · 1942年冬",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:278"
+        },
+        {
+          "id": "443:274",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:232"
+        },
+        {
+          "id": "443:276",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:278"
+        }
+      ]
+    },
+    {
+      "id": "443:278",
+      "name": "130 / 第五章／重慶 · 無署名信",
+      "file": "/figma/scenes/443-278.html",
+      "links": [
+        {
+          "id": "443:278",
+          "name": "130 / 第五章／重慶 · 無署名信",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:301"
+        },
+        {
+          "id": "443:278",
+          "name": "130 / 第五章／重慶 · 無署名信",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:301"
+        },
+        {
+          "id": "443:278",
+          "name": "130 / 第五章／重慶 · 無署名信",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:301"
+        },
+        {
+          "id": "443:297",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:255"
+        },
+        {
+          "id": "443:299",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:301"
+        }
+      ]
+    },
+    {
+      "id": "443:301",
+      "name": "131 / 第五章／貨運單 · 林栩的字",
+      "file": "/figma/scenes/443-301.html",
+      "links": [
+        {
+          "id": "443:301",
+          "name": "131 / 第五章／貨運單 · 林栩的字",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:324"
+        },
+        {
+          "id": "443:301",
+          "name": "131 / 第五章／貨運單 · 林栩的字",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:324"
+        },
+        {
+          "id": "443:301",
+          "name": "131 / 第五章／貨運單 · 林栩的字",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:324"
+        },
+        {
+          "id": "443:320",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:278"
+        },
+        {
+          "id": "443:322",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:324"
+        }
+      ]
+    },
+    {
+      "id": "443:324",
+      "name": "132 / 第五章／回憶 · 隔街相望",
+      "file": "/figma/scenes/443-324.html",
+      "links": [
+        {
+          "id": "443:324",
+          "name": "132 / 第五章／回憶 · 隔街相望",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:347"
+        },
+        {
+          "id": "443:324",
+          "name": "132 / 第五章／回憶 · 隔街相望",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:347"
+        },
+        {
+          "id": "443:324",
+          "name": "132 / 第五章／回憶 · 隔街相望",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:347"
+        },
+        {
+          "id": "443:343",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:301"
+        },
+        {
+          "id": "443:345",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:347"
+        }
+      ]
+    },
+    {
+      "id": "443:347",
+      "name": "133 / 第五章／回憶 · 各自人海",
+      "file": "/figma/scenes/443-347.html",
+      "links": [
+        {
+          "id": "443:347",
+          "name": "133 / 第五章／回憶 · 各自人海",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:370"
+        },
+        {
+          "id": "443:347",
+          "name": "133 / 第五章／回憶 · 各自人海",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:370"
+        },
+        {
+          "id": "443:347",
+          "name": "133 / 第五章／回憶 · 各自人海",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:370"
+        },
+        {
+          "id": "443:366",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:324"
+        },
+        {
+          "id": "443:368",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:370"
+        }
+      ]
+    },
+    {
+      "id": "443:370",
+      "name": "134 / 第五章／尾聲 · 播放結局",
+      "file": "/figma/scenes/443-370.html",
+      "links": [
+        {
+          "id": "443:370",
+          "name": "134 / 第五章／尾聲 · 播放結局",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:393"
+        },
+        {
+          "id": "443:370",
+          "name": "134 / 第五章／尾聲 · 播放結局",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:393"
+        },
+        {
+          "id": "443:370",
+          "name": "134 / 第五章／尾聲 · 播放結局",
+          "trigger": "ON_KEY_DOWN",
+          "destination": "443:393"
+        },
+        {
+          "id": "443:389",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:347"
+        },
+        {
+          "id": "443:391",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "443:393"
+        }
+      ]
+    },
+    {
+      "id": "443:393",
+      "name": "135 / 第五章／大結局 · 交通線仍在",
+      "file": "/figma/scenes/443-393.html",
+      "links": [
+        {
+          "id": "443:393",
+          "name": "135 / 第五章／大結局 · 交通線仍在",
+          "trigger": "AFTER_TIMEOUT",
+          "delay": 71,
+          "destination": "3:2693"
+        },
+        {
+          "id": "447:139",
+          "name": "略過片尾／前往結算",
+          "trigger": "ON_CLICK",
+          "destination": "3:2693"
+        }
+      ]
+    },
+    {
+      "id": "3:2693",
+      "name": "136 / 暗渡 1941／五幕行動完成",
+      "file": "/figma/scenes/3-2693.html",
+      "links": [
+        {
+          "id": "280:525",
+          "name": "按钮 / 回看公共行动记录",
+          "trigger": "ON_CLICK",
+          "destination": "3:2754"
+        },
+        {
+          "id": "280:528",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "3:2754",
+      "name": "137 / 五幕／公共行動記錄",
+      "file": "/figma/scenes/3-2754.html",
+      "links": [
+        {
+          "id": "280:537",
+          "name": "按钮 / 返回当前地点",
+          "trigger": "ON_CLICK",
+          "destination": "443:121"
+        }
+      ]
+    },
+    {
+      "id": "6:1816",
+      "name": "状态 / 正在创建…",
+      "file": "/figma/scenes/6-1816.html",
+      "links": [
+        {
+          "id": "6:1830",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1835",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1840",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1850",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:1860",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:1874",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:1876",
+      "name": "状态 / 创建失败，请重试",
+      "file": "/figma/scenes/6-1876.html",
+      "links": [
+        {
+          "id": "6:1890",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1895",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1900",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1910",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:1920",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:1934",
+          "name": "按钮 / 重新创建",
+          "trigger": "ON_CLICK",
+          "destination": "3:80"
+        }
+      ]
+    },
+    {
+      "id": "6:1936",
+      "name": "状态 / 请长按复制邀请链接",
+      "file": "/figma/scenes/6-1936.html",
+      "links": [
+        {
+          "id": "6:1950",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1955",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1960",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:1970",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:1980",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:1994",
+          "name": "按钮 / 已复制，返回邀请",
+          "trigger": "ON_CLICK",
+          "destination": "3:80"
+        }
+      ]
+    },
+    {
+      "id": "6:1996",
+      "name": "状态 / 分享行动邀请",
+      "file": "/figma/scenes/6-1996.html",
+      "links": [
+        {
+          "id": "6:2010",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2015",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2020",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2030",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:2040",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:2054",
+          "name": "按钮 / 返回邀请",
+          "trigger": "ON_CLICK",
+          "destination": "3:80"
+        }
+      ]
+    },
+    {
+      "id": "6:2056",
+      "name": "状态 / 正在加入…",
+      "file": "/figma/scenes/6-2056.html",
+      "links": [
+        {
+          "id": "6:2070",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2075",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2080",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2090",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:2100",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:2114",
+          "name": "按钮 / 加入完成 · 演示下一步",
+          "trigger": "ON_CLICK",
+          "destination": "3:245"
+        }
+      ]
+    },
+    {
+      "id": "6:2116",
+      "name": "状态 / 邀请已失效",
+      "file": "/figma/scenes/6-2116.html",
+      "links": [
+        {
+          "id": "6:2130",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2135",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2140",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2150",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:2160",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:2174",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2176",
+      "name": "状态 / 本次行动已有两名玩家",
+      "file": "/figma/scenes/6-2176.html",
+      "links": [
+        {
+          "id": "6:2190",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2195",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2200",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2210",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:2220",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:2234",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2236",
+      "name": "状态 / 无法恢复当前对局",
+      "file": "/figma/scenes/6-2236.html",
+      "links": [
+        {
+          "id": "6:2250",
+          "name": "地图点 / 桂林",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2255",
+          "name": "地图点 / 曲江 · 今韶关",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2260",
+          "name": "地图点 / 惠阳 / 惠州",
+          "trigger": "ON_CLICK",
+          "destination": "6:3080"
+        },
+        {
+          "id": "6:2270",
+          "name": "地图点 / 铜锣湾避风塘",
+          "trigger": "ON_CLICK",
+          "destination": "6:3020"
+        },
+        {
+          "id": "6:2280",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "6:2294",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2296",
+      "name": "状态 / 同伴暂时离开",
+      "file": "/figma/scenes/6-2296.html",
+      "links": [
+        {
+          "id": "6:2354",
+          "name": "按钮 / 恢复成功 · 返回行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:934"
+        }
+      ]
+    },
+    {
+      "id": "6:2356",
+      "name": "状态 / 正在恢复联络…",
+      "file": "/figma/scenes/6-2356.html",
+      "links": [
+        {
+          "id": "6:2414",
+          "name": "按钮 / 连接恢复 · 继续原尝试",
+          "trigger": "ON_CLICK",
+          "destination": "3:1055"
+        }
+      ]
+    },
+    {
+      "id": "6:2416",
+      "name": "状态 / 连接已中断",
+      "file": "/figma/scenes/6-2416.html",
+      "links": [
+        {
+          "id": "6:2474",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2476",
+      "name": "状态 / 结束当前行动？",
+      "file": "/figma/scenes/6-2476.html",
+      "links": [
+        {
+          "id": "6:2534",
+          "name": "按钮 / 退出并结束对局",
+          "trigger": "ON_CLICK",
+          "destination": "6:2538"
+        },
+        {
+          "id": "6:2536",
+          "name": "按钮 / 继续当前行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:580"
+        }
+      ]
+    },
+    {
+      "id": "6:2538",
+      "name": "状态 / 当前行动已结束",
+      "file": "/figma/scenes/6-2538.html",
+      "links": [
+        {
+          "id": "6:2596",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2598",
+      "name": "状态 / 当前合计尚未达标",
+      "file": "/figma/scenes/6-2598.html",
+      "links": [
+        {
+          "id": "6:2656",
+          "name": "按钮 / 返回调整投入",
+          "trigger": "ON_CLICK",
+          "destination": "3:1666"
+        },
+        {
+          "id": "6:2658",
+          "name": "按钮 / 仍然确认投入",
+          "trigger": "ON_CLICK",
+          "destination": "221:497"
+        }
+      ]
+    },
+    {
+      "id": "6:2660",
+      "name": "状态 / 请输入有效投入",
+      "file": "/figma/scenes/6-2660.html",
+      "links": [
+        {
+          "id": "6:2718",
+          "name": "按钮 / 返回修改",
+          "trigger": "ON_CLICK",
+          "destination": "3:1666"
+        }
+      ]
+    },
+    {
+      "id": "6:2720",
+      "name": "状态 / 错过安全窗口",
+      "file": "/figma/scenes/6-2720.html",
+      "links": [
+        {
+          "id": "280:546",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2780",
+      "name": "状态 / 登船窗口已关闭",
+      "file": "/figma/scenes/6-2780.html",
+      "links": [
+        {
+          "id": "280:555",
+          "name": "按钮 / 返回开始界面",
+          "trigger": "ON_CLICK",
+          "destination": "3:25"
+        }
+      ]
+    },
+    {
+      "id": "6:2840",
+      "name": "状态 / 时间到，正在确认结果",
+      "file": "/figma/scenes/6-2840.html",
+      "links": [
+        {
+          "id": "6:2898",
+          "name": "按钮 / 查看结果",
+          "trigger": "ON_CLICK",
+          "destination": "3:1305"
+        }
+      ]
+    },
+    {
+      "id": "6:2900",
+      "name": "状态 / 结束本次事件？",
+      "file": "/figma/scenes/6-2900.html",
+      "links": [
+        {
+          "id": "6:2958",
+          "name": "按钮 / 按当前进度结算",
+          "trigger": "ON_CLICK",
+          "destination": "3:1305"
+        }
+      ]
+    },
+    {
+      "id": "6:2960",
+      "name": "状态 / 内容暂时无法加载",
+      "file": "/figma/scenes/6-2960.html",
+      "links": [
+        {
+          "id": "6:3018",
+          "name": "按钮 / 重新加载",
+          "trigger": "ON_CLICK",
+          "destination": "3:934"
+        }
+      ]
+    },
+    {
+      "id": "6:3140",
+      "name": "状态 / 玩法与史实说明",
+      "file": "/figma/scenes/6-3140.html",
+      "links": [
+        {
+          "id": "6:3198",
+          "name": "按钮 / 返回行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:580"
+        }
+      ]
+    },
+    {
+      "id": "6:3200",
+      "name": "状态 / 个人指令",
+      "file": "/figma/scenes/6-3200.html",
+      "links": [
+        {
+          "id": "280:564",
+          "name": "按钮 / 我已记住，返回行动",
+          "trigger": "ON_CLICK",
+          "destination": "3:580"
+        }
+      ]
+    },
+    {
+      "id": "21:105",
+      "name": "首页 / 跳过片头与返回首页专用",
+      "file": "/figma/scenes/21-105.html",
+      "links": [
+        {
+          "id": "21:168",
+          "name": "开始入口 / 4.5秒后出现",
+          "trigger": "ON_CLICK",
+          "destination": "3:80"
+        },
+        {
+          "id": "21:170",
+          "name": "玩法入口",
+          "trigger": "ON_CLICK",
+          "destination": "28:103"
+        }
+      ]
+    },
+    {
+      "id": "28:103",
+      "name": "首页玩法介绍 / 1 of 3",
+      "file": "/figma/scenes/28-103.html",
+      "links": [
+        {
+          "id": "28:147",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "21:105"
+        },
+        {
+          "id": "28:153",
+          "name": "按钮 / 下一页",
+          "trigger": "ON_CLICK",
+          "destination": "28:156"
+        }
+      ]
+    },
+    {
+      "id": "28:156",
+      "name": "首页玩法介绍 / 2 of 3",
+      "file": "/figma/scenes/28-156.html",
+      "links": [
+        {
+          "id": "28:200",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "21:105"
+        },
+        {
+          "id": "28:206",
+          "name": "按钮 / 下一页",
+          "trigger": "ON_CLICK",
+          "destination": "28:212"
+        },
+        {
+          "id": "28:208",
+          "name": "按钮 / 上一页",
+          "trigger": "ON_CLICK",
+          "destination": "28:103"
+        }
+      ]
+    },
+    {
+      "id": "28:212",
+      "name": "首页玩法介绍 / 3 of 3",
+      "file": "/figma/scenes/28-212.html",
+      "links": [
+        {
+          "id": "28:256",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "21:105"
+        },
+        {
+          "id": "28:263",
+          "name": "按钮 / 了解，返回首页",
+          "trigger": "ON_CLICK",
+          "destination": "21:105"
+        },
+        {
+          "id": "28:265",
+          "name": "按钮 / 上一页",
+          "trigger": "ON_CLICK",
+          "destination": "28:156"
+        }
+      ]
+    },
+    {
+      "id": "30:108",
+      "name": "准备 / 双方已准备 · 进入游戏前无角色",
+      "file": "/figma/scenes/30-108.html",
+      "links": [
+        {
+          "id": "30:152",
+          "name": "帮助入口",
+          "trigger": "ON_CLICK",
+          "destination": "6:3140"
+        },
+        {
+          "id": "30:165",
+          "name": "按钮 / 进入游戏",
+          "trigger": "ON_CLICK",
+          "destination": "90:99"
+        }
+      ]
+    },
+    {
+      "id": "30:170",
+      "name": "人物分配 / 黄慕兰 / 1 身份与目标",
+      "file": "/figma/scenes/30-170.html",
+      "links": [
+        {
+          "id": "336:157",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:150"
+        },
+        {
+          "id": "336:159",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:162"
+        }
+      ]
+    },
+    {
+      "id": "90:99",
+      "name": "序曲 · 战火袭港",
+      "file": "/figma/scenes/90-99.html",
+      "links": [
+        {
+          "id": "336:121",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "30:108"
+        },
+        {
+          "id": "336:123",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "90:107"
+        }
+      ]
+    },
+    {
+      "id": "90:107",
+      "name": "序曲 · 危城之中",
+      "file": "/figma/scenes/90-107.html",
+      "links": [
+        {
+          "id": "336:133",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "90:99"
+        },
+        {
+          "id": "336:135",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "90:115"
+        }
+      ]
+    },
+    {
+      "id": "90:115",
+      "name": "序曲 · 地下接力",
+      "file": "/figma/scenes/90-115.html",
+      "links": [
+        {
+          "id": "336:145",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "90:107"
+        },
+        {
+          "id": "336:147",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:150"
+        }
+      ]
+    },
+    {
+      "id": "99:162",
+      "name": "人物分配 / 黄慕兰 / 2 身份与目标",
+      "file": "/figma/scenes/99-162.html",
+      "links": [
+        {
+          "id": "336:169",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "30:170"
+        },
+        {
+          "id": "336:171",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:250"
+        }
+      ]
+    },
+    {
+      "id": "99:250",
+      "name": "人物分配 / 黄慕兰 / 3 身份与目标",
+      "file": "/figma/scenes/99-250.html",
+      "links": [
+        {
+          "id": "336:181",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:162"
+        },
+        {
+          "id": "336:183",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:471"
+        }
+      ]
+    },
+    {
+      "id": "99:341",
+      "name": "人物分配 / 林栩 / 1 身份与目标",
+      "file": "/figma/scenes/99-341.html",
+      "links": [
+        {
+          "id": "336:193",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "350:150"
+        },
+        {
+          "id": "336:195",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:430"
+        }
+      ]
+    },
+    {
+      "id": "99:430",
+      "name": "人物分配 / 林栩 / 2 身份与目标",
+      "file": "/figma/scenes/99-430.html",
+      "links": [
+        {
+          "id": "336:205",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:341"
+        },
+        {
+          "id": "336:207",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:519"
+        }
+      ]
+    },
+    {
+      "id": "99:519",
+      "name": "人物分配 / 林栩 / 3 身份与目标",
+      "file": "/figma/scenes/99-519.html",
+      "links": [
+        {
+          "id": "336:217",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "99:430"
+        },
+        {
+          "id": "336:219",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "3:471"
+        }
+      ]
+    },
+    {
+      "id": "350:150",
+      "name": "序曲 · 營救者與同行者",
+      "file": "/figma/scenes/350-150.html",
+      "links": [
+        {
+          "id": "350:169",
+          "name": "上一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "90:115"
+        },
+        {
+          "id": "350:171",
+          "name": "下一页 / 触控区",
+          "trigger": "ON_CLICK",
+          "destination": "30:170"
+        }
+      ]
+    }
+  ],
+  "cg": [
+    {
+      "id": "221:304",
+      "destination": "3:367"
+    },
+    {
+      "id": "221:319",
+      "destination": "3:698"
+    },
+    {
+      "id": "221:333",
+      "destination": "3:757"
+    },
+    {
+      "id": "221:347",
+      "destination": "3:816"
+    },
+    {
+      "id": "221:362",
+      "destination": "3:875"
+    },
+    {
+      "id": "221:377",
+      "destination": "3:1847"
+    },
+    {
+      "id": "221:392",
+      "destination": "3:1967"
+    },
+    {
+      "id": "221:407",
+      "destination": "3:2026"
+    },
+    {
+      "id": "221:422",
+      "destination": "3:2085"
+    },
+    {
+      "id": "221:437",
+      "destination": "3:2144"
+    },
+    {
+      "id": "221:452",
+      "destination": "3:2634"
+    },
+    {
+      "id": "221:467",
+      "destination": "3:2693"
+    },
+    {
+      "id": "221:482",
+      "destination": "3:2754"
+    },
+    {
+      "id": "221:497",
+      "destination": "6:2720"
+    },
+    {
+      "id": "221:512",
+      "destination": "6:2780"
+    },
+    {
+      "id": "221:527",
+      "destination": "6:3200"
+    },
+    {
+      "id": "221:542",
+      "destination": "30:170"
+    },
+    {
+      "id": "221:559",
+      "destination": "90:99"
+    },
+    {
+      "id": "221:562",
+      "destination": "90:107"
+    },
+    {
+      "id": "221:565",
+      "destination": "90:115"
+    },
+    {
+      "id": "221:568",
+      "destination": "99:162"
+    },
+    {
+      "id": "221:585",
+      "destination": "99:250"
+    },
+    {
+      "id": "221:602",
+      "destination": "99:341"
+    },
+    {
+      "id": "221:619",
+      "destination": "99:430"
+    },
+    {
+      "id": "221:636",
+      "destination": "99:519"
+    },
+    {
+      "id": "221:653",
+      "destination": "147:199"
+    },
+    {
+      "id": "221:668",
+      "destination": "147:301"
+    },
+    {
+      "id": "221:683",
+      "destination": "170:209"
+    },
+    {
+      "id": "221:697",
+      "destination": "170:302"
+    },
+    {
+      "id": "221:712",
+      "destination": "170:395"
+    },
+    {
+      "id": "221:727",
+      "destination": "170:488"
+    },
+    {
+      "id": "221:742",
+      "destination": "170:581"
+    },
+    {
+      "id": "221:757",
+      "destination": "170:674"
+    },
+    {
+      "id": "221:772",
+      "destination": "178:239"
+    },
+    {
+      "id": "221:786",
+      "destination": "178:332"
+    },
+    {
+      "id": "221:801",
+      "destination": "178:425"
+    },
+    {
+      "id": "221:816",
+      "destination": "178:518"
+    },
+    {
+      "id": "221:831",
+      "destination": "178:611"
+    },
+    {
+      "id": "221:846",
+      "destination": "178:704"
+    },
+    {
+      "id": "221:861",
+      "destination": "178:797"
+    },
+    {
+      "id": "221:876",
+      "destination": "178:890"
+    },
+    {
+      "id": "221:891",
+      "destination": "179:279"
+    },
+    {
+      "id": "221:905",
+      "destination": "179:372"
+    },
+    {
+      "id": "221:920",
+      "destination": "179:465"
+    },
+    {
+      "id": "221:935",
+      "destination": "179:558"
+    },
+    {
+      "id": "221:950",
+      "destination": "179:651"
+    }
+  ],
+  "aliases": [
+    {
+      "id": "6:3020",
+      "destination": "44:396"
+    },
+    {
+      "id": "6:3080",
+      "destination": "44:524"
+    },
+    {
+      "id": "40:765",
+      "destination": "3:419"
+    },
+    {
+      "id": "40:839",
+      "destination": "3:471"
+    },
+    {
+      "id": "40:915",
+      "destination": "3:525"
+    },
+    {
+      "id": "40:992",
+      "destination": "3:580"
+    },
+    {
+      "id": "40:1073",
+      "destination": "3:639"
+    },
+    {
+      "id": "44:396",
+      "destination": "6:3020"
+    },
+    {
+      "id": "44:524",
+      "destination": "6:3080"
+    }
+  ]
+}

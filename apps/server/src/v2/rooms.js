@@ -46,6 +46,9 @@ export function validateEntry(body, joining) {
   if (joining && (typeof body.room !== 'string' || !/^[0-9a-f-]{36}$/.test(body.room))) {
     reject(400, 'INVALID_INPUT', '房间编号格式错误');
   }
+  if (body.rulesVersion !== undefined && (joining || body.rulesVersion !== 'chapter-games-1')) {
+    reject(400, 'CONTENT_VERSION_UNSUPPORTED', '玩法规则版本不受支持');
+  }
   if (!joining && body.contentVersion !== CONTENT_VERSION) {
     reject(400, 'CONTENT_VERSION_UNSUPPORTED', '内容版本不受支持');
   }
@@ -54,7 +57,7 @@ export function validateEntry(body, joining) {
 export function entryIdentity(body, joining) {
   const tokenHash = hash(body.recoverySecret);
   const scope = hash(JSON.stringify([joining ? 'join' : 'create', joining ? body.room : '', tokenHash]));
-  const payload = hash(JSON.stringify(joining ? [body.room] : [body.contentVersion]));
+  const payload = hash(JSON.stringify(joining ? [body.room] : body.rulesVersion ? [body.contentVersion, body.rulesVersion] : [body.contentVersion]));
   return { tokenHash, scope, payload };
 }
 

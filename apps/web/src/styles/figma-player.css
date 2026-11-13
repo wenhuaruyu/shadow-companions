@@ -1,0 +1,24 @@
+@import url('/assets/figma/fonts/fonts.css');
+
+html, body { width: 100%; height: 100%; margin: 0; background: #050b0a; color: #d7c69f; overflow: hidden; }
+body { font-family: 'Noto Sans SC', sans-serif; }
+button, select { font: inherit; }
+.preview-toolbar { position: fixed; inset: 0 0 auto; z-index: 20; height: 42px; display: flex; align-items: center; gap: 14px; padding: 0 16px; background: #0b1b17; border-bottom: 1px solid #c8ab722a; font-size: 12px; }
+.preview-toolbar > span { white-space: nowrap; }
+.preview-toolbar select { margin-left: auto; max-width: 40vw; background: #172e29; border: 1px solid #7c876a; border-radius: 3px; padding: 4px; color: #d7c69f; }
+.preview-toolbar button { color: #c8ab72; white-space: nowrap; padding: 8px 4px; }
+.preview-toolbar button:hover { color: #fff0cf; }
+.stage-viewport { position: fixed; inset: 42px 0 0; display: grid; place-items: center; overflow: hidden; }
+#figma-stage { position: absolute; width: 844px; height: 390px; flex-shrink: 0; transform-origin: center; overflow: hidden; }
+#figma-stage > :first-child { width: 844px; height: 390px; overflow: hidden; }
+#figma-stage p { margin: 0; }
+#figma-stage button { appearance: none; cursor: pointer; }
+#figma-stage button:disabled { cursor: default; }
+#figma-stage [data-destination]:focus-visible { outline: 2px solid #e3d4a9; outline-offset: 2px; }
+#figma-stage [data-destination] { cursor: pointer; }
+#figma-stage.cg-first .scene-dialogue { visibility: hidden; pointer-events: none; }
+#figma-stage.cg-first { cursor: pointer; }
+#preview-notice { position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 30; max-width: 80vw; padding: 5px 12px; border-radius: 6px; color: #f0e3c4; background: #091714e8; font-size: 12px; text-align: center; }
+#preview-notice:empty { display: none; }
+@media (max-width: 600px) { .preview-toolbar { gap: 8px; padding: 0 8px; font-size: 10px; } .preview-toolbar select { max-width: 30vw; } }
+@media (prefers-reduced-motion: reduce) { #figma-stage * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; animation-fill-mode: forwards !important; } }

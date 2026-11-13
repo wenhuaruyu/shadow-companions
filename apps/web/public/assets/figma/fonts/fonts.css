@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/figma/fonts/sans0.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/figma/fonts/serif0.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/assets/figma/fonts/serif-bold0.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'LXGW WenKai TC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/figma/fonts/handwriting0.woff2) format('woff2');
+}

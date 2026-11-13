@@ -101,3 +101,30 @@ test("HTTP局域网环境没有randomUUID时仍使用密码学随机编号", () 
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
   );
 });
+
+test("新规则创建和小游戏重试保留尝试编号与输入序号", async () => {
+  const store = storage();
+  const requests = [];
+  let loseResponse = false;
+  const current = { ...snapshot, phase: 'event', attempt: { id: 'attempt-id', inputSeq: 7 } };
+  const client = createApiClient({
+    rulesVersion: 'chapter-games-1', storage: store,
+    getSession: () => session, getSnapshot: () => current,
+    fetcher: async (_, options) => {
+      requests.push(JSON.parse(options.body));
+      if (loseResponse) { loseResponse = false; throw new Error('lost'); }
+      return Response.json({ id: session.id, token: session.token, seat: 0, snapshot: current });
+    },
+  });
+  await client.create();
+  assert.equal(requests[0].rulesVersion, 'chapter-games-1');
+  loseResponse = true;
+  await assert.rejects(client.action('coop_light', { from: [0,0], to: [4,0] }), /连接失败/);
+  await client.action('coop_light', { from: [0,0], to: [4,0] });
+  assert.deepEqual(requests[1], requests[2]);
+  assert.equal(requests[2].attemptId, 'attempt-id');
+  assert.equal(requests[2].inputSeq, 8);
+  await client.action('coop_move', { direction: 'right' });
+  assert.equal(requests[3].inputSeq, 9);
+  assert.equal(attemptElapsed({ attempt: { startedAt: null, duration: 180000, elapsed: 0 }, receivedAt: 0 }, 5000), 0);
+});

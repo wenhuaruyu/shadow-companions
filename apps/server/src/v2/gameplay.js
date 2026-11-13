@@ -1,6 +1,7 @@
 import { createHash, randomInt, randomUUID } from 'node:crypto';
 import { ApiError, CONTENT_VERSION } from './rooms.js';
 import { questions, instructions, rules } from './content.js';
+import { CHAPTER_RULES, chapterInputs, beginCooperation, applyChapterGame, settleChapterGames, chapterGameSnapshot } from './chapter-games.js';
 
 const fail = (status, code, message) => { throw new ApiError(status, code, message); };
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -10,10 +11,10 @@ const canonical = value => {
   if (object(value)) return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]));
   return value;
 };
-const inputKinds = ['answers', 'hit'];
-const chapterKinds = ['enter', 'read'];
-const eventKinds = ['start', 'answers', 'hit', 'finish', 'abandon'];
-const kinds = ['ready', 'instruction', 'tutorial', 'enter', 'read', ...eventKinds];
+const inputKinds = ['answers', 'hit', ...chapterInputs];
+const chapterKinds = ['enter', 'read', 'invest', 'continue'];
+const eventKinds = ['start', 'answers', 'hit', 'finish', 'abandon', ...chapterInputs];
+const kinds = ['ready', 'instruction', 'tutorial', 'enter', 'read', ...eventKinds, 'invest', 'continue'];
 
 function initialState() {
   return { phase: 'lobby', chapter: 0, players: [0, 1].map(() => ({
@@ -41,6 +42,7 @@ function finish(state, seat, rewards, now, abandoned = false) {
 }
 
 function settleExpired(state, rewards, now) {
+  if (state.rulesVersion === CHAPTER_RULES) return settleChapterGames(state, rewards, now);
   let changed = false;
   for (let seat = 0; seat < state.players.length; seat++) {
     const attempt = state.players[seat].attempt;
@@ -57,15 +59,15 @@ export function gameSnapshot(document, now) {
   const mine = state.players[document.seat].attempt;
   return {
     id: document.id, version: document.version, contentVersion: document.contentVersion,
-    rulesVersion: 'mvp-rules-1', phase: state.phase, chapter: state.chapter,
-    ended: false, outcome: null, paused: false, pause: null,
+    rulesVersion: state.rulesVersion || 'mvp-rules-1', phase: state.phase, chapter: state.chapter,
+    ended: ['failed', 'complete'].includes(state.phase), outcome: state.phase === 'complete' ? 'success' : state.phase === 'failed' ? 'failed' : null, paused: false, pause: null,
     requirements: state.chapter ? { int: 6, str: 4 } : { int: 5, str: 5 },
     me: document.seat, players: state.players.slice(0, document.playerCount).map((player, seat) => ({
       name: seat ? '顾宁' : '林舟', int: player.int, str: player.str,
       ready: player.ready, instruction: player.instruction, tutorial: player.tutorial,
       entered: player.entered, read: player.read, continued: player.continued, online: false,
       event: player.attempt ? { type: player.attempt.type, done: player.attempt.done, reward: player.attempt.reward } : null,
-      investment: null
+      investment: player.investment || null
     })),
     attempt: mine ? {
       id: mine.id, type: mine.type, duration: mine.duration, elapsed: mine.done ? mine.elapsed : elapsed(mine, now),
@@ -74,7 +76,8 @@ export function gameSnapshot(document, now) {
       score: mine.score, reward: mine.reward, abandoned: mine.abandoned
     } : null,
     questions: mine?.type === 'int' ? questions[state.chapter].map(question => ({ text: question[0], options: question[1] })) : null,
-    investmentDraft: null, records: state.records
+    investmentDraft: null, records: state.records,
+    ...(state.rulesVersion === CHAPTER_RULES ? chapterGameSnapshot(document, now) : {})
   };
 }
 
@@ -101,10 +104,49 @@ function apply(state, document, body, rewards, now) {
     throw error;
   }
   if (!inputKinds.includes(body.kind) && body.expectedPhase !== state.phase) fail(409, 'PHASE_MISMATCH', '阶段已变化');
-  if (eventKinds.includes(body.kind) && body.chapter !== state.chapter) fail(409, 'PHASE_MISMATCH', '地点已变化');
+  if ([...eventKinds, ...chapterKinds].includes(body.kind) && body.chapter !== state.chapter) fail(409, 'PHASE_MISMATCH', '地点已变化');
   const requirePhase = phase => { if (state.phase !== phase) fail(409, 'PHASE_MISMATCH', '当前阶段不允许此操作'); };
   const all = key => document.playerCount === 2 && state.players.every(item => item[key]);
+  if (state.rulesVersion === CHAPTER_RULES && eventKinds.includes(body.kind)) {
+    applyChapterGame(state, document, body, rewards, now);
+    return;
+  }
+  if (state.rulesVersion !== CHAPTER_RULES && chapterInputs.includes(body.kind)) fail(400, 'INVALID_INPUT', '本房间使用旧版玩法');
   switch (body.kind) {
+    case 'invest': {
+      requirePhase('invest');
+      if (player.investment) fail(409, 'ALREADY_INVESTED', '本章投入已确认');
+      if (Object.keys(body.data).some(key => !['int', 'str'].includes(key)) ||
+          !['int', 'str'].every(key => integer(body.data[key]) && body.data[key] <= player[key])) {
+        fail(400, 'INVALID_INPUT', '投入必须为余额以内的非负整数');
+      }
+      player.investment = { int: body.data.int, str: body.data.str };
+      player.int -= body.data.int;
+      player.str -= body.data.str;
+      if (all('investment')) {
+        const sums = state.players.reduce((total, item) => ({ int: total.int + item.investment.int, str: total.str + item.investment.str }), { int: 0, str: 0 });
+        const need = state.chapter ? { int: 6, str: 4 } : { int: 5, str: 5 };
+        state.records.push({ chapter: state.chapter, sums, need, success: sums.int >= need.int && sums.str >= need.str,
+          investments: state.players.map(item => ({ ...item.investment })) });
+        state.phase = 'result';
+      }
+      return;
+    }
+    case 'continue':
+      requirePhase('result');
+      player.continued = true;
+      if (all('continued')) {
+        if (!state.records.at(-1).success) state.phase = 'failed';
+        else if (state.chapter === 1) state.phase = 'complete';
+        else {
+          state.chapter = 1;
+          state.phase = 'map';
+          delete state.cooperation;
+          state.players.forEach(item => Object.assign(item, { entered: false, read: false, continued: false, attempt: null, investment: null }));
+        }
+      }
+      return;
+
     case 'ready':
       requirePhase('lobby');
       if (typeof body.data.ready !== 'boolean') fail(400, 'INVALID_INPUT', '准备状态须为布尔值');
@@ -135,7 +177,10 @@ function apply(state, document, body, rewards, now) {
       requirePhase('story');
       if (body.chapter !== state.chapter) fail(409, 'PHASE_MISMATCH', '地点已变化');
       player.read = true;
-      if (all('read')) state.phase = 'event';
+      if (all('read')) {
+        state.phase = 'event';
+        if (state.rulesVersion === CHAPTER_RULES && state.chapter === 1) beginCooperation(state);
+      }
       return;
     case 'start':
       requirePhase('event');
@@ -188,6 +233,20 @@ export class GameplayService {
 
   async enter(body, joining = false) {
     const result = await this.rooms.enter(body, joining);
+    if (!joining && body.rulesVersion === CHAPTER_RULES) {
+      let initialized = false;
+      for (let retry = 0; retry < 5; retry++) {
+        const document = await this.rooms.loadGame(result.id, body.recoverySecret);
+        if (document.state) {
+          if (document.state.rulesVersion !== CHAPTER_RULES) fail(409, 'RULES_VERSION_CONFLICT', '房间已采用其他规则');
+          initialized = true;
+          break;
+        }
+        document.state = { ...initialState(), rulesVersion: CHAPTER_RULES };
+        if (!(await this.rooms.commitGame(document, body.recoverySecret, [])).conflict) { initialized = true; break; }
+      }
+      if (!initialized) fail(503, 'TEMPORARILY_UNAVAILABLE', '房间初始化繁忙，请重试');
+    }
     return { ...result, snapshot: await this.state(result.id, body.recoverySecret) };
   }
 
@@ -197,6 +256,7 @@ export class GameplayService {
     }
     const document = await this.rooms.loadGame(room, token, requestId);
     if (document.contentVersion !== CONTENT_VERSION) fail(400, 'CONTENT_VERSION_UNSUPPORTED', '内容版本不受支持');
+    if (document.state?.mode) fail(409, 'WRONG_GAME', '独立试玩房间请使用对应入口');
     document.state ||= initialState();
     return document;
   }

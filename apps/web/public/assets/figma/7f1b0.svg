@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="88" height="28.6" viewBox="0 0 88 28.6" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="&#229;&#167;&#147;&#229;&#144;&#141;&#231;&#137;&#140; / &#228;&#184;&#173;&#229;&#191;&#131;&#232;&#135;&#179;&#232;&#190;&#185;&#231;&#188;&#152;&#230;&#159;&#148;&#229;&#146;&#140;&#230;&#184;&#144;&#229;&#143;&#152;" d="M4.95 0H83.05L88 4.95V23.65L83.05 28.6H4.95L0 23.65V4.95L4.95 0Z" fill="url(#paint0_radial_0_7)"/>
+<defs>
+<radialGradient id="paint0_radial_0_7" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(44 14.3) scale(44 14.3)">
+<stop stop-color="#091B11" stop-opacity="0.63"/>
+<stop offset="0.58" stop-color="#0A1F13" stop-opacity="0.3"/>
+<stop offset="1" stop-color="#0A1F13" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

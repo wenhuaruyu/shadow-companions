@@ -1,7 +1,9 @@
 import { $, button, escapeHtml } from "../components/dom.js";
+import { renderChapterMinigame, updateChapterMinigame } from "./chapter-minigame.js";
 import { attemptElapsed } from "../state/snapshot.js";
 
 export function renderMinigame({ snapshot, action, rerender, add }) {
+  if (snapshot.attempt?.gameId) return renderChapterMinigame({ snapshot, action, rerender, add });
   const attempt = snapshot.attempt;
   const panel = $("#panel");
   panel.dataset.attempt = attempt.id;
@@ -60,6 +62,7 @@ export function renderMinigame({ snapshot, action, rerender, add }) {
 }
 
 export function updateMinigame(snapshot) {
+  if (snapshot?.attempt?.gameId) return updateChapterMinigame(snapshot);
   const attempt = snapshot?.attempt;
   if (!attempt || attempt.done) return;
   const time = attemptElapsed(snapshot);

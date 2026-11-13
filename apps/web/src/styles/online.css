@@ -1,0 +1,50 @@
+@import url('/assets/figma/fonts/fonts.css');
+
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #050b0a; font-family: 'Noto Sans SC', sans-serif; }
+.landscape-canvas { position: absolute; left: 50%; top: 50%; width: 844px; min-width: 0; height: 390px; min-height: 0; display: block; overflow: hidden; transform: translate(-50%, -50%) scale(var(--canvas-scale, 1)); }
+#scene-art { position: absolute; inset: 0; width: 844px; height: 390px; background: #10251f; pointer-events: none; overflow: hidden; }
+.map { position: absolute; inset: 0; background: #10251f url('/assets/figma/0e5c7.png') center / cover; }
+.map header, .map footer, .map svg, .sea-label, .compass { display: none; }
+.cartography { inset: 0; background: none; }
+body:not([data-phase='map']) .map { display: none; }
+aside { position: absolute; inset: 0; padding: 0; overflow: visible; background: none; border: 0; pointer-events: none; }
+.panel-top { position: absolute; top: 16px; left: 360px; width: 124px; padding: 0; border: 0; pointer-events: auto; }
+.panel-top > span { display: none; }
+.panel-top #help { font-size: 10px; color: #c8ab72; }
+#players { position: absolute; left: 24px; right: 24px; top: 16px; display: flex; justify-content: space-between; gap: 0; pointer-events: none; }
+.player { flex: none; width: 220px; height: 72px; padding: 7px; border: 1px solid #a89163cc; background: #091714e6; border-radius: 6px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 3px 10px #0003; }
+.player.lin { flex-direction: row-reverse; text-align: right; }
+.player b { display: block; font-size: 15px; font-weight: 400; color: #f0e3c4; padding-top: 3px; }
+.player small { display: block; margin-top: 10px; color: #c7b285; font-size: 12px; }
+.avatar { position: relative; display: block; flex: none; width: 48px; height: 56px; padding: 0; background: #10251f; border: 1px solid #bfa36e80; border-radius: 4px; overflow: hidden; }
+.avatar img { position: absolute; max-width: none; }
+.avatar.huang img { height: 495.05%; width: 862.07%; left: -46.55%; top: 0; }
+.avatar.lin img { height: 222.22%; width: 200%; left: -50%; top: -2.22%; }
+#panel { position: absolute; left: 24px; right: 24px; bottom: 16px; max-height: 270px; padding: 16px 20px 8px; border-radius: 20px; background: radial-gradient(ellipse at center, #091b11a1, #0a1f134d 58%, transparent), url('/assets/figma/64221.png') center / cover; pointer-events: auto; overflow: visible; color: #d7c69f; }
+#panel[data-speaker]:not([data-speaker=''])::before { content: attr(data-speaker); position: absolute; left: 0; top: -14.6px; z-index: 2; width: 88px; height: 28.6px; background: url('/assets/figma/45a60.png') center / 100% 100%; border: 1px solid #71816c; clip-path: polygon(8% 0, 92% 0, 100% 22%, 100% 78%, 92% 100%, 8% 100%, 0 78%, 0 22%); font: 12px/28.6px 'LXGW WenKai TC', serif; color: #ded1ab; text-align: center; }
+#panel .dialogue-title { font: 12px/14px 'Noto Sans SC', sans-serif; color: #c8ab72; margin: 0 0 8px; }
+#panel .dialogue-body { font: 17px/24px 'Noto Serif SC', serif; color: #d7c69f; margin: 0 0 8px; white-space: pre-line; }
+#panel > button { display: inline-flex; align-items: center; justify-content: center; width: auto; min-height: 44px; margin: 0 0 0 8px; padding: 0 8px; background: none; border: none; color: #c8ab72; font-size: 12px; }
+#panel > button:not(.text-btn):last-of-type { float: right; }
+#panel > .text-btn { float: none; font-size: 10px; color: #90a28e; }
+#panel p { font-family: 'Noto Serif SC', serif; color: #d7c69f; margin: 4px 0 8px; font-size: 15px; line-height: 1.5; }
+#panel h2, #panel h3 { font-family: 'Noto Serif SC', serif; margin: 4px 0 8px; font-size: 22px; line-height: 1.4; }
+#notice { position: absolute; left: 24px; bottom: 0; max-width: 796px; background: #091714e8; color: #f0e3c4; pointer-events: auto; }
+#notice:empty { display: none; }
+body[data-phase='map'] #panel { display: none; }
+.location { min-width: 140px; color: #d7c69f; text-shadow: 0 1px 3px #000; }
+.location.current { color: #f1dca5; animation: point-breathe 2.4s ease-in-out infinite; }
+.location .pin { background: #1d3a2ce8; border-color: #c8ab72; color: #d7c69f; }
+.location b { font: 14px 'Noto Serif SC', serif; }
+.location small { color: #c8ab72; }
+#cg-reveal { position: absolute; inset: 0; z-index: 3; width: 844px; height: 390px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+body.cg-hidden #panel { visibility: hidden; }
+body[data-phase='event'] #panel, body[data-phase='invest'] #panel { max-height: 270px; overflow-y: auto; }
+body[data-phase='lobby'] #panel { max-height: 280px; }
+body[data-phase='lobby'] #panel input { min-height: 36px; padding: 6px 10px; font-size: 12px; }
+body[data-phase='lobby'] #panel > button { margin-top: 4px; }
+#chapter-board { position: relative; inset: auto; max-height: 150px; object-fit: contain; background: #10251f; }
+.event-card { display: inline-block; width: 46%; margin: 6px 1%; padding: 8px; vertical-align: top; }
+.reward { padding: 4px; font-size: 40px; }
+@keyframes point-breathe { 0%, 100% { filter: drop-shadow(0 0 3px #d9bc64); } 50% { filter: drop-shadow(0 0 12px #f3d36e); transform: translate(-50%, calc(-50% - 3px)); } }
+@media (prefers-reduced-motion: reduce) { .location.current { animation: none; } }

@@ -18,12 +18,15 @@ export function createApiClient({
   getSession,
   getSnapshot,
   fetcher = globalThis.fetch,
+  rulesVersion,
 }) {
   let queue = Promise.resolve();
   const inputSequences = new Map();
 
   async function request(path, body) {
     const session = getSession();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
     let response;
     try {
       response = await fetcher("/api/" + path, {
@@ -34,10 +37,12 @@ export function createApiClient({
           ...(session ? { Authorization: `Bearer ${session.token}` } : {}),
         },
         body: body ? JSON.stringify(body) : undefined,
-        signal: AbortSignal.timeout(10000),
+        signal: controller.signal,
       });
     } catch {
       throw new ApiError("连接失败，请重试原操作", "NETWORK_ERROR", 0);
+    } finally {
+      clearTimeout(timeout);
     }
     let result;
     try {
@@ -68,7 +73,7 @@ export function createApiClient({
       body = {
         requestId: newRequestId(),
         recoverySecret: newRecoverySecret(),
-        ...(room ? { room } : { contentVersion: "mvp-two-sites-1" }),
+        ...(room ? { room } : { contentVersion: "mvp-two-sites-1", ...(rulesVersion ? { rulesVersion } : {}) }),
       };
       storage.setItem(key, JSON.stringify(body));
     }
@@ -110,11 +115,11 @@ export function createApiClient({
         };
         if (
           snapshot.attempt &&
-          ["answers", "hit", "finish", "abandon"].includes(kind)
+          ["answers", "hit", "finish", "abandon", "judge", "alley_move", "coop_role", "coop_ready", "coop_move", "coop_light", "coop_escape"].includes(kind)
         ) {
           body.attemptId = snapshot.attempt.id;
         }
-        if (["answers", "hit", "draft"].includes(kind)) {
+        if (["answers", "hit", "draft", "judge", "alley_move", "coop_role", "coop_ready", "coop_move", "coop_light", "coop_escape"].includes(kind)) {
           const scope =
             kind === "draft"
               ? `draft.${snapshot.chapter}`

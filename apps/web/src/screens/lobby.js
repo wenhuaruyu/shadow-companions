@@ -1,7 +1,7 @@
 export function renderLobby({ panel, s, p, add, action, notice }) {
   panel.innerHTML +=
     "<h3>等待同伴，共同行动</h3><p>把邀请链接交给另一位交通员。<br>两人准备完成后，行动开始。</p>";
-  const link = location.origin + "/?invite=" + s.id;
+  const link = location.origin + location.pathname + "?invite=" + s.id;
   const input = document.createElement("input");
   input.value = link;
   input.readOnly = true;

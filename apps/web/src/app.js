@@ -1,6 +1,8 @@
 import { $, button, notice, modal } from "./components/dom.js";
 import { renderMap } from "./components/map.js";
 import { renderPlayers } from "./components/players.js";
+import { showScene, resizeGame } from "./components/scene.js";
+import { chapterScenes } from "./content/figma-content.js";
 import { chapters, stories } from "./content/locations.js";
 import { createApiClient } from "./api/client.js";
 import { readSession, saveSession } from "./state/storage.js";
@@ -23,8 +25,9 @@ export function startGame() {
   let polling = false;
   let lastView = "";
   let expiryRefreshFor = null;
-  const ui = { story: 0, tutorial: 0, review: null, privateText: null };
+  const ui = { story: 0, tutorial: 0, review: null, privateText: null, role: credential ? sessionStorage.getItem(`anxian.role.${credential.id}`) : null };
   const client = createApiClient({
+    rulesVersion: "chapter-games-1",
     storage: localStorage,
     getSession: () => credential,
     getSnapshot: () => state,
@@ -52,6 +55,7 @@ export function startGame() {
     credential = null;
     state = null;
     lastView = "";
+    Object.assign(ui, { role: null, privateText: null, story: 0, prologue: 0, instructionPage: 0, cgKey: null });
     saveSession(localStorage, null);
   }
 
@@ -68,7 +72,7 @@ export function startGame() {
     if (previousScope !== `${state.id}.${state.chapter}`) {
       const position = Number(sessionStorage.getItem(storyKey()) || 0);
       ui.story = Number.isInteger(position)
-        ? Math.max(0, Math.min(3, position))
+        ? Math.max(0, Math.min((chapterScenes[state.chapter]?.length || 1) - 1, position))
         : 0;
       ui.review = null;
     }
@@ -110,7 +114,7 @@ export function startGame() {
     try {
       const result = invite ? await client.join(invite) : await client.create();
       credential = result.session;
-      history.replaceState(null, "", "/");
+      history.replaceState(null, "", location.pathname);
       accept(result);
     } catch (error) {
       notice(error.message);
@@ -120,8 +124,13 @@ export function startGame() {
   }
 
   function render() {
+    document.body.dataset.phase = state?.phase || 'home';
+    panel.dataset.speaker = '';
+    $('#cg-reveal').hidden = true;
+    document.body.classList.remove('cg-hidden');
+    if (!state || state.phase === 'lobby') showScene('3:25');
     renderMap({ state, ui, render, action });
-    renderPlayers(state);
+    renderPlayers(state, ui.role);
     if (
       state?.phase === "event" &&
       state.attempt &&
@@ -131,13 +140,6 @@ export function startGame() {
       updateMinigame(state);
       return;
     }
-    // A private instruction stays local during public-state polling.
-    if (
-      ui.privateText &&
-      state?.phase === "brief" &&
-      !state.players[state.me].instruction
-    )
-      return;
     panel.dataset.attempt = "";
     panel.innerHTML = "";
     if (!state) {
@@ -190,10 +192,28 @@ export function startGame() {
       saveStory,
       draftKey,
       clearSession,
+      saveRole: role => { ui.role = role; sessionStorage.setItem(`anxian.role.${credential.id}`, role); },
       renderAttempt: () =>
         renderMinigame({ snapshot: state, action, rerender: render, add }),
     };
     (screens[s.phase] || renderEnded)(context);
+    if (s.phase === 'story' || s.phase === 'brief') {
+      const cgKey = [s.phase, s.chapter, ui.story, ui.prologue, ui.instructionPage, Boolean(ui.privateText)].join('.');
+      if (ui.cgKey !== cgKey) {
+        ui.cgKey = cgKey;
+        ui.cgRevealed = false;
+      }
+      if (!ui.cgRevealed) {
+        document.body.classList.add('cg-hidden');
+        $('#cg-reveal').hidden = false;
+        $('#cg-reveal').onclick = () => {
+          ui.cgRevealed = true;
+          document.body.classList.remove('cg-hidden');
+          $('#cg-reveal').hidden = true;
+        };
+      }
+    }
+    renderPlayers(state, ui.role);
     const pending = client.pending();
     if (pending)
       add(
@@ -247,7 +267,10 @@ export function startGame() {
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) poll(true);
   });
+  resizeGame();
+  window.addEventListener('resize', resizeGame);
   render();
+  if (new URLSearchParams(location.search).has('create') && !credential) enter(null);
   if (credential && !new URLSearchParams(location.search).has("invite"))
     poll(true);
   setInterval(() => poll(), 1000);

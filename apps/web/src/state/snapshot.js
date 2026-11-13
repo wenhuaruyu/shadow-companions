@@ -13,6 +13,7 @@ export function applySnapshot(
 export function attemptElapsed(snapshot, now = performance.now()) {
   const attempt = snapshot?.attempt;
   if (!attempt) return 0;
+  if (attempt.startedAt === null) return 0;
   if (attempt.done || snapshot.paused) return attempt.elapsed;
   return Math.min(
     attempt.duration,

@@ -1,7 +1,7 @@
 import { $, button, modal } from "./dom.js";
 import { locations } from "../content/locations.js";
 
-export function renderMap({ state, ui, render }) {
+export function renderMap({ state, ui, render, action }) {
   const el = $("#locations");
   el.innerHTML = "";
   locations.forEach(([name, x, y], i) => {
@@ -29,6 +29,10 @@ export function renderMap({ state, ui, render }) {
       },
       "location " + (current ? "current" : "") + (done ? " done" : ""),
     );
+    if (current && state.phase === 'map') b.onclick = () => {
+      if (!state.players[state.me].entered) action('enter');
+      else modal('已確認進入，等待同伴。');
+    };
     b.style.left = x + "%";
     b.style.top = y + "%";
     b.innerHTML = `<span class="pin">${done ? "✓" : ch >= 0 ? "0" + (ch + 1) : "◇"}</span><b>${name}</b><small>${done ? "已完成 · 可回看" : current ? "当前行动" : ch < 0 ? "后续内容" : ch === 0 ? "第一章" : "完成前章后开放"}</small>`;
