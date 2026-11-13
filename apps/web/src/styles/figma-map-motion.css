@@ -1,0 +1,459 @@
+#figma-stage [data-node-id="443:135"] {
+  animation: kf_443_135_opacity_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_443_135_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="443:159"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_443_159_--motion-translate-y_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_443_159_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="40:163"] {
+  animation: kf_40_163_opacity_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_40_163_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="3:554"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_3_554_--motion-translate-y_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_3_554_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="40:184"] {
+  animation: kf_40_184_opacity_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_40_184_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="3:609"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_3_609_--motion-translate-y_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_3_609_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="368:204"] {
+  animation: kf_368_204_opacity_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_368_204_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="368:228"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_368_228_--motion-translate-y_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_368_228_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="40:205"] {
+  animation: kf_40_205_opacity_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_40_205_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="3:668"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_3_668_--motion-translate-y_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_3_668_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="40:446"] {
+  animation: kf_40_446_opacity_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_40_446_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="3:1940"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_3_1940_--motion-translate-y_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_3_1940_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="354:94"] {
+  animation: kf_354_94_opacity_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_354_94_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="354:118"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_354_118_--motion-translate-y_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_354_118_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="291:91"] {
+  animation: kf_291_91_opacity_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_291_91_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="291:115"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_291_115_--motion-translate-y_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_291_115_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="368:132"] {
+  animation: kf_368_132_opacity_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_368_132_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="368:156"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_368_156_--motion-translate-y_0 2s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_368_156_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  60% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}
+
+#figma-stage [data-node-id="40:121"] {
+  animation: kf_40_121_opacity_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_40_121_opacity_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    opacity: 0.25;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@property --motion-translate-y {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+#figma-stage [data-node-id="3:448"] {
+  --motion-translate-y: 0;
+  transform: var(--motion-layout-transform, translate(0px))
+    var(--motion-design-transform-inverse, matrix(1, 0, 0, 1, 0, 0))
+    translate(0px, calc(var(--motion-translate-y, 0) * 1px))
+    var(--motion-design-transform, matrix(1, 0, 0, 1, 0, 0));
+  transform-origin: 0 0;
+  animation: kf_3_448_--motion-translate-y_0 2.4s linear;
+  animation-iteration-count: infinite;
+}
+@keyframes kf_3_448_--motion-translate-y_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: 0;
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    --motion-translate-y: -3;
+  }
+  100% {
+    --motion-translate-y: 0;
+  }
+}

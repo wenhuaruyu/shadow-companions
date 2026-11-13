@@ -14,10 +14,15 @@ export function renderStory({
   const scenes = chapterScenes[s.chapter] || chapterScenes[0];
   ui.story = Math.min(ui.story, scenes.length - 1);
   dialogue(panel, scenes[ui.story]);
-  if (ui.story > 0) add("上一頁", () => {
-    saveStory(--ui.story);
-    render();
-  }, "secondary");
+  if (ui.story > 0)
+    add(
+      "上一頁",
+      () => {
+        saveStory(--ui.story);
+        render();
+      },
+      "secondary",
+    );
   add(
     p.read
       ? "已读完，等待同伴"

@@ -4712,11 +4712,13 @@
   "aliases": [
     {
       "id": "6:3020",
-      "destination": "44:396"
+      "destination": "3:471",
+      "message": "請先完成目前地點。"
     },
     {
       "id": "6:3080",
-      "destination": "44:524"
+      "destination": "3:471",
+      "message": "此地點將在後續章節開放。"
     },
     {
       "id": "40:765",
@@ -4740,11 +4742,29 @@
     },
     {
       "id": "44:396",
-      "destination": "6:3020"
+      "destination": "3:471",
+      "message": "請先完成目前地點。"
     },
     {
       "id": "44:524",
-      "destination": "6:3080"
+      "destination": "3:471",
+      "message": "此地點將在後續章節開放。"
+    },
+    {
+      "id": "3:2026",
+      "destination": "287:81"
+    },
+    {
+      "id": "3:2085",
+      "destination": "287:180"
+    },
+    {
+      "id": "3:2144",
+      "destination": "287:279"
+    },
+    {
+      "id": "3:2634",
+      "destination": "287:1764"
     }
   ]
 }
