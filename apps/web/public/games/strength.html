@@ -1,0 +1,161 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>第一章武力游戏 · 后巷转移 · 美术预览</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#241c16;overscroll-behavior:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}body{display:flex;align-items:center;justify-content:center;font-family:system-ui}.game{width:100vw;height:100dvh;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);gap:12px;background:radial-gradient(ellipse,#705133,#211a15)}.map-frame{position:relative;height:min(100%,69.23vw);aspect-ratio:13/9;max-width:calc(100% - 170px);display:flex;align-items:center}canvas{display:block;width:100%;height:100%;border:4px solid #493322;touch-action:none;box-shadow:0 0 25px #0008}#timer{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:2;min-width:78px;text-align:center;background:#30251dd9;color:#fff0ca;border:1px solid #c3a16c;border-radius:4px;padding:6px 12px;font-size:22px;font-variant-numeric:tabular-nums;pointer-events:none}.start-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#21170d45;z-index:3}.start-layer[hidden]{display:none}button{touch-action:none;border:1px solid #c6a16a;border-radius:7px;color:#ffedca;background:linear-gradient(#80603e,#493222);box-shadow:0 4px 12px #0006;font:20px system-ui;min-height:52px}#restart{padding:15px 36px;font-size:25px;letter-spacing:3px}.pad{display:grid;grid-template-columns:48px 48px 48px;gap:5px;align-content:center}.pad button{width:48px;height:54px;font-size:27px}.pad button.pressed{background:#ba8e55}.up{grid-column:2}.left{grid-column:1}#resume{grid-column:1/-1;font-size:25px}button:focus-visible{outline:3px solid #f8df9a}@media(orientation:portrait){.game{height:56.25vw;gap:5px}.map-frame{max-width:calc(100% - 120px)}.pad{grid-template-columns:34px 34px 34px;gap:3px}.pad button{min-height:36px;width:34px;height:38px;font-size:21px}#timer{font-size:15px;top:5px;padding:3px 8px}#restart{font-size:18px;padding:10px 20px}}
+
+.game{gap:0}.map-frame{max-width:100%;height:min(100dvh,69.23vw)}#resume{position:absolute;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));width:52px;z-index:4}@media(orientation:portrait){.game{height:100dvh}.map-frame{max-width:100%;height:69.23vw}}
+
+.game{flex-direction:column}.map-frame{padding-top:40px;height:min(100dvh,calc(69.23vw + 40px));aspect-ratio:auto;width:min(100vw,calc((100dvh - 40px)*13/9));max-width:100%;align-items:stretch}canvas{height:100%;min-height:0;aspect-ratio:13/9}#timer{top:2px;padding:3px 12px;font-size:20px;line-height:26px;height:34px}@media(orientation:portrait){.game{height:100dvh}.map-frame{height:calc(69.23vw + 40px);width:100vw;max-width:100%}#timer{top:2px;font-size:18px}}
+
+.reward-layer{position:absolute;inset:40px 0 0;z-index:5;display:flex;align-items:center;justify-content:center;background:#20180ecc;backdrop-filter:blur(3px)}.reward-layer[hidden]{display:none}.reward-card{text-align:center;color:#f3dfb6;background:linear-gradient(135deg,#67472e,#35261c);border:2px solid #be985c;padding:22px 45px;box-shadow:0 12px 40px #0009;min-width:260px}.reward-card h2{font-size:25px;margin:0 0 12px;letter-spacing:4px}.reward-card strong{display:block;font-size:54px;color:#ffe0a0;margin:10px 0}.reward-card p{margin:8px 0 18px;font:16px system-ui}.reward-card small{display:block;color:#cbb58f;margin-bottom:15px}.reward-card button{padding:10px 24px}
+.start-card{max-width:620px;margin:15px;padding:24px 30px;text-align:center;background:#302217ee;border:1px solid #c5a16a;color:#f7e6c5;box-shadow:0 8px 30px #0008}.start-card p{font:17px/1.8 system-ui;margin:0 0 12px}.start-card button{margin-top:8px}@media(max-height:450px){.start-card{padding:12px 20px}.start-card p{font-size:14px;margin-bottom:6px}}
+@media(orientation:portrait){.game{position:absolute;left:50%;top:50%;width:100dvh;height:100vw;transform:translate(-50%,-50%) rotate(90deg);padding:0}.map-frame{width:min(100dvh,calc((100vw - 40px)*13/9));height:min(100vw,calc(69.23dvh + 40px));max-width:100%}#timer{font-size:20px;top:2px}.start-card{max-width:620px;padding:16px 28px}.start-card p{font-size:16px}#restart{font-size:23px;padding:12px 28px}}
+</style>
+<div class="game" data-game-id="chapter-1-strength" data-chapter="1" data-game-type="str"><div class="map-frame"><canvas id="map" width="910" height="630" aria-label="后巷转移地图"></canvas><b id="timer">90.0秒</b><div class="reward-layer" id="reward-layer" hidden><div class="reward-card"><h2 id="reward-title"></h2><strong id="reward-value"></strong><p id="reward-detail"></p><small>本次奖励预览</small><button id="play-again">再玩一次</button></div></div><div class="start-layer" id="start-layer"><div class="start-card"><h2>第一章武力游戏 · 后巷转移</h2><p>滑动屏幕控制移动，避开巡逻守卫和白色灯光。</p><p>90秒内依次经过两个掩护点并抵达接应点，走得越远，武力奖励越高。</p><button id="restart">开始任务</button></div></div></div><button id="resume" aria-label="继续游戏" hidden>▶</button></div><span id="message" hidden></span><span id="progress" hidden></span>
+<script type="module">
+import { connectGame } from '/src/games/game-network.js';
+const connected = new URLSearchParams(location.search).has('network');
+let lastNetworkMove = 0;
+const network = connected ? connectGame(snapshot => { const a = snapshot.attempt; if (!a) return; player = [...a.run.position]; stage = a.run.checkpoint; elapsed = a.elapsed; guardStep = Math.floor(a.run.tick / 3); caught = a.run.caught; active = !a.done; document.querySelector('#start-layer').hidden = true; }) : null;
+
+const rows=[
+'##...#.######',
+'#...........#',
+'###.#######.#',
+'######.####.#',
+'#...........#',
+'#.###########',
+'#.#####...###',
+'#...........#',
+'#############'];
+const start=[1,1], checkpoints=[[11,2],[1,5]],exit=[11,7],lights=[[3,1],[8,7]];
+const lampRoutes=[[[2,1],[3,1],[4,1],[3,1]],[[7,7],[8,7],[9,7],[8,7]]];
+const activeLights=()=>lampRoutes.map(route=>route[Math.floor(elapsed/1800)%route.length]);
+const routes=[[[4,1],[5,1],[6,1],[7,1],[8,1],[7,1],[6,1],[5,1]],[[8,4],[7,4],[6,4],[5,4],[4,4],[5,4],[6,4],[7,4]]];
+const vectors={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+const message=document.querySelector('#message'),timer=document.querySelector('#timer'),progress=document.querySelector('#progress');
+let player=[...start],stage=0,elapsed=0,active=false,paused=false,direction=null,last=0,moveClock=0,guardClock=0,guardStep=0,blockedUntil=0,caught=0;
+const same=(a,b)=>a[0]===b[0]&&a[1]===b[1];
+const walk=([x,y])=>rows[y]?.[x]==='.';
+const guards=()=>routes.map(r=>r[guardStep%r.length]);
+let touchId=null,gesture=null,nextMoveAt=0;
+function stop(){direction=null;moveClock=0;touchId=null;gesture=null;for(const b of document.querySelectorAll('[data-dir]'))b.classList.remove('pressed');}
+function reset(){if(network){network.action('start',{type:'str'});return;}document.querySelector('#reward-layer').hidden=true;document.querySelector('#start-layer').hidden=true;last=0;nextMoveAt=0;player=[...start];stage=0;elapsed=0;moveClock=0;guardClock=0;guardStep=0;blockedUntil=0;caught=0;paused=false;active=true;stop();document.querySelector('#resume').hidden=true;message.textContent='前往 C1，灯区来回移动，请等待空隙或走上方绕行通道。';}
+function hit(){caught++;player=[...(stage?checkpoints[stage-1]:start)];blockedUntil=elapsed+600;stop();message.textContent='被发现，退回掩护处。受阻 '+caught+' 次，进度保留。';}
+function finish(success){active=false;stop();document.querySelector('#start-layer').hidden=true;const reward=[0,3,6,10][stage];document.querySelector('#reward-title').textContent=success?'成功转移':'行动结束';document.querySelector('#reward-value').textContent='武力 +'+reward;document.querySelector('#reward-detail').textContent=['尚未到达掩护点','到达第一掩护点','到达第二掩护点','已抵达接应点'][stage];document.querySelector('#reward-layer').hidden=false;message.textContent=(success?'抵达安全区！':'时间结束。')+' 本地奖励预览 +'+reward+' 武力，受阻 '+caught+' 次。';}
+function move(){if(network){if(direction && performance.now()-lastNetworkMove>=225){lastNetworkMove=performance.now();network.action('alley_move',{direction});}return;}if(!direction||elapsed<blockedUntil||elapsed<nextMoveAt)return;const v=vectors[direction],next=[player[0]+v[0],player[1]+v[1]];if(!walk(next))return;nextMoveAt=elapsed+200;player=next;if(activeLights().some(p=>same(p,player))||guards().some(p=>same(p,player))){hit();return;}if(stage<2&&same(player,checkpoints[stage])){stage++;message.textContent='已激活 C'+stage+'，受阻后从这里恢复。';}if(same(player,exit)){if(stage===2){stage=3;finish(true);}else message.textContent='请先依次经过两个检查点。';}}
+function tick(dt){elapsed+=dt;if(elapsed>=blockedUntil&&activeLights().some(p=>same(p,player)))hit();if(elapsed>=90000){elapsed=90000;finish(false);return;}moveClock+=dt;guardClock+=dt;if(moveClock>=200){moveClock-=200;move();}if(!active)return;if(guardClock>=600){guardClock-=600;guardStep++;if(guards().some(p=>same(p,player)))hit();}}
+// The art uses exactly the same tile mask as movement and collision.
+const textureImage = new Image();
+textureImage.src = '../assets/back-alley-map-concept-v1.png';
+const roofLamps = [[4,2],[8,8]];
+function draw(){
+ const size=70;
+ ctx.fillStyle='#d5ac70';ctx.fillRect(0,0,910,630);
+ rows.forEach((row,y)=>[...row].forEach((cell,x)=>{
+  const px=x*size,py=y*size;
+  if(cell==='#'){
+   const roof=ctx.createLinearGradient(px,py,px+70,py+70);roof.addColorStop(0,'#62432c');roof.addColorStop(.45,'#483020');roof.addColorStop(1,'#33251b');
+   ctx.fillStyle=roof;ctx.fillRect(px,py,size,size);if(textureImage.complete&&textureImage.naturalWidth){ctx.drawImage(textureImage,600,150,60,60,px,py,size,size);}
+   ctx.lineWidth=1;
+   for(let line=0;line<70;line+=7){ctx.strokeStyle=line%14?'#b1814930':'#211b17a0';ctx.beginPath();ctx.moveTo(px,py+line);ctx.lineTo(px+70,py+line);ctx.stroke();}
+   for(let col=0;col<70;col+=14){ctx.strokeStyle='#a37a4033';ctx.beginPath();ctx.moveTo(px+col,py);ctx.lineTo(px+col,py+70);ctx.stroke();}
+   for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]])if(rows[y+dy]?.[x+dx]==='.'){
+    ctx.strokeStyle='#231c15';ctx.lineWidth=6;ctx.beginPath();
+    if(dx===0){const edge=py+(dy>0?70:0);ctx.moveTo(px,edge);ctx.lineTo(px+70,edge);}else{const edge=px+(dx>0?70:0);ctx.moveTo(edge,py);ctx.lineTo(edge,py+70);}ctx.stroke();
+    ctx.strokeStyle='#ba8b4c';ctx.lineWidth=1;ctx.stroke();
+   }
+  }else{
+   const road=ctx.createLinearGradient(px,py,px+70,py+70);road.addColorStop(0,'#dbb77d');road.addColorStop(1,'#c49a60');ctx.fillStyle=road;ctx.fillRect(px,py,size,size);if(textureImage.complete&&textureImage.naturalWidth){ctx.drawImage(textureImage,600,745,45,45,px,py,size,size);}
+   ctx.strokeStyle='#b8885055';ctx.lineWidth=1;
+   for(let i=0;i<6;i++){const ox=(x*17+y*11+i*23)%60,oy=(x*29+y*7+i*19)%60;ctx.beginPath();ctx.moveTo(px+ox,py+oy);ctx.lineTo(px+ox+6,py+oy+1);ctx.stroke();}
+  }
+ }));
+ function sign(p,color,label){
+  const x=p[0]*size+6,y=p[1]*size+10;
+  ctx.fillStyle='#3c291b';ctx.fillRect(x,y,size-12,size-20);
+  ctx.fillStyle=color;ctx.fillRect(x+3,y+3,size-18,size-26);
+  ctx.strokeStyle='#dec18b';ctx.lineWidth=1;ctx.strokeRect(x+5,y+5,size-22,size-30);
+  ctx.fillStyle='#f7e3b5';ctx.font='bold 14px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x+(size-12)/2,y+(size-20)/2);
+ }
+ sign(start,'#885033','◆');checkpoints.forEach((p,i)=>sign(p,stage>i?'#3e7355':'#626347',stage>i?'✓':'◇'));sign(exit,'#346d68','⚑');
+ ctx.save();ctx.setLineDash([6,5]);ctx.strokeStyle='#9e4f30';ctx.lineWidth=2;
+ routes.forEach(route=>{ctx.beginPath();route.forEach((p,i)=>{const x=(p[0]+.5)*size,y=(p[1]+.5)*size;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();});ctx.restore();
+ lampRoutes.forEach(route=>{ctx.save();ctx.setLineDash([3,5]);ctx.strokeStyle='#a5751b';ctx.lineWidth=2;ctx.beginPath();route.forEach((p,i)=>{if(i===0)ctx.moveTo((p[0]+.5)*size,(p[1]+.5)*size);else ctx.lineTo((p[0]+.5)*size,(p[1]+.5)*size);});ctx.stroke();ctx.restore();});
+ activeLights().forEach((p,index)=>{
+  const x=(p[0]+.5)*size,y=(p[1]+.5)*size;
+  const radius=32;
+  const glow=ctx.createRadialGradient(x,y,2,x,y,radius);
+  glow.addColorStop(0,'rgba(255,255,255,.95)');
+  glow.addColorStop(.65,'rgba(255,255,250,.78)');
+  glow.addColorStop(.9,'rgba(255,255,250,.5)');
+  glow.addColorStop(1,'rgba(255,255,255,.12)');
+  ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,y,radius,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.5;ctx.stroke();
+  const lamp=roofLamps[index],lx=(lamp[0]+.5)*size,ly=(lamp[1]+.5)*size;
+  ctx.save();ctx.translate(lx,ly);ctx.rotate(Math.atan2(y-ly,x-lx));
+  ctx.fillStyle='#201c17';ctx.fillRect(-18,-5,25,10);
+  ctx.strokeStyle='#bc9b60';ctx.lineWidth=3;ctx.strokeRect(-18,-5,25,10);
+  ctx.fillStyle='#635a48';ctx.beginPath();ctx.moveTo(-2,-9);ctx.lineTo(17,-15);ctx.lineTo(17,15);ctx.lineTo(-2,9);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#fffdf0';ctx.beginPath();ctx.ellipse(17,0,5,14,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#b69f72';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+ });
+ function person(p,guard){
+  const x=(p[0]+.5)*size,y=(p[1]+.5)*size;
+  ctx.fillStyle='#3a261a55';ctx.beginPath();ctx.ellipse(x,y+20,18,7,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=guard?'#a44830':'#f6e1b2';ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,24,0,Math.PI*2);ctx.stroke();
+  const coat=ctx.createLinearGradient(x-13,y,x+13,y+20);coat.addColorStop(0,guard?'#777257':'#6e9d9d');coat.addColorStop(1,guard?'#363e30':'#294958');ctx.fillStyle=coat;ctx.beginPath();ctx.ellipse(x,y+8,13,16,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#d6b187';ctx.beginPath();ctx.arc(x,y-10,9,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle=guard?'#393c31':'#34312c';ctx.beginPath();ctx.ellipse(x,y-16,12,5,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=guard?'#beb38a':'#bbd4cd';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+20);ctx.stroke();if(!guard){ctx.fillStyle='#ad8049';ctx.fillRect(x+7,y+5,9,13);ctx.strokeStyle='#edc88b';ctx.lineWidth=1;ctx.strokeRect(x+7,y+5,9,13);}
+ }
+ guards().forEach(p=>person(p,true));person(player,false);
+ timer.textContent=((90000-elapsed)/1000).toFixed(1)+'秒';progress.textContent='进度 '+stage+' / 3';
+}
+
+function frame(now){const dt=Math.min(now-(last||now),100);last=now;if(active&&!paused){if(network){elapsed+=dt;move();}else tick(dt);}draw();requestAnimationFrame(frame);}requestAnimationFrame(frame);
+document.querySelector('#restart').onclick=reset;
+document.querySelector('#play-again').onclick=reset;
+document.querySelector('#resume').onclick=()=>{paused=false;last=0;document.querySelector('#resume').hidden=true;message.textContent='继续测试。';};
+function beginTouch(event,target){
+ event.preventDefault();
+ if(!active||paused||touchId!==null)return false;
+ touchId=event.pointerId;target.setPointerCapture(event.pointerId);return true;
+}
+function releaseTouch(event){if(event.pointerId===touchId)stop();}
+for(const button of document.querySelectorAll('[data-dir]')){
+ button.onpointerdown=event=>{if(!beginTouch(event,button))return;button.classList.add('pressed');direction=button.dataset.dir;moveClock=0;move();};
+ button.onpointerup=button.onpointercancel=button.onlostpointercapture=releaseTouch;
+}
+canvas.onpointerdown=event=>{if(beginTouch(event,canvas))gesture={x:event.clientX,y:event.clientY,swiped:false};};
+canvas.onpointermove=event=>{
+ if(event.pointerId!==touchId||!gesture)return;
+ event.preventDefault();const rawX=event.clientX-gesture.x,rawY=event.clientY-gesture.y;const rotated=window.matchMedia('(orientation: portrait)').matches;const dx=rotated?rawY:rawX,dy=rotated?-rawX:rawY;
+ if(Math.hypot(dx,dy)<16)return;
+ const next=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
+ gesture.x=event.clientX;gesture.y=event.clientY;gesture.swiped=true;
+ if(direction!==next){direction=next;moveClock=0;move();}
+};
+canvas.onpointerup=event=>{
+ if(event.pointerId!==touchId)return;
+ if(gesture&&!gesture.swiped){
+  const rect=canvas.getBoundingClientRect(),border=canvas.clientLeft;
+  const rotated=window.matchMedia('(orientation: portrait)').matches;
+  const px=rotated?event.clientY-rect.top:event.clientX-rect.left;
+  const py=rotated?rect.right-event.clientX:event.clientY-rect.top;
+  const width=rotated?rect.height:rect.width,height=rotated?rect.width:rect.height;
+  const x=Math.floor((px-border)/(width-2*border)*13);
+  const y=Math.floor((py-border)/(height-2*border)*9);
+  const dx=x-player[0],dy=y-player[1];
+  if(Math.abs(dx)+Math.abs(dy)===1){direction=dx===1?'right':dx===-1?'left':dy===1?'down':'up';move();}
+  else message.textContent='轻点角色旁的一格道路，或滑动并按住连续移动。';
+ }
+ stop();
+};
+canvas.onpointercancel=canvas.onlostpointercapture=releaseTouch;
+window.onblur=()=>{stop();if(active&&!connected){paused=true;document.querySelector('#resume').hidden=false;}};
+document.onvisibilitychange=()=>{stop();if(document.hidden&&active&&!connected){paused=true;document.querySelector('#resume').hidden=false;message.textContent='测试已暂停，点击继续恢复。';}};
+// Deterministic geometry checks, also visible to local browser verification.
+function reachable(from,to,removed){const queue=[from],seen=new Set([from.join(',')]);for(let i=0;i<queue.length;i++){const p=queue[i];if(same(p,to))return true;for(const v of Object.values(vectors)){const q=[p[0]+v[0],p[1]+v[1]],key=q.join(',');if(walk(q)&&!same(q,removed||[-1,-1])&&!seen.has(key)){seen.add(key);queue.push(q);}}}return false;}
+if(!reachable(start,exit)||checkpoints.some(p=>reachable(start,exit,p)))throw Error('地图连通性或必经检查点验证失败');
+</script></html>

@@ -13,7 +13,7 @@ const canonical = value => {
 };
 const inputKinds = ['answers', 'hit', ...chapterInputs];
 const chapterKinds = ['enter', 'read', 'invest', 'continue'];
-const eventKinds = ['start', 'answers', 'hit', 'finish', 'abandon', ...chapterInputs];
+const eventKinds = ['choose', 'start', 'answers', 'hit', 'finish', 'abandon', ...chapterInputs];
 const kinds = ['ready', 'instruction', 'tutorial', 'enter', 'read', ...eventKinds, 'invest', 'continue', 'exit'];
 
 function initialState() {
@@ -68,7 +68,7 @@ export function gameSnapshot(document, now) {
       ready: player.ready, instruction: player.instruction, tutorial: player.tutorial,
       entered: player.entered, read: player.read, continued: player.continued, online: false,
       event: player.attempt ? { type: player.attempt.type, done: player.attempt.done, reward: player.attempt.reward } : null,
-      investment: player.investment || null
+      taskChoice: player.taskChoice || player.attempt?.type || null, investment: player.investment || null
     })),
     attempt: mine ? {
       id: mine.id, type: mine.type, duration: mine.duration, elapsed: mine.done ? mine.elapsed : elapsed(mine, now),
@@ -90,7 +90,7 @@ function validateAction(body) {
     fail(400, 'INVALID_INPUT', '缺少预期版本或阶段');
   }
   if ([...eventKinds, ...chapterKinds].includes(body.kind) && ![0, 1].includes(body.chapter)) fail(400, 'INVALID_INPUT', '地点编号错误');
-  if (eventKinds.includes(body.kind) && body.kind !== 'start' &&
+  if (eventKinds.includes(body.kind) && !['choose', 'start'].includes(body.kind) &&
     (typeof body.attemptId !== 'string' || !/^[0-9a-f-]{36}$/.test(body.attemptId))) {
     fail(400, 'INVALID_INPUT', '尝试编号错误');
   }

@@ -1,12 +1,23 @@
+import { connectGame } from './game-network.js';
 import { game, suspects } from "./investigation-content.js";
 import { escapeHtml } from "../components/dom.js";
 
 const root = document.querySelector("#investigation");
 const dialog = document.querySelector("#judgment");
 const storageKey = "anxian.investigation.v1";
-let progress = readProgress();
+let progress = new URLSearchParams(location.search).has('network') ? { excluded: [], solved: false, deadline: null, expired: false } : readProgress();
 let activeId = null;
 let feedback = "";
+const connected = new URLSearchParams(location.search).has('network');
+const network = connected ? connectGame(snapshot => {
+  const attempt = snapshot.attempt;
+  const previous = JSON.stringify([progress.excluded, progress.solved, Boolean(progress.expired), Boolean(progress.deadline)]);
+  progress = { excluded: attempt?.guesses?.filter(id => id !== 'chen') || [], solved: attempt?.solved || false,
+    expired: attempt?.done && !attempt.solved, deadline: attempt ? Date.now() + attempt.duration - attempt.elapsed : null };
+  const current = JSON.stringify([progress.excluded, progress.solved, Boolean(progress.expired), Boolean(progress.deadline)]);
+  if (previous !== current) render();
+  else updateCountdown();
+}) : null;
 
 function readProgress() {
   try {
@@ -28,6 +39,7 @@ function readProgress() {
 }
 
 function saveProgress() {
+  if (connected) return;
   try {
     sessionStorage.setItem(storageKey, JSON.stringify(progress));
   } catch (error) {
@@ -65,8 +77,9 @@ function render() {
 }
 
 function renderStart() {
-  root.insertAdjacentHTML("beforeend", `<section class="paper intro"><h2>名单被调换，谁在说谎？</h2><p>查看三个人物的聊天与证据，在 90 秒内找出调换名单的人。</p><p>共有三次判断机会，第一次选对获 10 分，第二次 6 分，第三次 3 分。超时获得 0 分。</p><div class="actions"><button class="primary" id="start">开始判断案件</button></div></section>`);
+  root.insertAdjacentHTML("beforeend", `<section class="paper intro"><h2>名单被调换，谁在说谎？</h2><p>查看三个人物的聊天与证据，在 90 秒内找出调换名单的人。</p><p>共有三次判断机会，第一次选对获 10 分，第二次 6 分，第三次 3 分。超时获得 0 分。</p><div class="actions"><button class="primary" id="start">${connected ? "开始任务" : "开始判断案件"}</button></div></section>`);
   root.querySelector("#start").onclick = () => {
+    if (network) { network.action('start', { type: 'int' }); return; }
     progress.deadline = Date.now() + 90000;
     saveProgress();
     render();
@@ -74,6 +87,7 @@ function renderStart() {
 }
 
 function expireIfNeeded() {
+  if (connected) return false;
   if (!progress.deadline || progress.solved || progress.expired || Date.now() < progress.deadline) return false;
   progress.expired = true;
   if (dialog.open) dialog.close();
@@ -133,6 +147,7 @@ function showDialog(title, body, closeLabel, confirmAction) {
 }
 
 function judge(id) {
+  if (network) { network.action('judge', { suspectId: id }); return; }
   if (expireIfNeeded() || !progress.deadline || progress.solved || progress.expired || progress.excluded.includes(id)) return;
   if (id === "chen") progress.solved = true;
   else {

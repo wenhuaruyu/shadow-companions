@@ -119,7 +119,16 @@ for (const mode of ['pg', 'rpc']) {
       const main = await room(); await reachEvent(main);
       assert.equal((await state(main)).rulesVersion, CHAPTER_RULES);
       const beforeInstructions = await Promise.all(main.tokens.map(token => game.instruction(main.id, token)));
+      await action(main, 0, 'choose', { type: 'int' });
+      assert.equal((await send(main, 1, await envelope(main, 1, 'choose', { type: 'int' }))).code, 'TASK_TAKEN');
+      await action(main, 1, 'choose', { type: 'str' });
+      now += 90000;
+      assert.equal((await state(main)).attempt, null);
+      assert.equal((await state(main, 1)).attempt, null);
+      assert.equal((await state(main)).players[0].taskChoice, 'int');
       const initial = await action(main, 0, 'start', { type: 'int' });
+      assert.equal((await send(main, 1, await envelope(main, 1, 'start', { type: 'int' }))).code, 'TASK_TAKEN');
+      assert.equal((await state(main, 1)).attempt, null);
       assert.equal(initial.attempt.gameId, 'chapter-1-intelligence'); assert.equal(initial.attempt.duration, 90000);
       assert.equal((await state(main, 1)).attempt, null);
       assert.equal((await send(main, 0, await envelope(main, 0, 'answers', { answers: [1,0,2] }))).code, 'INVALID_INPUT');
@@ -195,8 +204,9 @@ for (const mode of ['pg', 'rpc']) {
 
       const failed = await room(); await reachEvent(failed);
       for (const seat of [0,1]) {
-        await action(failed, seat, 'start', { type: 'int' });
-        await action(failed, seat, 'judge', { suspectId: 'chen' });
+        await action(failed, seat, 'start', { type: seat === 0 ? 'int' : 'str' });
+        if (seat === 0) await action(failed, seat, 'judge', { suspectId: 'chen' });
+        else await action(failed, seat, 'abandon');
       }
       const invalid = await envelope(failed, 0, 'invest', { int: 16, str: 0 });
       assert.equal((await send(failed, 0, invalid)).status, 400);
@@ -210,7 +220,8 @@ for (const mode of ['pg', 'rpc']) {
       assert.equal(failedResult.phase, 'result');
       assert.equal(failedResult.records.length, 1);
       assert.equal(failedResult.records[0].success, false);
-      assert.ok(failedResult.players.every(player => player.int === 14));
+      assert.equal(failedResult.players[0].int, 14);
+      assert.equal(failedResult.players[1].int, 4);
       const recovered = new GameplayService(store, () => now);
       assert.equal((await recovered.state(failed.id, failed.tokens[0])).records[0].sums.int, 2);
       for (const seat of [0,1]) await action(failed, seat, 'continue');

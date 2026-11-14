@@ -86,10 +86,16 @@ export function settleChapterGames(state, rewards, now) {
 export function applyChapterGame(state, document, body, rewards, now) {
   const player = state.players[document.seat];
   if (state.phase !== 'event') fail('PHASE_MISMATCH', '当前阶段不允许小游戏操作');
-  if (body.kind === 'start') {
+  if (['choose', 'start'].includes(body.kind)) {
     if (state.chapter !== 0) fail('WRONG_GAME', '第二章请双方选择协作分工');
     if (player.attempt) fail('ACTION_POINT_USED', '本章行动机会已使用');
     if (!['int', 'str'].includes(body.data.type)) fail('INVALID_INPUT', '小游戏类型无效', 400);
+    if (state.players.some((other, seat) => seat !== document.seat && (other.taskChoice || other.attempt?.type) === body.data.type)) {
+      fail('TASK_TAKEN', '同伴已选择此任务，请选择另一项任务');
+    }
+    if (player.taskChoice && player.taskChoice !== body.data.type) fail('TASK_LOCKED', '你已选择另一项任务');
+    player.taskChoice = body.data.type;
+    if (body.kind === 'choose') return;
     player.attempt = { id: randomUUID(), gameId: body.data.type === 'int' ? 'chapter-1-intelligence' : 'chapter-1-strength',
       type: body.data.type, startedAt: now, duration: 90000, inputSeq: -1, done: false, reward: 0,
       ...(body.data.type === 'int' ? { guesses: [], solved: false } : { run: createRun() }) };

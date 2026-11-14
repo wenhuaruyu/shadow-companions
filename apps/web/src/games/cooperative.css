@@ -13,3 +13,19 @@ p { line-height: 1.8; } button, input { font: inherit; min-height: 46px; border:
 .map-legend { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 10px; font-size: 13px; }
 .map-legend span { width: 18px; height: 18px; border: 1px solid #ffffff70; margin-left: 12px; }
 .road-key { background: #efdbb5; } .wall-key { background: #343b43; } .exit-key { background: #3f835d; }
+/* The embedded campaign task uses the standalone game for the whole viewport. */
+body[data-network-game][data-phase="coop-playing"] { height: 100dvh; overflow: hidden; }
+body[data-network-game][data-phase="coop-playing"] main { max-width: none; height: 100dvh; padding: 8px max(8px, env(safe-area-inset-right)) 8px max(8px, env(safe-area-inset-left)); display: flex; flex-direction: column; }
+body[data-network-game][data-phase="coop-playing"] header { display: none; }
+body[data-network-game][data-phase="coop-playing"] #play { min-height: 0; flex: 1; display: flex; flex-direction: column; }
+body[data-network-game][data-phase="coop-playing"] .toolbar { padding: 0; min-height: 30px; align-items: center; }
+body[data-network-game][data-phase="coop-playing"] .map-legend { margin: 2px 0; }
+body[data-network-game][data-phase="coop-playing"] .board { min-height: 0; flex: 1; display: flex; justify-content: center; }
+body[data-network-game][data-phase="coop-playing"] canvas { width: auto; height: 100%; max-width: 100%; min-height: 0; margin: 0; aspect-ratio: 1; }
+body[data-network-game][data-phase="coop-playing"] #controls { margin-top: 4px; }
+body[data-network-game][data-phase="coop-playing"] .pad button { min-height: 32px; padding: 2px 12px; }
+body[data-network-game][data-phase="coop-playing"] .hint { margin: 2px 0; font-size: 11px; }
+body[data-network-game][data-phase="coop-playing"] #notice:empty { display: none; }
+body[data-network-game][data-phase="coop-playing"] .map-legend,
+body[data-network-game][data-phase="coop-playing"] .hint { display: none; }
+body[data-network-game][data-phase="coop-playing"] #controls p { margin: 0; line-height: 24px; }

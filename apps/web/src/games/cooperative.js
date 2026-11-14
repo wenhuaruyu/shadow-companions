@@ -1,3 +1,4 @@
+import { connectGame } from './game-network.js';
 import { newRecoverySecret, newRequestId, readStored } from '../state/storage.js';
 import { escapeHtml } from '../components/dom.js';
 
@@ -17,6 +18,9 @@ let lastMove = -Infinity;
 let pending = session ? readStored(sessionStorage, `anxian.coop.pending.${session.id}`) : null;
 const notice = text => { $('#notice').textContent = text; };
 const label = role => role === 'int' ? '引路者 · 智力' : role === 'str' ? '营救者 · 武力' : '尚未选择分工';
+const networked = new URLSearchParams(location.search).has('network');
+if (networked) { session = null; document.body.dataset.networkGame = 'true'; }
+const network = networked ? connectGame(main => { if (main.cooperative) accept(main.cooperative); }) : null;
 
 async function request(path, body) {
   const controller = new AbortController();
@@ -71,6 +75,7 @@ async function enter(joining) {
 }
 
 async function send(kind, data = {}) {
+  if (network) { network.action(`coop_${kind}`, data); return; }
   if (busy || !session || !snapshot) return;
   busy = true;
   pending ||= { room: session.id, requestId: newRequestId(), kind, data };
@@ -97,11 +102,13 @@ $('#retry').onclick = () => send();
 
 function render() {
   if (!snapshot) {
+    if (networked) { $('#lobby').textContent = '正在连接协作任务…'; return; }
     $('#lobby').innerHTML = `<h2>两个人，一条撤离路线</h2><p>引路者掌握完整地图，每 5 秒可照亮一条最多 5 格的直线，照明持续 20 秒。营救者在黑暗中寻找五个人，并在 180 秒内选择撤离。</p><p>只通过照明引路，请双方约定不使用语音或文字报路。</p><div class="actions"><button id="create" class="primary">创建协作房间</button></div><label for="room-code">同伴的房间编号</label><input id="room-code" autocomplete="off" value="${escapeHtml(room || '')}"><div class="actions"><button id="join">加入协作房间</button></div>`;
     $('#create').onclick = () => enter(false);
     $('#join').onclick = () => enter(true);
     return;
   }
+  document.body.dataset.phase = snapshot.phase;
   const lobby = snapshot.phase === 'coop-lobby';
   $('#lobby').hidden = !lobby;
   $('#play').hidden = lobby || snapshot.done;
@@ -116,7 +123,7 @@ function render() {
     $('#lobby').innerHTML = `<h2>选择你的分工</h2>
       <section aria-label="游戏说明">
         <h3>游戏说明</h3>
-        <p>两人协作，在 <strong>180 秒</strong>内寻找迷宫中的五名人员，并尝试到达绿色出口撤离。双方分别选择一种分工，均点击“准备开始”后共同计时。</p>
+        <p>两人协作，在 <strong>180 秒</strong>内寻找迷宫中的五名人员，并尝试到达绿色出口撤离。双方分别选择一种分工，均点击“${networked ? "开始游戏" : "准备开始"}”后共同计时。</p>
         <p>找到人员立即计入人数，可以提前撤离。找到 0～5 人，分别获得 0、1、2、4、6、8 分，成功撤离额外加 2 分，每人最高 10 分。超时保留已找到人员的奖励。</p>
         <p>合作时只通过照明传递路线，请双方约定不使用语音或文字报路。刷新或短暂断线期间，倒计时继续。</p>
       </section>
@@ -133,9 +140,8 @@ function render() {
           </div>
         </div>
       </section>
-      <h3>邀请同伴并选择分工</h3>
-      <p>将邀请链接发给同伴，两人分别选择引路者和营救者。</p><a id="invite-link" href="${invite}">${invite}</a><button id="copy">复制邀请链接</button><div class="seats">${snapshot.players.map((player, index) => `<div class="seat"><b>${index === snapshot.me ? '你' : '同伴'}</b>${label(player.role)} · ${player.ready ? '已准备' : '未准备'}</div>`).join('')}</div><div class="actions">${['int', 'str'].map(role => `<button data-role="${role}" ${mine.ready || snapshot.players.some((p, i) => i !== snapshot.me && p.role === role) ? 'disabled' : ''} class="${mine.role === role ? 'primary' : ''}">${label(role)}</button>`).join('')}</div><button id="ready" class="primary" ${!mine.role ? 'disabled' : ''}>${mine.ready ? '取消准备' : '准备开始'}</button>`;
-    $('#copy').onclick = async () => {
+      ${networked ? '<h3>选择分工并开始</h3>' : `<h3>邀请同伴并选择分工</h3><p>将邀请链接发给同伴，两人分别选择引路者和营救者。</p><a id="invite-link" href="${invite}">${invite}</a><button id="copy">复制邀请链接</button>`}<div class="seats">${snapshot.players.map((player, index) => `<div class="seat"><b>${index === snapshot.me ? '你' : '同伴'}</b>${label(player.role)} · ${player.ready ? '已准备' : '未准备'}</div>`).join('')}</div><div class="actions">${['int', 'str'].map(role => `<button data-role="${role}" ${mine.ready || snapshot.players.some((p, i) => i !== snapshot.me && p.role === role) ? 'disabled' : ''} class="${mine.role === role ? 'primary' : ''}">${label(role)}</button>`).join('')}</div><button id="ready" class="primary" ${!mine.role || networked && mine.ready ? 'disabled' : ''}>${networked ? mine.ready ? '已开始，等待同伴' : '开始游戏' : mine.ready ? '取消准备' : '准备开始'}</button>`;
+    if ($('#copy')) $('#copy').onclick = async () => {
       try { await navigator.clipboard.writeText(invite); notice('邀请链接已复制'); }
       catch { notice('请长按上方邀请链接复制'); }
     };

@@ -1,0 +1,28 @@
+/* Network controls inherit the original scene palette and 844 × 390 geometry. */
+body[data-network] .preview-toolbar { display: none; }
+body[data-network] .stage-viewport { inset: 0; height: 100dvh; }
+body[data-network] #preview-notice { position: fixed; left: 16px; bottom: 8px; z-index: 10; color: #eee4cc; background: #172e29; }
+body[data-network] #preview-notice:empty { display: none; }
+body[data-network] #panel { pointer-events: auto; padding: 12px 18px; box-sizing: border-box; color: #eee4cc; font: 13px/1.5 'Noto Sans SC', sans-serif; }
+body[data-network] #panel button, body[data-network] input, body[data-network] dialog button { color: #203b34; background: #c8ab72; border: 1px solid #c8ab72; padding: 5px 10px; min-height: 32px; cursor: pointer; }
+body[data-network] #panel button:disabled { opacity: .45; cursor: default; }
+body[data-network] #panel .question { display: inline-block; width: 31%; vertical-align: top; }
+body[data-network] #panel h3 { margin: 4px 0; }
+body[data-network] #chapter-board { width: auto !important; height: 145px; max-width: 100%; object-fit: contain; }
+body[data-network] input { pointer-events: auto; width: 70px; min-height: 24px; padding: 0 4px; }
+body[data-network] dialog { color: #eee4cc; background: #172e29; border: 1px solid #c8ab72; max-width: min(700px, 85vw); max-height: 80vh; }
+body[data-network] #modal-content { white-space: pre-line; line-height: 1.7; }
+/* Join controls live inside the original 844 × 390 scene and scale with it. */
+.room-join-form { flex-shrink: 0; display: grid; grid-template-columns: 88px minmax(0, 1fr) 52px; align-items: center; gap: 6px; width: 100%; pointer-events: auto; color: #eee4cc; font: 12px/1.5 'Noto Sans SC', sans-serif; }
+body[data-network] .room-join-form input { width: 100%; min-width: 0; height: 38px; margin: 0; padding: 6px; box-sizing: border-box; background: #10251f; color: #eee4cc; border: 1px solid #c8ab72; font-size: 16px; }
+.room-join-form button { height: 38px; border: 1px solid #c8ab72; background: #c8ab72; color: #203b34; font-size: 14px; }
+.room-join-form button:disabled { opacity: .5; }
+#room-join-error { grid-column: 1 / -1; margin: 0; color: #f3c3a7; }
+#room-join-error:empty { display: none; }
+.room-lobby-panel { gap: 5px; max-height: 320px; overflow-y: auto; }
+.room-lobby-panel > p { line-height: 1.4; }
+.room-lobby-panel > div:not(.room-copy-actions) p { font-size: 11px; line-height: 1.4; }
+.room-copy-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
+.room-copy-actions > button, .room-copy-actions > button > div { width: 100%; }
+.room-copy-actions button p { width: 100%; font-size: 12px; }
+#standalone-game { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 30; background: #241c16; }

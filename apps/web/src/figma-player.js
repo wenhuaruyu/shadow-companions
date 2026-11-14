@@ -5,6 +5,8 @@ const notice = document.querySelector("#preview-notice");
 const picker = document.querySelector("#scene-picker");
 const query = new URLSearchParams(location.search);
 const preview = query.get("preview") === "1";
+const connected = location.pathname === '/online.html';
+let network = null;
 const cache = new Map();
 let manifest;
 let current;
@@ -13,7 +15,7 @@ let timer;
 let showingCG = false;
 
 function resize() {
-  const scale = Math.min(innerWidth / 844, (innerHeight - 42) / 390);
+  const scale = Math.min(innerWidth / 844, (innerHeight - (connected ? 0 : 42)) / 390);
   stage.style.transform = `scale(${Math.max(0.1, scale)})`;
 }
 
@@ -80,7 +82,8 @@ async function show(id, { cg = false, replace = false } = {}) {
     wire(scene);
     identifyDialogue();
     notice.textContent = target.message;
-    if (!showingCG) schedule(scene);
+    if (!showingCG && !connected) schedule(scene);
+    if (network) await network.shown(scene);
   } catch (error) {
     notice.textContent = error.message + "，請重新載入。";
   }
@@ -111,6 +114,8 @@ function schedule(scene) {
 }
 
 function wire(scene) {
+  stage.firstElementChild.style.pointerEvents = 'none';
+  for (const decoration of stage.querySelectorAll('[data-name*="常驻双角色"]')) decoration.style.pointerEvents = 'none';
   for (const link of scene.links.filter(
     (item) => item.trigger === "ON_CLICK",
   )) {
@@ -118,6 +123,7 @@ function wire(scene) {
       `[data-node-id="${CSS.escape(link.id)}"]`,
     );
     if (!element) continue;
+    element.style.pointerEvents = 'auto';
     element.dataset.destination = link.destination;
     element.dataset.actionName = link.name;
     if (element.tagName !== "BUTTON") {
@@ -134,9 +140,10 @@ function wire(scene) {
   }
 }
 
-function activate(element) {
+async function activate(element) {
+  if (network && await network.activate(element)) return;
   if (
-    !preview &&
+    !connected && !preview &&
     /开始入口|開始入口|开始双人|開始雙人|加入/.test(element.dataset.actionName)
   )
     return online();
@@ -150,11 +157,11 @@ stage.addEventListener("click", (event) => {
   if (showingCG) {
     showingCG = false;
     stage.classList.remove("cg-first");
-    schedule(current);
+    if (!connected) schedule(current);
     return;
   }
   const action = event.target.closest("[data-destination]");
-  if (action) activate(action);
+  if (action) activate(action).catch(error => { notice.textContent = error.message; });
 });
 
 stage.addEventListener("keydown", (event) => {
@@ -166,7 +173,7 @@ stage.addEventListener("keydown", (event) => {
     event.target.dataset.destination &&
     event.target.tagName !== "BUTTON"
   ) {
-    activate(event.target);
+    activate(event.target).catch(error => { notice.textContent = error.message; });
   }
 });
 
@@ -194,7 +201,12 @@ try {
   document.querySelector("#mode-label").textContent = preview
     ? "五幕設計預覽"
     : "暗渡 1941";
-  if (query.has("invite")) online();
+  if (connected) {
+    const { createDesignNetwork } = await import('./design-network.js');
+    network = createDesignNetwork({ show, getScene: () => current, stage, notice });
+    picker.disabled = true;
+    await network.start();
+  } else if (query.has("invite")) online();
   else
     await show(location.hash.slice(1).replace("-", ":") || "3:25", {
       replace: true,
