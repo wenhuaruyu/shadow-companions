@@ -26,3 +26,6 @@ coverage/
 # Frontend build artifacts and local parallel worktrees
 /.worktrees/
 /apps/web/dist/
+
+# Generated CloudRun upload bundles
+/output/deployment/*.zip

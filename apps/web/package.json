@@ -7,5 +7,8 @@
     "dev": "node --env-file-if-exists=../../.env dev-server.mjs",
     "build": "node scripts/build.mjs",
     "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

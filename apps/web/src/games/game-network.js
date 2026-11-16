@@ -28,3 +28,32 @@ export function connectGame(update) {
     parent.postMessage(lastAction, location.origin);
   } };
 }
+
+// Tea games can generate several inputs while an earlier HTTP request is in flight.
+export function connectQueuedGame(update) {
+  const queue = [];
+  let current = null;
+  function flush() {
+    if (current || !queue.length) return;
+    current = queue.shift();
+    parent.postMessage(current, location.origin);
+  }
+  window.addEventListener('message', event => {
+    if (event.origin !== location.origin || event.source !== parent) return;
+    if (event.data?.type === 'anxian-game-state') update(event.data.snapshot);
+    if (event.data?.type === 'anxian-game-ack' && event.data.actionId === current?.actionId) {
+      current = null;
+      flush();
+    }
+    if (event.data?.type === 'anxian-game-error') {
+      let error = document.querySelector('#network-error');
+      if (!error) { error = document.createElement('p'); error.id = 'network-error'; error.setAttribute('role', 'alert'); document.body.append(error); }
+      error.textContent = event.data.message;
+    }
+  });
+  parent.postMessage({ type: 'anxian-game-ready' }, location.origin);
+  return { action(kind, data = {}) {
+    queue.push({ type: 'anxian-game-action', actionId: crypto.randomUUID(), kind, data });
+    flush();
+  } };
+}

@@ -9,7 +9,5 @@ apps/server/data
 design
 seven-days-demo
 seven-days-duel
-**/*.png
 
 .worktrees
-apps/web/dist

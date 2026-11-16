@@ -19,6 +19,9 @@ p { line-height: 1.8; margin: 8px 0; }
 .person strong { font-family: "Songti SC", "STSong", serif; font-size: 24px; }
 .person small { font-size: 13px; }
 .portrait { width: min(100%, 150px); height: 150px; color: #51402d; background: radial-gradient(ellipse, #f2e3c6, #c5a77b); border: 1px solid #ac8a5f; }
+.portrait { position: relative; display: block; overflow: hidden; flex-shrink: 0; }
+.portrait img { position: absolute; width: 150%; max-width: none; height: auto; left: 50%; top: -5%; transform: translateX(-50%); }
+.portrait-su img { width: 230%; top: -10%; }
 .stamp { color: #8b3428; font-size: 13px; border: 1px solid; padding: 2px 10px; }
 .hint { color: #d6bb90; font-size: 13px; text-align: center; margin-top: 20px; }
 .detail-head { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 20px; }

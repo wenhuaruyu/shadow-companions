@@ -9,6 +9,7 @@ export const GAME = Object.freeze({
 export const VERSION = 'back-alley-touch-1';
 export const DURATION = 90000;
 export const STEP_MS = 200;
+export const GUARD_STEP_TICKS = 3;
 export const map = ['##...#.######','#...........#','###.#######.#','######.####.#','#...........#','#.###########','#.#####...###','#...........#','#############'];
 export const start = [1, 1];
 export const checkpoints = [[11, 2], [1, 5]];
@@ -40,8 +41,8 @@ export function step(run, direction = null) {
   const light = positions(lamps, run.tick, 9);
   if (run.tick < run.blockedUntil) return run;
   if (light.some(p => same(p, run.position))) { discover(run); return run; }
-  const previousGuards = positions(guards, run.tick - 1, 3);
-  const nextGuards = positions(guards, run.tick, 3);
+  const previousGuards = positions(guards, run.tick - 1, GUARD_STEP_TICKS);
+  const nextGuards = positions(guards, run.tick, GUARD_STEP_TICKS);
   const delta = directions[direction];
   if (delta) {
     const next = [run.position[0] + delta[0], run.position[1] + delta[1]];

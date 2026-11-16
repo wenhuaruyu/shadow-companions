@@ -1,0 +1,48 @@
+@import url('/src/platform/viewport.css');
+
+html body dialog.landscape-gate {
+  position: fixed;
+  inset: auto;
+  left: var(--visible-left);
+  top: var(--visible-top);
+  box-sizing: border-box;
+  width: var(--visible-width);
+  height: var(--visible-height);
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 32px;
+  border: 0;
+  outline: none;
+  background: #091714;
+  color: #ede2c6;
+  font: 22px/1.6 "Noto Serif SC", "Songti SC", serif;
+  text-align: center;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+html body dialog.landscape-gate[open] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-content: center;
+  gap: 24px;
+}
+html body dialog.landscape-gate::backdrop { background: #091714; }
+html body dialog.landscape-gate svg { width: 80px; height: 80px; margin: auto; color: #c8ab72; }
+html body dialog.landscape-gate p { margin: 0; }
+html body dialog.landscape-gate .landscape-help {
+  max-width: 360px;
+  margin: 0 auto;
+  color: #c8ab72;
+  font: 16px/1.7 "Noto Sans SC", "Songti SC", serif;
+}
+html body dialog.landscape-gate button {
+  justify-self: center;
+  min-height: 44px;
+  padding: 8px 24px;
+  border: 1px solid #c8ab72;
+  background: #c8ab72;
+  color: #091714;
+  font: 18px/1.5 "Noto Sans SC", "Songti SC", serif;
+}
+html body dialog.landscape-gate button:disabled { opacity: .6; }

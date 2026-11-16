@@ -49,12 +49,13 @@ function saveProgress() {
 }
 
 function portrait(id) {
-  const features = {
-    su: '<circle cx="96" cy="36" r="13"/><path d="M45 65 Q36 17 75 22 Q106 22 105 69 L96 57 Q74 45 51 60Z"/>',
-    mai: '<path d="M48 48 Q45 17 77 24 Q101 25 102 53 L94 46 Q74 32 53 50Z"/><path d="M70 109h10v-10h7v-8h-7v-9H70v9h-7v8h7Z" fill="#e7d4b2"/>',
-    chen: '<path d="M40 45 Q43 23 74 23 Q105 23 108 45Z"/><path d="M34 46h82v9H34Z"/><path d="M56 67h14m12 0h14M70 67h12" stroke="#30251e" stroke-width="2" fill="none"/>',
+  const portraits = {
+    su: { src: '/assets/figma/su-manyun-portrait.png', name: '苏曼云' },
+    mai: { src: '/assets/figma/father-mai-portrait.png', name: '麦神父' },
+    chen: { src: '/assets/figma/chen-bo-portrait.png', name: '陈伯' },
   };
-  return `<svg class="portrait" viewBox="0 0 150 150" aria-hidden="true"><path d="M26 150v-25q3-29 49-30 47 1 49 30v25Z" fill="currentColor"/><ellipse cx="75" cy="63" rx="27" ry="34" fill="#c4a27c"/><path d="M63 86q12 8 24 0" stroke="#705338" fill="none"/>${features[id]}</svg>`;
+  const person = portraits[id];
+  return `<span class="portrait portrait-${id}"><img src="${person.src}" alt="${person.name}立绘" decoding="async"></span>`;
 }
 
 function header() {

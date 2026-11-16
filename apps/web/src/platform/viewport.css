@@ -1,0 +1,89 @@
+:root {
+  --visible-left: 0px;
+  --visible-top: 0px;
+  --visible-width: 100vw;
+  --visible-height: 100vh;
+  --game-gap-top: max(18px, env(safe-area-inset-top, 0px));
+  --game-gap-right: max(14px, env(safe-area-inset-right, 0px));
+  --game-gap-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  --game-gap-left: max(14px, env(safe-area-inset-left, 0px));
+  --game-left: calc(var(--visible-left) + var(--game-gap-left));
+  --game-top: calc(var(--visible-top) + var(--game-gap-top));
+  --game-width: calc(var(--visible-width) - var(--game-gap-left) - var(--game-gap-right));
+  --game-height: calc(var(--visible-height) - var(--game-gap-top) - var(--game-gap-bottom));
+}
+html[data-game-viewport="embedded"] {
+  --game-gap-top: 0px;
+  --game-gap-right: 0px;
+  --game-gap-bottom: 0px;
+  --game-gap-left: 0px;
+}
+html body[data-game-viewport] { min-height: 0; }
+#game-viewport-frame {
+  position: fixed;
+  left: calc(var(--game-left) - 4px);
+  top: calc(var(--game-top) - 4px);
+  width: calc(var(--game-width) + 8px);
+  height: calc(var(--game-height) + 8px);
+  box-sizing: border-box;
+  border: 1px solid #c8ab72;
+  box-shadow: 0 0 0 6px #091714;
+  pointer-events: none;
+  z-index: 40;
+}
+html body[data-game-viewport] .stage-viewport,
+html body[data-game-viewport] #standalone-game,
+html body[data-game-viewport] > main:not(.stage-viewport),
+html body[data-game-viewport] > .game {
+  position: fixed;
+  inset: auto;
+  left: var(--game-left);
+  top: var(--game-top);
+  width: var(--game-width);
+  height: var(--game-height);
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+html body[data-game-viewport]:not([data-network]) .stage-viewport {
+  top: calc(var(--game-top) + 42px);
+  height: calc(var(--game-height) - 42px);
+}
+html body[data-game-viewport] .preview-toolbar {
+  top: var(--game-top);
+  left: var(--game-left);
+  width: var(--game-width);
+}
+html body[data-game-viewport] > main:not(.stage-viewport) {
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+html body[data-game-viewport] > .game {
+  padding: 0;
+}
+html body[data-game-viewport] .game .map-frame {
+  width: min(var(--game-width), calc((var(--game-height) - 40px) * 13 / 9));
+  height: min(var(--game-height), calc(var(--game-width) * 9 / 13 + 40px));
+}
+html body[data-game-viewport] #preview-notice,
+html body[data-game-viewport] #network-error {
+  position: fixed;
+  left: calc(var(--game-left) + 8px);
+  bottom: calc(100vh - var(--game-top) - var(--game-height) + 8px);
+  max-width: calc(var(--game-width) - 16px);
+  transform: none;
+}
+html body[data-game-viewport] dialog:not(.landscape-gate) {
+  position: fixed;
+  top: var(--game-top);
+  left: var(--game-left);
+  right: calc(100vw - var(--game-left) - var(--game-width));
+  bottom: calc(100vh - var(--game-top) - var(--game-height));
+  margin: auto;
+}
+html body[data-game-viewport] #modal,
+html body[data-game-viewport] dialog:not(.landscape-gate) {
+  max-width: calc(var(--game-width) - 16px);
+  max-height: calc(var(--game-height) - 16px);
+}

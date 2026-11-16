@@ -18,7 +18,8 @@
     "test:web": "npm test --workspace @anxian/web",
     "test:db": "npm run test:db --workspace @anxian/server",
     "build": "npm run build --workspace @anxian/web",
-    "db:migrate": "npm run db:migrate --workspace @anxian/server"
+    "db:migrate": "npm run db:migrate --workspace @anxian/server",
+    "dev:local": "node scripts/dev-local.mjs"
   },
   "engines": {
     "node": ">=24"

@@ -46,7 +46,7 @@ export function validateEntry(body, joining) {
   if (joining && (typeof body.room !== 'string' || !/^[0-9a-f-]{36}$/.test(body.room))) {
     reject(400, 'INVALID_INPUT', '房间编号格式错误');
   }
-  if (body.rulesVersion !== undefined && (joining || body.rulesVersion !== 'chapter-games-1')) {
+  if (body.rulesVersion !== undefined && (joining || !['chapter-games-1', 'chapter-games-2', 'chapter-games-3'].includes(body.rulesVersion))) {
     reject(400, 'CONTENT_VERSION_UNSUPPORTED', '玩法规则版本不受支持');
   }
   if (!joining && body.contentVersion !== CONTENT_VERSION) {

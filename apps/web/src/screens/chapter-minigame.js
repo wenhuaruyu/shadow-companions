@@ -2,6 +2,7 @@ import { button, modal } from '../components/dom.js';
 import { suspects } from '../games/investigation-content.js';
 import { attemptElapsed } from '../state/snapshot.js';
 import { positions, guards, lamps } from '../games/back-alley.js';
+import { drawFemalePlayer } from '../games/female-player.js';
 
 let active = null;
 const same = (a, b) => a[0] === b[0] && a[1] === b[1];
@@ -182,11 +183,7 @@ export function updateChapterMinigame(snapshot) {
     positions(lamps, run.tick, 9).forEach(point => marker(point, '#fffdf0'));
     document.querySelector('#chapter-feedback').textContent = `掩护点 ${Math.min(2, run.checkpoint)}/2 · 被发现 ${run.caught} 次`;
   }
-  // A small pixel figure stays inside the road cell.
-  const [x, y] = position;
-  ctx.fillStyle = '#f0ba87'; ctx.fillRect(x * 40 + 15, y * 40 + 8, 10, 10);
-  ctx.fillStyle = '#2574bd'; ctx.fillRect(x * 40 + 12, y * 40 + 18, 16, 12);
-  ctx.fillStyle = '#171a20'; ctx.fillRect(x * 40 + 12, y * 40 + 30, 5, 5); ctx.fillRect(x * 40 + 23, y * 40 + 30, 5, 5);
+  drawFemalePlayer(ctx, position, 40);
   if (active.gesture && coop?.role === 'int') {
     ctx.strokeStyle = '#fff'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(active.gesture.from[0] * 40 + 20, active.gesture.from[1] * 40 + 20); ctx.lineTo(active.gesture.to[0] * 40 + 20, active.gesture.to[1] * 40 + 20); ctx.stroke();
   }

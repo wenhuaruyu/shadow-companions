@@ -55,11 +55,20 @@ function proxy(request, response, target) {
 export function createWebServer({
   apiTarget = process.env.API_TARGET || "http://127.0.0.1:3000",
   root = webRoot,
+  entryQuery = null,
 } = {}) {
   const target = new URL(apiTarget);
   if (!["http:", "https:"].includes(target.protocol))
     throw new Error("API_TARGET必须使用http或https");
   return createServer(async (request, response) => {
+    if (entryQuery && request.method === 'GET') {
+      const url = new URL(request.url, 'http://localhost');
+      if (['/', '/online.html'].includes(url.pathname) && !url.searchParams.has(entryQuery)) {
+        url.searchParams.set(entryQuery, '1');
+        response.writeHead(302, { Location: `/online.html?${url.searchParams}` }).end();
+        return;
+      }
+    }
     if (request.url.startsWith("/api/"))
       return proxy(request, response, target);
     try {

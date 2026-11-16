@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>茶园辨途 · 暗线同行者</title>
 
 <style>
@@ -11,12 +11,13 @@
 
 .morse-symbols{display:inline-flex;align-items:center;gap:5px;vertical-align:middle;letter-spacing:0}.morse-symbols i{display:inline-block;background:currentColor;height:4px;flex-shrink:0}.morse-symbols .dot{width:4px;border-radius:50%}.morse-symbols .dash{width:12px}.signal{display:flex;align-items:center;justify-content:center;gap:22px;letter-spacing:0}.signal .morse-symbols{gap:7px}.signal .morse-symbols i{height:6px}.signal .morse-symbols .dot{width:6px}.signal .morse-symbols .dash{width:18px}.codebook > span{display:flex;align-items:center;justify-content:center;gap:10px}.codebook b{font-weight:normal}.signal-divider{font:28px monospace}
 [hidden]{display:none!important}#peek{margin-left:12px}#memory-clock{font-size:14px;color:#e9c98a;margin-left:15px}</style>
+<link rel="stylesheet" href="/games/tea-garden-mobile.css">
 </head>
-<body>
+<body><div id="landscape-stage">
 <main class="game">
 <header><div><div class="eyebrow">暗线同行者 / 第三幕 · 惠阳茶园</div><h1>茶园辨途</h1></div><div class="meta"><span id="mistakes">失误 0</span><span id="progress">已确认 0 / 6</span><span class="timer" id="timer">02:00</span></div></header>
 <div class="intro-line"><p id="instruction">点击一张情报卡，再点击右侧的归档区域。</p><span class="step" id="step">情报归档</span></div>
-<div class="board"><section aria-label="情报卡"><h2 class="section-label">随身情报 · 点击已归档的卡片可以调整</h2><div class="clues" id="clues"></div></section><section aria-label="撤离路线"><h2 class="section-label" id="route-label">路线档案 · 选择归档位置</h2><div class="routes" id="routes"></div></section></div>
+<div class="board"><section aria-label="情报卡"><h2 class="section-label">随身情报 · 上下滑动查看，点击卡片调整</h2><div class="clues" id="clues"></div></section><section aria-label="撤离路线"><h2 class="section-label" id="route-label">路线档案 · 选择归档位置</h2><div class="routes" id="routes"></div></section></div>
 <section class="morse-panel" id="morse-panel" hidden aria-label="摩尔斯电码破译">
 <div class="eyebrow">短枪队 · 接应急电</div><h2 id="morse-title">记住随身码本</h2>
 <p id="memory-story">路线情报已经整理完。交通员正在抄收短枪队的回电，你取出随身码本准备译读。同伴催促你尽快出发，你决定先记下数字编码，把码本收进衣袋，腾出手处理接应电报。</p>
@@ -27,5 +28,5 @@
 </main>
 <div class="overlay" id="intro"><section class="panel" role="dialog" aria-modal="true" aria-labelledby="intro-title"><div class="eyebrow">1942年 · 惠阳茶园</div><h2 id="intro-title">迷雾里的伪装</h2><p>队伍藏身茶园，交通员带回三条撤离路线的消息。你选择负责情报分析，同伴前去准备武装护送。你要整理线索，再记住随身码本、破译短枪队的确认电报，找到与接应队会合的路。</p><p class="quote">“我去准备护送，你把路线理清楚。接应队还会发来最后一封电报，先记住码本。交通员会在译文核实后告诉你接应地点，收到确认，我们再出发。”<br>——同伴</p><div class="rules">在 120 秒内归档情报、限时记忆码本、破译电报，再对照路线出发。<br>码本可记忆 20 秒。再次查看 5 秒、归档错误、译码错误或路线选错，均计入失误。<br>完成获得智力 +5，失误不超过 1 次获得智力 +10，超时获得 +0。</div><button class="primary" id="start">开始分析</button></section></div>
 <div class="overlay" id="result" hidden><section class="panel" role="dialog" aria-modal="true" aria-labelledby="result-title"><div class="eyebrow" id="result-kicker"></div><h2 id="result-title"></h2><p id="result-story"></p><div class="reward" id="reward"></div><div class="stats"><span>累计失误<b id="result-mistakes"></b></span><span>本轮用时<b id="result-time"></b></span></div><p class="result-note" id="result-note"></p><div class="panel-actions"><button class="primary" id="restart">重新挑战</button><button class="secondary" id="review">回看情报</button></div></section></div>
-<script type="module" src="/games/tea-garden.js"></script>
+</div><script type="module" src="/games/tea-garden.js"></script>
 </body></html>

@@ -1,11 +1,42 @@
+import { createCards, settleCards, applyCards, cardsSnapshot } from './wuliting.js';
+import { teaInputs, createTea, settleTea, teaReward, applyTea, teaSnapshot } from './tea-games.js';
 import { randomUUID } from 'node:crypto';
 import { ApiError } from './rooms.js';
 import { initialCooperative, applyCooperative, settleCooperative, cooperativeSnapshot } from './cooperative.js';
 import { createRun, step, reward as alleyReward, map, checkpoints, exit, guards, lamps, STEP_MS, DURATION } from '../../../web/src/games/back-alley.js';
 
-export const CHAPTER_RULES = 'chapter-games-1';
-export const chapterInputs = ['judge', 'alley_move', 'coop_role', 'coop_ready', 'coop_move', 'coop_light', 'coop_escape'];
+export const CHAPTER_RULES = 'chapter-games-2';
+export const isChapterRules = value => ['chapter-games-1', CHAPTER_RULES, 'chapter-games-3'].includes(value);
+export const chapterInputs = ['cards_ready', 'cards_play', ...teaInputs, 'judge', 'alley_move', 'coop_role', 'coop_ready', 'coop_move', 'coop_light', 'coop_escape'];
 const fail = (code, message, status = 409) => { throw new ApiError(status, code, message); };
+
+export function beginCards(state) {
+  state.cards = createCards();
+  state.players.forEach(player => {
+    player.attempt = { id: state.cards.id, gameId: 'chapter-4-wuliting', type: 'coop',
+      duration: 300000, startedAt: null, done: false, inputSeq: -1, reward: 0 };
+  });
+}
+
+function saveCards(state, rewards) {
+  const game = state.cards;
+  state.players.forEach((player, seat) => {
+    const attempt = player.attempt;
+    attempt.startedAt = game.startedAt;
+    if (!game.done || attempt.done) return;
+    Object.assign(attempt, { done: true, reward: game.reward, elapsed: game.endedAt - game.startedAt });
+    for (const attribute of ['int', 'str']) {
+      player[attribute] += game.reward;
+      rewards.push({ seat, attemptId: attempt.id, attribute, amount: game.reward });
+    }
+  });
+  if (game.done) {
+    if (game.winner === 0) {
+      state.records.push({ chapter: 3, success: false, reason: '五里亭查封' });
+      state.phase = 'result';
+    } else state.phase = 'invest';
+  }
+}
 
 export function beginCooperation(state) {
   const initial = initialCooperative();
@@ -43,7 +74,7 @@ function finishIndividual(state, seat, rewards, now, abandoned = false) {
   const player = state.players[seat];
   const attempt = player.attempt;
   if (attempt.done) return;
-  const amount = attempt.type === 'str' ? alleyReward(attempt.run)
+  const amount = attempt.tea ? teaReward(attempt) : attempt.type === 'str' ? alleyReward(attempt.run)
     : attempt.solved ? [10, 6, 3][attempt.guesses.length - 1] : 0;
   Object.assign(attempt, { done: true, reward: amount, abandoned,
     elapsed: Math.min(attempt.duration, Math.max(0, now - attempt.startedAt)) });
@@ -62,6 +93,11 @@ function advanceAlley(attempt, now, includeCurrent = false) {
 }
 
 export function settleChapterGames(state, rewards, now) {
+  if (state.cards) {
+    const changed = settleCards(state.cards, now);
+    if (changed) saveCards(state, rewards);
+    return changed;
+  }
   if (state.cooperation) {
     const projected = cooperationState(state);
     if (!settleCooperative(projected, now, rewards)) return false;
@@ -74,6 +110,7 @@ export function settleChapterGames(state, rewards, now) {
     const attempt = player.attempt;
     if (!attempt || attempt.done) return;
     const expired = now >= attempt.startedAt + attempt.duration;
+    if (attempt.tea) changed = settleTea(attempt, now) || changed;
     if (attempt.run) changed = advanceAlley(attempt, now, expired) || changed;
     if (expired || attempt.run?.done) {
       finishIndividual(state, seat, rewards, now);
@@ -87,7 +124,7 @@ export function applyChapterGame(state, document, body, rewards, now) {
   const player = state.players[document.seat];
   if (state.phase !== 'event') fail('PHASE_MISMATCH', '当前阶段不允许小游戏操作');
   if (['choose', 'start'].includes(body.kind)) {
-    if (state.chapter !== 0) fail('WRONG_GAME', '第二章请双方选择协作分工');
+    if (![0, 2].includes(state.chapter)) fail('WRONG_GAME', '第二章请双方选择协作分工');
     if (player.attempt) fail('ACTION_POINT_USED', '本章行动机会已使用');
     if (!['int', 'str'].includes(body.data.type)) fail('INVALID_INPUT', '小游戏类型无效', 400);
     if (state.players.some((other, seat) => seat !== document.seat && (other.taskChoice || other.attempt?.type) === body.data.type)) {
@@ -96,6 +133,10 @@ export function applyChapterGame(state, document, body, rewards, now) {
     if (player.taskChoice && player.taskChoice !== body.data.type) fail('TASK_LOCKED', '你已选择另一项任务');
     player.taskChoice = body.data.type;
     if (body.kind === 'choose') return;
+    if (state.chapter === 2) {
+      player.attempt = { id: randomUUID(), gameId: `chapter-3-${body.data.type}`, type: body.data.type, startedAt: now, duration: 120000, inputSeq: -1, done: false, reward: 0, tea: createTea(body.data.type) };
+      return;
+    }
     player.attempt = { id: randomUUID(), gameId: body.data.type === 'int' ? 'chapter-1-intelligence' : 'chapter-1-strength',
       type: body.data.type, startedAt: now, duration: 90000, inputSeq: -1, done: false, reward: 0,
       ...(body.data.type === 'int' ? { guesses: [], solved: false } : { run: createRun() }) };
@@ -104,7 +145,13 @@ export function applyChapterGame(state, document, body, rewards, now) {
   const attempt = player.attempt;
   if (!attempt || attempt.id !== body.attemptId || attempt.done) fail('ATTEMPT_ENDED', '尝试已结束或编号不符');
   if (chapterInputs.includes(body.kind) && body.inputSeq <= attempt.inputSeq) fail('STALE_INPUT', '输入序号已过期');
-  if (state.chapter === 1) {
+  if (state.chapter === 3) {
+    if (!state.cards) fail('WRONG_GAME', '牌局尚未建立');
+    applyCards(state.cards, document.seat, body.kind, body.data, now);
+    saveCards(state, rewards);
+  } else if (state.chapter === 2) {
+    if (applyTea(attempt, body.kind, body.data, now)) finishIndividual(state, document.seat, rewards, now, body.kind === 'abandon');
+  } else if (state.chapter === 1) {
     if (!body.kind.startsWith('coop_') || !state.cooperation) fail('WRONG_GAME', '第二章仅支持双人协作');
     const projected = cooperationState(state);
     applyCooperative(projected, document.seat, document.playerCount, body.kind.slice(5), body.data, now, rewards);
@@ -135,9 +182,10 @@ export function chapterGameSnapshot(document, now) {
   const state = document.state;
   const attempt = state.players[document.seat].attempt;
   return {
-    ...(attempt ? { attempt: { ...attempt, elapsed: attempt.done ? attempt.elapsed : attempt.startedAt === null ? 0 : Math.min(attempt.duration, Math.max(0, now - attempt.startedAt)) } } : {}),
+    ...(attempt ? { attempt: { ...attempt, ...(attempt.tea ? { tea: teaSnapshot(attempt, now) } : {}), elapsed: attempt.done ? attempt.elapsed : attempt.startedAt === null ? 0 : Math.min(attempt.duration, Math.max(0, now - attempt.startedAt)) } } : {}),
     ...(attempt?.run ? { alley: { map, checkpoints, exit, guards, lamps, stepMs: STEP_MS } } : {}),
     ...(state.cooperation ? { cooperative: cooperativeSnapshot({ ...document, state: cooperationState(state) }, now) } : {}),
+    ...(state.cards ? { cards: cardsSnapshot(state.cards, now) } : {}),
     questions: null,
   };
 }

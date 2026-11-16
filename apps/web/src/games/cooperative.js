@@ -1,4 +1,6 @@
 import { connectGame } from './game-network.js';
+import { drawFemalePlayer } from './female-player.js';
+import { mapPoint } from './map-camera.js';
 import { newRecoverySecret, newRequestId, readStored } from '../state/storage.js';
 import { escapeHtml } from '../components/dom.js';
 
@@ -15,6 +17,7 @@ let lobbyView = '';
 let drawing = null;
 let hold = null;
 let lastMove = -Infinity;
+let lastPaintKey = '';
 let pending = session ? readStored(sessionStorage, `anxian.coop.pending.${session.id}`) : null;
 const notice = text => { $('#notice').textContent = text; };
 const label = role => role === 'int' ? '引路者 · 智力' : role === 'str' ? '营救者 · 武力' : '尚未选择分工';
@@ -109,6 +112,7 @@ function render() {
     return;
   }
   document.body.dataset.phase = snapshot.phase;
+  document.body.dataset.role = snapshot.role || '';
   const lobby = snapshot.phase === 'coop-lobby';
   $('#lobby').hidden = !lobby;
   $('#play').hidden = lobby || snapshot.done;
@@ -135,7 +139,7 @@ function render() {
             <p>在地图上按住并拖动，松手画出一条横向或纵向直线，每笔最多照亮 5 格，可跨墙。每 5 秒可画一笔，每笔照明持续 20 秒。开局即可画第一笔。</p>
           </div>
           <div class="seat"><b>营救者 · 获得武力奖励</b>
-            <p>你负责操纵像素小人寻找人员。通过滑动、点击相邻格或长按方向键移动，接触彩色圆圈即可找到对应人员。</p>
+            <p>你负责操纵女性小人寻找人员。通过滑动、点击相邻格或长按方向键移动，接触彩色圆圈即可找到对应人员。</p>
             <p>你只看见脚下当前格及同伴照亮的区域，可以尝试走入黑格，遇墙停留。走到绿色出口即自动撤离，结束双方行动并结算奖励。</p>
           </div>
         </div>
@@ -145,7 +149,7 @@ function render() {
       try { await navigator.clipboard.writeText(invite); notice('邀请链接已复制'); }
       catch { notice('请长按上方邀请链接复制'); }
     };
-    document.querySelectorAll('[data-role]').forEach(button => { button.onclick = () => send('role', { role: button.dataset.role }); });
+    document.querySelectorAll('button[data-role]').forEach(button => { button.onclick = () => send('role', { role: button.dataset.role }); });
     $('#ready').onclick = () => send('ready', { ready: !mine.ready });
     return;
   }
@@ -162,6 +166,7 @@ function render() {
   if (canvas.width !== snapshot.width * 50 || canvas.height !== snapshot.height * 50) {
     canvas.width = snapshot.width * 50;
     canvas.height = snapshot.height * 50;
+    lastPaintKey = '';
   }
   $('#role').textContent = label(snapshot.role);
   $('#found').textContent = `已找到 ${snapshot.found.length} / 5 人`;
@@ -184,8 +189,7 @@ function move(direction) {
   send('move', { direction });
 }
 function point(event) {
-  const rect = canvas.getBoundingClientRect();
-  return [Math.max(0, Math.min(snapshot.width - 1, Math.floor((event.clientX - rect.left) / rect.width * snapshot.width))), Math.max(0, Math.min(snapshot.height - 1, Math.floor((event.clientY - rect.top) / rect.height * snapshot.height)))];
+  return mapPoint(canvas, event, snapshot.width, snapshot.height);
 }
 function endpoint(from, to) {
   const dx = to[0] - from[0], dy = to[1] - from[1];
@@ -218,41 +222,19 @@ canvas.onpointerup = event => {
 canvas.onpointercancel = () => { drawing = null; };
 window.addEventListener('blur', () => { hold = null; drawing = null; });
 
-// Ten by twelve pixels, drawn at 3x, leaves a margin inside a 50px road cell.
-const playerSprite = [
-  '...HHHH...',
-  '..HHHHHH..',
-  '..HSSSSH..',
-  '...SKKS...',
-  '...SSSS...',
-  '..BBBBBB..',
-  '.SBBBBBBS.',
-  '.SBBBBBBS.',
-  '...BBBB...',
-  '...PPPP...',
-  '...P..P...',
-  '..KK..KK..',
-];
-const playerColors = { H: '#282326', S: '#f0ba87', K: '#171a20', B: '#2574bd', P: '#25425f' };
-function drawPlayer([x, y]) {
-  ctx.fillStyle = '#00000035';
-  ctx.fillRect(x * 50 + 11, y * 50 + 41, 28, 4);
-  for (let row = 0; row < playerSprite.length; row++) {
-    for (let column = 0; column < playerSprite[row].length; column++) {
-      const color = playerColors[playerSprite[row][column]];
-      if (!color) continue;
-      ctx.fillStyle = color;
-      ctx.fillRect(x * 50 + 10 + column * 3, y * 50 + 6 + row * 3, 3, 3);
-    }
-  }
-}
-
 function draw() {
-  if (!snapshot?.grid || snapshot.done) return;
+  if (!snapshot?.grid || snapshot.done || document.hidden) return;
   const now = snapshot.serverNow + performance.now() - receivedAt;
   const remaining = Math.max(0, snapshot.remaining - (performance.now() - receivedAt));
-  $('#timer').textContent = `${Math.ceil(remaining / 1000)} 秒`;
   const cooldown = Math.max(0, snapshot.cooldown - (performance.now() - receivedAt));
+  const paintKey = JSON.stringify([
+    snapshot.version, snapshot.role, snapshot.position,
+    snapshot.lights.map(light => light.expiresAt > now),
+    Math.ceil(remaining / 1000), Math.ceil(cooldown / 1000), drawing,
+  ]);
+  if (paintKey === lastPaintKey) return;
+  lastPaintKey = paintKey;
+  $('#timer').textContent = `${Math.ceil(remaining / 1000)} 秒`;
   if ($('#light-status')) $('#light-status').textContent = cooldown > 0 ? `照明冷却 ${Math.ceil(cooldown / 1000)} 秒` : '照明已就绪';
   const lit = (x, y) => snapshot.lights.some(light => light.expiresAt > now && x >= Math.min(light.from[0], light.to[0]) && x <= Math.max(light.from[0], light.to[0]) && y >= Math.min(light.from[1], light.to[1]) && y <= Math.max(light.from[1], light.to[1]));
   const visible = (x, y) => snapshot.role === 'int' || same([x, y], snapshot.position) || lit(x, y);
@@ -284,7 +266,7 @@ function draw() {
     ctx.beginPath();ctx.arc(person.position[0] * 50 + 25, person.position[1] * 50 + 25, 14, 0, Math.PI * 2);ctx.fillStyle = person.color;ctx.fill();
     ctx.fillStyle = '#171716';ctx.font = 'bold 16px serif';ctx.fillText(String(person.id + 1), person.position[0] * 50 + 25, person.position[1] * 50 + 31);
   }
-  drawPlayer(snapshot.position);
+  drawFemalePlayer(ctx, snapshot.position, 50);
   if (drawing && snapshot.role === 'int') {
     ctx.strokeStyle = cooldown > 0 ? '#d85c4b' : '#fff';ctx.lineWidth = 7;ctx.beginPath();ctx.moveTo(drawing.from[0] * 50 + 25, drawing.from[1] * 50 + 25);ctx.lineTo(drawing.to[0] * 50 + 25, drawing.to[1] * 50 + 25);ctx.stroke();
   }

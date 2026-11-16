@@ -1,3 +1,7 @@
+import { fitLandscapeStage } from '/src/games/landscape-stage.js';
+import { connectQueuedGame } from '/src/games/game-network.js';
+fitLandscapeStage(document.getElementById('landscape-stage'), 844, 390);
+let network = null;
 const clues = [
   { id: 'A', text: '今早运木头的马车全堵在路口。几个穿黑胶鞋的货商在茶馆门口抽了半个钟头烟，连货担都不管了。', answer: 'west' },
   { id: 'B', text: '卖茶叶的老汉今天宁可绕十里地，也不肯走北边的青石板路，说林子里一上午连个鸟叫都没有。', answer: 'north' },
@@ -115,7 +119,7 @@ function renderTimer() {
 function expired() {
   if (!['archive', 'memory', 'morse', 'route'].includes(state.phase)) return true;
   state.remaining = Math.max(0, state.deadline - Date.now());
-  if (state.remaining === 0) { finish(false); return true; }
+  if (state.remaining === 0) { if (!network) finish(false); return true; }
   return false;
 }
 function finish(success) {
@@ -136,6 +140,7 @@ function finish(success) {
   $('restart').focus();
 }
 $('start').addEventListener('click', () => {
+  if (network) { network.action('start', { type: 'int' }); return; }
   state.phase = 'archive';
   state.deadline = Date.now() + duration;
   $('intro').hidden = true;
@@ -154,6 +159,13 @@ $('start').addEventListener('click', () => {
 });
 $('submit').addEventListener('click', () => {
   if (expired()) return;
+  if (network) {
+    if (state.phase === 'archive') network.action('tea_archive', { assignments: state.assignments });
+    if (state.phase === 'memory') network.action('tea_memory');
+    if (state.phase === 'morse') network.action('tea_decode', { code: $('decoded').value.trim() });
+    if (state.phase === 'route') network.action('tea_route', { route: state.route });
+    return;
+  }
   if (state.phase === 'memory') { beginDecoding(); return; }
   if (state.phase === 'morse') {
     if (state.peekUntil > Date.now()) return;
@@ -211,6 +223,7 @@ function beginDecoding() {
 }
 $('peek').addEventListener('click', () => {
   if (expired() || state.phase !== 'morse' || state.peekUntil > Date.now()) return;
+  if (network) { network.action('tea_peek'); return; }
   state.mistakes += 1;
   state.peekUntil = Date.now() + 5000;
   render();
@@ -226,3 +239,32 @@ $('review').addEventListener('click', () => {
   $('submit').onclick = () => { $('submit').onclick = null; reset(); };
 });
 reset();
+
+if (new URLSearchParams(location.search).has('network')) {
+  network = connectQueuedGame(snapshot => {
+    const attempt = snapshot.attempt;
+    if (!attempt?.tea) return;
+    const tea = attempt.tea;
+    const changed = state.phase !== tea.phase || state.mistakes !== tea.mistakes;
+    if (changed || tea.phase !== 'archive') state.assignments = { ...tea.assignments };
+    state.locked = new Set(tea.locked);
+    state.mistakes = tea.mistakes;
+    state.phase = tea.phase;
+    state.codes.south = tea.routeCode || '';
+    state.memoryUntil = Date.now() + tea.memoryRemaining;
+    state.peekUntil = Date.now() + tea.peekRemaining;
+    state.remaining = Math.max(0, attempt.duration - attempt.elapsed);
+    state.deadline = Date.now() + state.remaining;
+    $('intro').hidden = true;
+    $('signal').innerHTML = (tea.signal || []).map(morseSymbols).join('<span class="signal-divider">/</span>');
+    clearInterval(interval);
+    interval = setInterval(() => {
+      state.remaining = Math.max(0, state.deadline - Date.now());
+      if ((state.phase === 'memory' && Date.now() >= state.memoryUntil) || (state.phase === 'morse' && Date.now() >= state.peekUntil)) $('codebook-area').hidden = true;
+      updateMemoryClock(); renderTimer();
+    }, 100);
+    render();
+    if (changed) feedback(tea.phase === 'memory' ? '情报已核实，限时记住码本。' : tea.phase === 'morse' ? '码本已收起，请译出三位数字。' : tea.phase === 'route' ? '译码正确！对照情报选择路线。' : '归档结果已同步，请调整未确认的情报。');
+  });
+  document.querySelector('footer').lastElementChild.textContent = '联网任务 · 奖励由服务端结算';
+}

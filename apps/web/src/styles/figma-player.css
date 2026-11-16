@@ -8,6 +8,8 @@ body {
   background: #050b0a;
   color: #d7c69f;
   overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 body {
   font-family: "Noto Sans SC", sans-serif;
@@ -71,6 +73,16 @@ select {
 }
 #figma-stage p {
   margin: 0;
+}
+/* Older mobile kernels do not consistently apply Tailwind's independent
+   translate property and its custom-property defaults. */
+#figma-stage [class~="-translate-x-1/2"] {
+  translate: none;
+  transform: translateX(-50%);
+}
+#figma-stage [class~="-translate-x-full"] {
+  translate: none;
+  transform: translateX(-100%);
 }
 #figma-stage button {
   appearance: none;

@@ -5,7 +5,7 @@ const notice = document.querySelector("#preview-notice");
 const picker = document.querySelector("#scene-picker");
 const query = new URLSearchParams(location.search);
 const preview = query.get("preview") === "1";
-const connected = location.pathname === '/online.html';
+const connected = location.pathname === '/online.html' || document.body.hasAttribute('data-network');
 let network = null;
 const cache = new Map();
 let manifest;
@@ -15,7 +15,8 @@ let timer;
 let showingCG = false;
 
 function resize() {
-  const scale = Math.min(innerWidth / 844, (innerHeight - (connected ? 0 : 42)) / 390);
+  const viewport = stage.parentElement;
+  const scale = Math.min(viewport.clientWidth / 844, viewport.clientHeight / 390);
   stage.style.transform = `scale(${Math.max(0.1, scale)})`;
 }
 
@@ -55,7 +56,9 @@ async function show(id, { cg = false, replace = false } = {}) {
   }
   const version = ++generation;
   clearTimeout(timer);
-  notice.textContent = "";
+  notice.textContent = '画面加载中…';
+  stage.setAttribute('aria-busy', 'true');
+  stage.inert = true;
   try {
     if (!cache.has(scene.id)) {
       const response = await fetch(scene.file);
@@ -63,8 +66,27 @@ async function show(id, { cg = false, replace = false } = {}) {
       cache.set(scene.id, await response.text());
     }
     if (version !== generation) return;
+    const prepared = document.createElement('div');
+    prepared.innerHTML = cache.get(scene.id);
+    if (network) await network.prepare(scene, prepared);
+    if (version !== generation) return;
+    const images = [...prepared.querySelectorAll('img')];
+    for (const [index, image] of images.entries()) {
+      image.decoding = 'async';
+      image.fetchPriority = index === 0 ? 'high' : 'auto';
+    }
+    let imageTimeout;
+    try {
+      await Promise.race([
+        Promise.all(images.map(image => image.decode())),
+        new Promise((_, reject) => {
+          imageTimeout = setTimeout(() => reject(new Error('图片加载超时')), 20000);
+        }),
+      ]);
+    } finally { clearTimeout(imageTimeout); }
+    if (version !== generation) return;
     current = scene;
-    stage.innerHTML = cache.get(scene.id);
+    stage.replaceChildren(...prepared.childNodes);
     showingCG = cg || target.cg;
     stage.classList.toggle("cg-first", showingCG);
     stage.classList.toggle("opening", scene.id === "3:25");
@@ -84,9 +106,48 @@ async function show(id, { cg = false, replace = false } = {}) {
     notice.textContent = target.message;
     if (!showingCG && !connected) schedule(scene);
     if (network) await network.shown(scene);
+    warmNextScene(scene, version);
   } catch (error) {
-    notice.textContent = error.message + "，請重新載入。";
+    if (version === generation) notice.textContent = error.message + "，請重新載入。";
+  } finally {
+    if (version === generation) {
+      stage.removeAttribute('aria-busy');
+      stage.inert = false;
+    }
   }
+}
+
+function warmNextScene(scene, version) {
+  // Warm only the immediate next page, after this page's artwork has arrived.
+  // Avoid downloading all 174 scenes or competing with the current screen.
+  const images = [...stage.querySelectorAll('img')];
+  Promise.all(images.map(image => image.complete ? Promise.resolve() : new Promise(resolve => {
+    image.addEventListener('load', resolve, { once: true });
+    image.addEventListener('error', resolve, { once: true });
+  }))).then(() => {
+    if (version !== generation || navigator.connection?.saveData) return;
+    const idle = window.requestIdleCallback || (callback => setTimeout(callback, 300));
+    idle(async () => {
+      if (version !== generation) return;
+      const next = scene.links.find(link => link.trigger === 'AFTER_TIMEOUT') || scene.links[0];
+      if (!next) return;
+      const target = manifest.scenes.find(item => item.id === resolveTarget(next.destination).id);
+      if (!target || cache.has(target.id)) return;
+      try {
+        const response = await fetch(target.file, { priority: 'low' });
+        if (!response.ok) return;
+        const html = await response.text();
+        cache.set(target.id, html);
+        if (version !== generation) return;
+        const document = new DOMParser().parseFromString(html, 'text/html');
+        const existing = new Set(images.map(image => image.getAttribute('src')));
+        for (const src of [...new Set([...document.images].map(image => image.getAttribute('src')))].filter(src => !existing.has(src)).slice(0, 2)) {
+          const image = new Image();
+          image.fetchPriority = 'low'; image.src = src;
+        }
+      } catch { /* Speculative loading must not interrupt the current scene. */ }
+    });
+  });
 }
 
 function identifyDialogue() {
@@ -154,6 +215,7 @@ async function activate(element) {
 }
 
 stage.addEventListener("click", (event) => {
+  if (stage.getAttribute('aria-busy') === 'true') return;
   if (showingCG) {
     showingCG = false;
     stage.classList.remove("cg-first");
@@ -165,6 +227,7 @@ stage.addEventListener("click", (event) => {
 });
 
 stage.addEventListener("keydown", (event) => {
+  if (stage.getAttribute('aria-busy') === 'true') return;
   if (showingCG && ["Enter", " "].includes(event.key)) {
     event.preventDefault();
     stage.click();
@@ -183,6 +246,7 @@ document
   .querySelector("#preview-entry")
   .addEventListener("click", () => location.assign("/?preview=1"));
 window.addEventListener("resize", resize);
+window.addEventListener('gameviewportchange', resize);
 window.addEventListener("popstate", () =>
   show(location.hash.slice(1).replace("-", ":"), { replace: true }),
 );

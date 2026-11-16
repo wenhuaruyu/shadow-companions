@@ -1,0 +1,263 @@
+@import url('/assets/figma/fonts/fonts.css');
+:root {
+  color-scheme:dark!important;
+  color:#d7c69f!important;
+  font-family:'Noto Sans SC',sans-serif!important;
+  background:#091714!important;
+}
+
+html,body,.game {
+  background:#091714 url('/assets/figma/64221.png') center/cover!important;
+  color:#d7c69f!important;
+}
+
+body {
+  font-family:'Noto Sans SC',sans-serif!important;
+}
+
+h1,h2,h3,.person strong {
+  font-family:'Noto Serif SC',serif!important;
+  font-weight:400!important;
+  color:#e5d6b3!important;
+}
+
+h1 {
+  font-size:32px!important;
+  letter-spacing:.14em!important;
+}
+
+h2 {
+  font-size:25px!important;
+}
+
+header,.status,.kicker,.hint {
+  color:#c8ab72!important;
+}
+
+.status,#timer {
+  border:1px solid #a38c6055!important;
+  border-radius:5px!important;
+  background:#10251fe8!important;
+  color:#ded1ab!important;
+  padding:8px 16px!important;
+  font-family:'Noto Serif SC',serif!important;
+}
+
+.paper,.person,.seat,dialog,.start-card,.reward-card {
+  background:linear-gradient(#0c2019b8,#0c2019b8),url('/assets/figma/64221.png') center/cover!important;
+  color:#d7c69f!important;
+  border:1px solid #8c815455!important;
+  border-radius:12px!important;
+  box-shadow:0 5px 18px #0003!important;
+}
+
+.paper {
+  border:0!important;
+}
+
+.intro {
+  border-left:0!important;
+}
+
+.person {
+  padding-top:18px!important;
+}
+
+.person small {
+  color:#a5b39c!important;
+}
+
+.portrait {
+  background:radial-gradient(ellipse,#586855,#263c30)!important;
+  border-color:#8b9871!important;
+  color:#2d3a2d!important;
+  border-radius:5px!important;
+}
+
+.stamp {
+  color:#c8ab72!important;
+  border-color:#c8ab7266!important;
+  background:transparent!important;
+  border-radius:3px!important;
+}
+
+p,label,.line p {
+  color:#d7c69f!important;
+}
+
+.line strong,.evidence button small {
+  color:#c8ab72!important;
+}
+
+.line {
+  border-color:#c8ab7220!important;
+}
+
+button {
+  font-family:'Noto Sans SC',sans-serif!important;
+  border:1px solid #a38c6080!important;
+  border-radius:5px!important;
+  color:#d7c69f!important;
+  background:#203c31!important;
+  box-shadow:none!important;
+}
+
+button.primary {
+  background:#ac9361!important;
+  border-color:#ac9361!important;
+  color:#12271f!important;
+  font-weight:500!important;
+}
+
+button:focus-visible {
+  outline:2px solid #e7d4a5!important;
+}
+
+button:hover {
+  filter:brightness(1.1);
+}
+
+input {
+  background:#0b2019!important;
+  color:#e5d6b3!important;
+  border-color:#8f936d!important;
+}
+
+.start-layer {
+  background:#07150f55!important;
+}
+
+.start-card {
+  background:linear-gradient(#10251fe8,#10251fe8),url('/assets/figma/64221.png') center/cover!important;
+}
+
+.start-card p {
+  font-family:'Noto Serif SC',serif!important;
+}
+
+.start-card button {
+  background:#b19865!important;
+  color:#10251f!important;
+  border:0!important;
+}
+
+canvas {
+  border-color:#354d3c!important;
+  box-shadow:0 8px 26px #0004!important;
+}
+
+.map-legend {
+  color:#a7b59d!important;
+}
+
+.road-key {
+  background:#c8c6a8!important;
+}
+
+.wall-key {
+  background:#213b31!important;
+}
+
+.exit-key {
+  background:#719b76!important;
+}
+
+/* Keep the original map geometry within the following viewport. */
+html body .game .map-frame,
+html body[data-game-viewport] .game .map-frame {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  padding-top: 40px;
+  overflow: clip;
+  aspect-ratio: auto;
+}
+.map-frame > canvas {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 13 / 9;
+}
+.map-title {
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  margin: 0;
+  font-size: 18px !important;
+  line-height: 30px;
+  z-index: 2;
+  pointer-events: none;
+}
+.start-card { max-height: calc(100% - 32px); overflow: auto; }
+
+/* Both standalone and embedded cooperative play use this layout. */
+body[data-phase='coop-playing'] > main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100dvh;
+  padding: 8px 12px;
+  overflow: hidden !important;
+}
+body[data-phase='coop-playing'] header { display: none; }
+body[data-phase='coop-playing'] #play {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+body[data-phase='coop-playing'] .toolbar {
+  flex-shrink: 0;
+  min-height: 34px;
+  padding: 0 0 4px;
+  align-items: center;
+  gap: 8px;
+}
+body[data-phase='coop-playing'] #timer { font-size: 18px; padding: 2px 12px !important; }
+body[data-phase='coop-playing'] .map-legend { display: none; }
+body[data-phase='coop-playing'] .board {
+  position: relative;
+  overflow: clip;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body[data-phase='coop-playing'] canvas { border: 0; margin: 0; max-width: none; }
+body[data-role][data-phase='coop-playing'] canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: auto;
+}
+body[data-phase='coop-playing'] #controls { margin-top: 4px; flex-shrink: 0; }
+body[data-phase='coop-playing'] #controls p { margin: 0; line-height: 22px; font-size: 12px; }
+body[data-phase='coop-playing'] .pad { display: flex; justify-content: center; gap: 8px; }
+body[data-role][data-phase='coop-playing'] .pad button { min-width: 52px; min-height: 44px; padding: 2px 12px; }
+body[data-phase='coop-playing'] #notice:empty { display: none; }
+
+@media (max-height: 550px) and (orientation: landscape) {
+  #investigation { padding: 10px 14px; }
+  #investigation header { margin-bottom: 8px; align-items: center; }
+  #investigation h1 { font-size: 24px !important; margin: 0; }
+  #investigation .kicker { display: none; }
+  #investigation .status { font-size: 12px; padding: 0 !important; margin: 0; }
+  #investigation .intro { padding: 8px 14px; margin-bottom: 8px; }
+  #investigation .intro p { font-size: 12px; line-height: 1.6; margin: 3px 0; }
+  #investigation .people { gap: 10px; }
+  #investigation .suspect { gap: 6px; }
+  #investigation .person { padding: 8px !important; gap: 4px; }
+  #investigation .person strong { font-size: 18px; }
+  #investigation .person small, #investigation .stamp { font-size: 11px; }
+  #investigation .portrait { height: 80px; }
+  #investigation .verdict { min-height: 34px; padding: 5px 12px; }
+  #investigation .hint { margin: 2px 0 0; font-size: 10px; line-height: 1.2; }
+  #investigation .feedback:empty { display: none; }
+  .start-card { padding: 10px 18px; }
+  .start-card h2 { font-size: 20px !important; }
+}
