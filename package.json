@@ -12,7 +12,7 @@
     "dev:server": "npm run start:v2 --workspace @anxian/server",
     "check": "node scripts/check.mjs",
     "start": "npm run start:v2 --workspace @anxian/server",
-    "test": "node --test apps/server/test/*.test.js apps/web/test/*.test.js",
+    "test": "npm run build && node --test apps/server/test/*.test.js apps/web/test/*.test.js",
     "dev:legacy": "npm run dev --workspace @anxian/server",
     "start:legacy": "node apps/server/src/index.js",
     "test:web": "npm test --workspace @anxian/web",

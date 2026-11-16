@@ -3,6 +3,20 @@ import assert from 'node:assert/strict';
 import { createTea, settleTea, teaReward, applyTea, teaSnapshot } from '../src/v2/tea-games.js';
 
 const assignments = { A: 'west', B: 'north', C: 'south', D: 'inbox', E: 'inbox', F: 'inbox' };
+test('小数时间的闪避在截止时刻结算一次，截止前不扣血', () => {
+  const attempt = { type: 'str', startedAt: 10000, tea: createTea('str') };
+  const cue = { id: 0, at: 21000.2, windowMs: 1800, direction: 'left' };
+  attempt.tea.dodges = [cue];
+  const deadline = attempt.startedAt + cue.at + cue.windowMs + 1500;
+  assert.equal(settleTea(attempt, deadline - 1), false);
+  assert.equal(attempt.tea.wounds, 0);
+  assert.equal(settleTea(attempt, deadline), true);
+  assert.equal(attempt.tea.wounds, 1);
+  assert.deepEqual(attempt.tea.dodgeIds, [cue.id]);
+  assert.equal(settleTea(attempt, deadline + 1), false);
+  assert.equal(attempt.tea.wounds, 1);
+});
+
 test('第三章电码在记忆前隐藏，20秒自动收起，查看5秒和三档奖励', () => {
   for (const mistakes of [0, 1, 2]) {
     const attempt = { type: 'int', startedAt: 1000, tea: createTea('int') };

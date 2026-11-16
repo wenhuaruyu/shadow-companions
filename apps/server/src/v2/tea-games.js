@@ -18,7 +18,8 @@ export function settleTea(attempt, now) {
     if (tea.phase === 'memory' && now >= tea.memoryUntil) { tea.phase = 'morse'; changed = true; }
   } else {
     for (const cue of tea.dodges) {
-      if (now - attempt.startedAt >= cue.at + cue.windowMs + 1500 && !tea.dodgeIds.includes(cue.id)) {
+      const deadline = attempt.startedAt + cue.at + cue.windowMs + 1500;
+      if (now >= deadline && !tea.dodgeIds.includes(cue.id)) {
         tea.dodgeIds.push(cue.id); tea.wounds += 1; changed = true;
       }
     }
