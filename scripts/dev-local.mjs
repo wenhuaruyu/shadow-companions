@@ -31,12 +31,13 @@ await new Promise(resolve => api.listen(apiPort, '127.0.0.1', resolve));
 await new Promise(resolve => web.listen(webPort, '127.0.0.1', resolve));
 // A second local entry starts fresh test rooms at chapter three.
 class ThirdChapterPreview extends GameplayService {
+  constructor(rooms, chapter = 2) { super(rooms); this.chapter = chapter; }
   async enter(body, joining = false) {
     const result = await super.enter(body, joining);
     if (!joining) {
       const document = await this.rooms.loadGame(result.id, body.recoverySecret);
       if (!document.state.localThirdChapter) {
-        document.state.chapter = 2;
+        document.state.chapter = this.chapter;
         document.state.localThirdChapter = true;
         await this.rooms.commitGame(document, body.recoverySecret, []);
       }
@@ -51,6 +52,13 @@ const thirdApi = createRoomServer(pool, `http://localhost:${thirdWebPort}`, new 
 const thirdWeb = createWebServer({ apiTarget: `http://127.0.0.1:${thirdApiPort}`, entryQuery: 'chapter3' });
 await new Promise(resolve => thirdApi.listen(thirdApiPort, '127.0.0.1', resolve));
 await new Promise(resolve => thirdWeb.listen(thirdWebPort, '127.0.0.1', resolve));
+const fourthWebPort = webPort + 2;
+const fourthApiPort = apiPort + 2;
+const fourthApi = createRoomServer(pool, `http://localhost:${fourthWebPort}`, new ThirdChapterPreview(new RoomService(pool, `http://localhost:${fourthWebPort}`), 3));
+const fourthWeb = createWebServer({ apiTarget: `http://127.0.0.1:${fourthApiPort}`, entryQuery: 'chapter4' });
+await new Promise(resolve => fourthApi.listen(fourthApiPort, '127.0.0.1', resolve));
+await new Promise(resolve => fourthWeb.listen(fourthWebPort, '127.0.0.1', resolve));
+console.log(`第四章联调入口 http://localhost:${fourthWebPort}/online.html?chapter4=1`);
 console.log(`第三章联调入口 http://localhost:${thirdWebPort}/online.html`);
 console.log(`本地完整游戏 http://localhost:${webPort}/online.html`);
 console.log('独立临时 PostgreSQL 已就绪，停止本进程后清理测试数据。');
@@ -58,6 +66,6 @@ let closing = false;
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, async () => {
   if (closing) return;
   closing = true;
-  await Promise.all([api, web, thirdApi, thirdWeb].map(server => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })));
+  await Promise.all([api, web, thirdApi, thirdWeb, fourthApi, fourthWeb].map(server => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })));
   await pool.end(); await database.stop(); await rm(directory, { recursive: true, force: true }); process.exit(0);
 });

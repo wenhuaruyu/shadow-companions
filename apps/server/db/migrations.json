@@ -18,5 +18,9 @@
   {
     "id": "005_minigame_rewards",
     "file": "cloudbase/migrations/20261108050000_minigame_rewards.sql"
+  },
+  {
+    "id": "006_dual_attribute_rewards",
+    "file": "cloudbase/migrations/20261116090000_dual_attribute_rewards.sql"
   }
 ]

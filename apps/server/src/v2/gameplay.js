@@ -292,7 +292,7 @@ export class GameplayService {
     const document = await this.current(room, token);
     const role = document.state.players[document.seat].role;
     if (!role) fail(409, 'PHASE_MISMATCH', '个人指令尚未生成');
-    return { title: '个人指令', text: document.state.rulesVersion === CHAPTER_RULES ? instructions[role].replace('本次只开放前两个地点', '本次开放前三章') : instructions[role] };
+    return { title: '个人指令', text: document.state.rulesVersion === 'chapter-games-3' ? instructions[role].replace('本次只开放前两个地点', '本次开放前四章') : document.state.rulesVersion === CHAPTER_RULES ? instructions[role].replace('本次只开放前两个地点', '本次开放前三章') : instructions[role] };
   }
 
   async action(body, token) {

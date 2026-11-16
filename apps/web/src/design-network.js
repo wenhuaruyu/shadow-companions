@@ -7,6 +7,7 @@ import { copyText } from './platform/clipboard.js';
 // Original scene links remain the authority for narrative navigation.
 export function createDesignNetwork({ show, getScene, stage, notice }) {
   const invite = new URLSearchParams(location.search).get('invite');
+  const quickFourth = new URLSearchParams(location.search).get('chapter4') === '1';
   const quickThird = new URLSearchParams(location.search).get('chapter3') === '1';
   const storage = sessionStorage;
   let session = invite ? null : readSession(storage) || readSession(localStorage);
@@ -20,7 +21,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
   let pendingInvestment = null;
   let returnScene = null;
   let gameFrame = null;
-  const client = createApiClient({ storage, rulesVersion: 'chapter-games-2', getSession: () => session, getSnapshot: () => snapshot });
+  const client = createApiClient({ storage, rulesVersion: 'chapter-games-3', getSession: () => session, getSnapshot: () => snapshot });
   function mountRoomJoin(scene) {
     const lobby = ['3:80', '3:137', '3:245', '3:306'].includes(scene.id);
     if (!lobby) return;
@@ -88,8 +89,8 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
   async function accept(response, force = false) {
     snapshot = applySnapshot(snapshot, response);
     if (!snapshot) return;
-    if (quickThird && snapshot.chapter === 2 && ['lobby', 'brief'].includes(snapshot.phase)) {
-      renderTeaLobby(snapshot, () => enter(), room => enter(true, room), action);
+    if ((quickThird && snapshot.chapter === 2 || quickFourth && snapshot.chapter === 3) && ['lobby', 'brief'].includes(snapshot.phase)) {
+      renderTeaLobby(snapshot, () => enter(), room => enter(true, room), action, snapshot.chapter);
       if (snapshot.phase === 'brief') setTimeout(() => {
         if (!busy && snapshot.phase === 'brief') action(mine().instruction ? 'tutorial' : 'instruction');
       }, 0);
@@ -103,10 +104,10 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     switch (snapshot.phase) {
       case 'lobby': await show(snapshot.players.length === 1 ? '3:80' : mine().ready ? '3:306' : '3:245'); break;
       case 'brief': await show('30:108'); break;
-      case 'map': await show(snapshot.chapter === 2 ? '368:120' : snapshot.chapter ? '3:1906' : '3:471'); break;
+      case 'map': await show(snapshot.chapter === 3 ? '368:192' : snapshot.chapter === 2 ? '368:120' : snapshot.chapter ? '3:1906' : '3:471'); break;
       case 'story': {
         const saved = sessionStorage.getItem(`anxian.scene.${snapshot.id}.${snapshot.chapter}`);
-        await show(saved || (snapshot.chapter === 2 ? '367:81' : snapshot.chapter ? '3:1967' : '3:698')); break;
+        await show(saved || (snapshot.chapter === 3 ? '367:690' : snapshot.chapter === 2 ? '367:81' : snapshot.chapter ? '3:1967' : '3:698')); break;
       }
       case 'event':
         if ([0, 2].includes(snapshot.chapter) && mine().taskChoice && !snapshot.attempt?.done) { await game(); break; }
@@ -115,8 +116,9 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
         else await show('3:934');
         break;
       case 'invest': await show(rewardAcknowledged !== snapshot.attempt.id ? (snapshot.attempt.type === 'str' || snapshot.cooperative?.role === 'str') ? '3:1607' : '3:1305' : mine().investment ? '3:1788' : snapshot.chapter ? '3:2574' : '3:1666'); break;
-      case 'result': await show(snapshot.records.at(-1).success ? snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:562') : snapshot.chapter ? '287:1764' : '3:1847' : '6:2720'); break;
-      case 'complete': await show(snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:647') : sessionStorage.getItem(`anxian.epilogue.${snapshot.id}`) || '368:120'); break;
+      case 'result': await show(snapshot.records.at(-1).success ? snapshot.chapter === 3 ? (sessionStorage.getItem(`anxian.fourth-ending.${snapshot.id}`) || '367:1094') : snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:562') : snapshot.chapter ? '287:1764' : '3:1847' : '6:2720'); break;
+      case 'complete': await show(snapshot.chapter === 3 ? (sessionStorage.getItem(`anxian.fourth-ending.${snapshot.id}`) || '367:1094') : snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:647') : sessionStorage.getItem(`anxian.epilogue.${snapshot.id}`) || '368:120'); break;
+      case 'failed': await show(snapshot.chapter === 3 ? '6:2720' : '6:2538'); break;
       default: await show('6:2538');
     }
     decorate();
@@ -155,7 +157,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       const response = joining ? await client.join(room) : await client.create();
       if (session?.token !== response.session.token) storage.removeItem(`anxian.action.v2.${response.session.id}`);
       session = response.session;
-      history.replaceState(null, '', location.pathname + (quickThird ? '?chapter3=1' : ''));
+      history.replaceState(null, '', location.pathname + (quickFourth ? '?chapter4=1' : quickThird ? '?chapter3=1' : ''));
       await accept(response, true);
       return true;
     } catch (error) {
@@ -242,6 +244,15 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
         if (/現有智力|現有武力|現有武/.test(node.textContent)) node.textContent = `当前智力 ${mine().int} / 武力 ${mine().str}`;
       }
     }
+    if (snapshot.chapter === 3 && ['3:1305', '3:1607'].includes(scene?.id)) {
+      const amount = snapshot.attempt.reward;
+      stage.querySelector('[data-node-id="49:131"]').textContent = '第四章 · 五里亭交鋒 · 協作結算';
+      stage.querySelector('[data-node-id="49:132"]').textContent = `智力 +${amount} · 武力 +${amount}`;
+      const lines = stage.querySelectorAll('[data-node-id="49:133"] p');
+      lines[0].textContent = amount === 10 ? '默契配合 · 兩人均有效出牌至少兩次' : '交涉成功 · 取得藥品與通行證';
+      lines[1].textContent = `目前智力 ${mine().int} / 武力 ${mine().str}`;
+      lines[2].textContent = '與同伴商量本關投入後，繼續撤離。';
+    }
     if (snapshot.chapter === 2 && ['3:1305', '3:1607'].includes(scene?.id)) {
       const strength = snapshot.attempt.type === 'str';
       const summary = stage.querySelector(strength ? '[data-node-id="49:156"]' : '[data-node-id="49:131"]');
@@ -299,6 +310,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       ...(snapshot.attempt && !snapshot.attempt.done && snapshot.attempt.startedAt !== null ? {
         attempt: { ...snapshot.attempt, elapsed: Math.min(snapshot.attempt.duration, snapshot.attempt.elapsed + age) }
       } : {}),
+      ...(snapshot.cards ? { cards: { ...snapshot.cards, serverNow: snapshot.cards.serverNow + age } } : {}),
       ...(snapshot.cooperative ? { cooperative: {
         ...snapshot.cooperative,
         serverNow: snapshot.cooperative.serverNow + age,
@@ -311,7 +323,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
   window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.source !== gameFrame?.contentWindow) return;
     if (event.data?.type === 'anxian-game-ready') broadcastGame();
-    if (event.data?.type === 'anxian-game-action' && ['start', 'judge', 'alley_move', 'coop_role', 'coop_ready', 'coop_move', 'coop_light', 'coop_escape', 'tea_archive', 'tea_memory', 'tea_peek', 'tea_decode', 'tea_route', 'tea_shot', 'tea_dodge'].includes(event.data.kind)) {
+    if (event.data?.type === 'anxian-game-action' && ['cards_ready', 'cards_play', 'start', 'judge', 'alley_move', 'coop_role', 'coop_ready', 'coop_move', 'coop_light', 'coop_escape', 'tea_archive', 'tea_memory', 'tea_peek', 'tea_decode', 'tea_route', 'tea_shot', 'tea_dodge'].includes(event.data.kind)) {
       const frame = gameFrame;
       action(event.data.kind, event.data.data).finally(() => {
         broadcastGame();
@@ -323,8 +335,8 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     if (!gameFrame) {
       gameFrame = document.createElement('iframe');
       gameFrame.id = 'standalone-game';
-      const name = snapshot.chapter === 2 ? (mine().taskChoice === 'int' ? 'tea-garden' : 'tea-cover') : snapshot.chapter === 1 ? 'cooperative' : mine().taskChoice === 'int' ? 'investigation' : 'strength';
-      gameFrame.title = snapshot.chapter === 2 ? '第三章茶园任务' : snapshot.chapter === 1 ? '第二章双人协作游戏' : mine().taskChoice === 'int' ? '第一章智力游戏' : '第一章武力游戏';
+      const name = snapshot.chapter === 3 ? 'wuliting' : snapshot.chapter === 2 ? (mine().taskChoice === 'int' ? 'tea-garden' : 'tea-cover') : snapshot.chapter === 1 ? 'cooperative' : mine().taskChoice === 'int' ? 'investigation' : 'strength';
+      gameFrame.title = snapshot.chapter === 3 ? '第四章五里亭交锋' : snapshot.chapter === 2 ? '第三章茶园任务' : snapshot.chapter === 1 ? '第二章双人协作游戏' : mine().taskChoice === 'int' ? '第一章智力游戏' : '第一章武力游戏';
       gameFrame.src = `/games/${name}.html?network=1`;
       document.body.append(gameFrame);
     }
@@ -339,6 +351,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       clearCredential(); location.assign('/online.html'); return true;
     }
     if (!session) {
+      if (quickFourth && current === '368:192' && destination === '367:690') { await enter(); return true; }
       if (quickThird && current === '368:120' && destination === '367:81') { await enter(); return true; }
       if (/开始入口|開始入口/.test(name)) { await enter(); return true; }
       if (/加入游戏/.test(name)) { await enter(true); return true; }
@@ -377,11 +390,12 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       }
     }
     if (snapshot.phase === 'map') {
-      if (snapshot.chapter === 2 && destination === '367:81' || /銅鑼灣|铜锣湾/.test(name) && snapshot.chapter === 0 || /紅磡|红磡/.test(name) && snapshot.chapter === 1) {
+      if (snapshot.chapter === 3 && destination === '367:690' || snapshot.chapter === 2 && destination === '367:81' || /銅鑼灣|铜锣湾/.test(name) && snapshot.chapter === 0 || /紅磡|红磡/.test(name) && snapshot.chapter === 1) {
         await action('enter'); return true;
       }
       notice.textContent = '请先完成当前地点'; return true;
     }
+    if (snapshot.chapter === 3 && snapshot.phase === 'story' && current === '367:935' && destination === '367:1094') { await action('read'); return true; }
     if (snapshot.chapter === 2 && snapshot.phase === 'story' && current === '367:382' && destination === '367:562') { await action('read'); return true; }
     if (snapshot.phase === 'story' && ['3:934', '3:2203'].includes(destination)) { await action('read'); return true; }
     if (snapshot.phase === 'event') {
@@ -413,7 +427,8 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       return true;
     }
     if (snapshot.phase === 'result') {
-      if (destination === '3:1906' || destination === '368:120' || snapshot.chapter === 2 && current === '367:647' && destination === '367:690' || !snapshot.records.at(-1).success) {
+      if (destination === '3:1906' || destination === '368:120' || snapshot.chapter === 2 && current === '367:647' && destination === '367:690' || snapshot.chapter === 3 && current === '367:1295' && destination === '443:186' || !snapshot.records.at(-1).success) {
+        if (snapshot.chapter === 3 && snapshot.records.at(-1).success) sessionStorage.setItem(`anxian.fourth-ending.${snapshot.id}`, '443:186');
         if (snapshot.chapter === 2 && snapshot.records.at(-1).success) sessionStorage.setItem(`anxian.third-ending.${snapshot.id}`, '367:690');
         await action('continue'); return true;
       }
@@ -425,6 +440,12 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     return false;
   }
   async function prepare(scene, container) {
+    if (snapshot?.chapter === 3 && scene.id === '6:2720') {
+      container.querySelector('[data-node-id="280:543"]').textContent = '第四章 · 五里亭查封';
+      const lines = container.querySelectorAll('[data-node-id="280:544"] p');
+      lines[0].textContent = snapshot.cards?.winner === 0 ? '王站長佔了上風，藥品與通行證被查扣。' : '共同投入未達通行要求，撤離行動受阻。';
+      lines[1].textContent = '你和同伴的本次行動在此中斷。';
+    }
     if (snapshot?.chapter === 2 && scene.id === '3:934') {
       const setText = (id, text) => { const node = container.querySelector(`[data-node-id="${id}"]`); if (node) node.textContent = text; };
       setText('49:101', '第三章 · 每人一次行動 / 剩餘 1');
@@ -435,8 +456,8 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       setText('10:270', '智力 · 茶園辨途');
       setText('10:276', '武力 · 短槍掩護');
     }
-    if (snapshot?.chapter === 2 && scene.id === '3:2574') {
-      container.querySelector('[data-node-id="49:207"]').textContent = '茶園撤離 · 共同投入';
+    if ([2, 3].includes(snapshot?.chapter) && scene.id === '3:2574') {
+      container.querySelector('[data-node-id="49:207"]').textContent = snapshot.chapter === 3 ? '五里亭 · 共同投入' : '茶園撤離 · 共同投入';
     }
     if (snapshot && ['3:1305', '3:1607'].includes(scene.id)) {
       if (!privateRole) {
@@ -460,6 +481,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       stage.setAttribute('aria-label', '第三章 · 茶園行動 · 選擇分工');
     }
     mountRoomJoin(scene);
+    if (snapshot?.chapter === 3 && snapshot.phase === 'result' && scene.id.startsWith('367:')) sessionStorage.setItem(`anxian.fourth-ending.${snapshot.id}`, scene.id);
     if (snapshot?.chapter === 2 && snapshot.phase === 'result' && scene.id.startsWith('367:')) sessionStorage.setItem(`anxian.third-ending.${snapshot.id}`, scene.id);
     if (snapshot?.phase === 'complete') sessionStorage.setItem(`anxian.epilogue.${snapshot.id}`, scene.id);
     if (snapshot?.phase === 'story') sessionStorage.setItem(`anxian.scene.${snapshot.id}.${snapshot.chapter}`, scene.id);
@@ -481,15 +503,16 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       catch (error) {
         if (['INVALID_CREDENTIAL', 'ROOM_NOT_FOUND'].includes(error.code)) {
           clearCredential(); session = null;
-          if (quickThird) await show('368:120');
+          if (quickFourth) await show('368:192');
+          else if (quickThird) await show('368:120');
           else await show('6:2236');
         } else await show('6:2416');
         notice.textContent = error.message;
       }
     }
-    else if (quickThird) {
+    else if (quickFourth || quickThird) {
       if (invite) await enter(true, invite);
-      else await show('368:120');
+      else await show(quickFourth ? '368:192' : '368:120');
     }
     else if (invite) await show('3:192');
     else await show('3:25');

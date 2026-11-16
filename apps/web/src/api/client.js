@@ -119,7 +119,7 @@ export function createApiClient({
         ) {
           body.attemptId = snapshot.attempt.id;
         }
-        if (["answers", "hit", "draft", "judge", "alley_move", "tea_archive", "tea_memory", "tea_peek", "tea_decode", "tea_route", "tea_shot", "tea_dodge", "coop_role", "coop_ready", "coop_move", "coop_light", "coop_escape"].includes(kind)) {
+        if (["cards_ready", "cards_play", "answers", "hit", "draft", "judge", "alley_move", "tea_archive", "tea_memory", "tea_peek", "tea_decode", "tea_route", "tea_shot", "tea_dodge", "coop_role", "coop_ready", "coop_move", "coop_light", "coop_escape"].includes(kind)) {
           const scope =
             kind === "draft"
               ? `draft.${snapshot.chapter}`

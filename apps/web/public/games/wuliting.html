@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>五里亭交锋 · 暗线同行者</title>
+  <link rel="stylesheet" href="/assets/figma/fonts/fonts.css">
+  <link rel="stylesheet" href="/games/wuliting.css">
+</head>
+<body data-landscape-display>
+  <div id="landscape-stage">
+    <header><div><small>第四幕 · 曲江五里亭 · 侨兴行</small><h1>五里亭交锋</h1></div><div id="clock">等待双方准备</div></header>
+    <main>
+      <section class="opponent"><div><h2>王站长</h2><p id="wang-count">手牌 6 张</p></div><div id="wang-hand" aria-label="王站长未公开的手牌"></div><p id="wang-line">“这批货的来路，总要说个清楚。”</p></section>
+      <section class="table"><div><p id="turn" role="status">正在连接牌局…</p><div id="table-cards" aria-label="当前桌面"></div></div><ol id="history" aria-label="最近出牌记录"></ol></section>
+      <section class="partner"><h2 id="partner-label">同伴手牌</h2><div id="partner-hand" class="hand"></div></section>
+      <section class="mine"><h2 id="my-label">我的手牌</h2><div id="my-hand" class="hand"></div></section>
+    </main>
+    <footer><p id="hint" role="status">点击选择单张或同点数的两张牌。</p><button id="rules-button">规则</button><button id="pass" disabled>过牌</button><button id="play" class="primary" disabled>出牌</button></footer>
+    <section id="intro" class="overlay"><div class="panel"><div><small>双人协作 · 共同争取放行</small><h2>账房里的交锋</h2><p>王站长扣下了药品和特别通行证。你和同伴把公函、凭据与人脉摆上桌，逐一回应他的盘问，争取让队伍继续北上。</p><p class="quote">“您提出疑点，我们拿凭据。最后总得有个放行的说法。”</p></div><div><h3>联手出完手牌</h3><p>王站长先出，随后两人轮流行动。可出单张或同点数对子，跟牌须同牌型、点数更大，也可过牌。连续两人过牌，由最后出牌者重新首出。</p><p>你和同伴任意一人先出完即获胜。每回合20秒，超时跟牌自动过牌，首出自动打最小单张。全局最多5分钟，到时我方取较少的一人，与王站长比剩余牌数，严格更少才算获胜。</p><p>失败每人智力、武力 +0。获胜各 +5，两人均有效出牌至少2次则各 +10。</p><button id="ready" class="primary">准备交锋</button><button id="close-rules" hidden>返回牌局</button><p id="ready-status" role="status"></p></div></div></section>
+  </div>
+  <script type="module" src="/games/wuliting.js"></script>
+</body>
+</html>

@@ -33,7 +33,8 @@ function saveCards(state, rewards) {
   if (game.done) {
     if (game.winner === 0) {
       state.records.push({ chapter: 3, success: false, reason: '五里亭查封' });
-      state.phase = 'result';
+      state.reason = '五里亭查封';
+      state.phase = 'failed';
     } else state.phase = 'invest';
   }
 }
