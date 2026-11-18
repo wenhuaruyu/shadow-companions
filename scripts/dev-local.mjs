@@ -58,6 +58,13 @@ const fourthApi = createRoomServer(pool, `http://localhost:${fourthWebPort}`, ne
 const fourthWeb = createWebServer({ apiTarget: `http://127.0.0.1:${fourthApiPort}`, entryQuery: 'chapter4' });
 await new Promise(resolve => fourthApi.listen(fourthApiPort, '127.0.0.1', resolve));
 await new Promise(resolve => fourthWeb.listen(fourthWebPort, '127.0.0.1', resolve));
+const fifthWebPort = webPort + 3;
+const fifthApiPort = apiPort + 3;
+const fifthApi = createRoomServer(pool, `http://localhost:${fifthWebPort}`, new ThirdChapterPreview(new RoomService(pool, `http://localhost:${fifthWebPort}`), 4));
+const fifthWeb = createWebServer({ apiTarget: `http://127.0.0.1:${fifthApiPort}` });
+await new Promise(resolve => fifthApi.listen(fifthApiPort, '127.0.0.1', resolve));
+await new Promise(resolve => fifthWeb.listen(fifthWebPort, '127.0.0.1', resolve));
+console.log(`第五章联调入口 http://localhost:${fifthWebPort}/online.html`);
 console.log(`第四章联调入口 http://localhost:${fourthWebPort}/online.html?chapter4=1`);
 console.log(`第三章联调入口 http://localhost:${thirdWebPort}/online.html`);
 console.log(`本地完整游戏 http://localhost:${webPort}/online.html`);
@@ -66,6 +73,6 @@ let closing = false;
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, async () => {
   if (closing) return;
   closing = true;
-  await Promise.all([api, web, thirdApi, thirdWeb, fourthApi, fourthWeb].map(server => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })));
+  await Promise.all([api, web, thirdApi, thirdWeb, fourthApi, fourthWeb, fifthApi, fifthWeb].map(server => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })));
   await pool.end(); await database.stop(); await rm(directory, { recursive: true, force: true }); process.exit(0);
 });

@@ -45,6 +45,14 @@ function feedback(message, error = false) {
   $('feedback').textContent = message;
   $('feedback').classList.toggle('error', error);
 }
+function updateCipherControls() {
+  if (state.phase !== 'morse') return;
+  const peeking = state.peekUntil > Date.now();
+  $('codebook-area').hidden = !peeking;
+  $('decoded').disabled = peeking;
+  $('peek').disabled = peeking;
+  $('submit').disabled = peeking;
+}
 function render() {
   const picking = state.phase === 'route';
   const ended = state.phase === 'ended';
@@ -261,7 +269,7 @@ if (new URLSearchParams(location.search).has('network')) {
     interval = setInterval(() => {
       state.remaining = Math.max(0, state.deadline - Date.now());
       if ((state.phase === 'memory' && Date.now() >= state.memoryUntil) || (state.phase === 'morse' && Date.now() >= state.peekUntil)) $('codebook-area').hidden = true;
-      updateMemoryClock(); renderTimer();
+      updateCipherControls(); updateMemoryClock(); renderTimer();
     }, 100);
     render();
     if (changed) feedback(tea.phase === 'memory' ? '情报已核实，限时记住码本。' : tea.phase === 'morse' ? '码本已收起，请译出三位数字。' : tea.phase === 'route' ? '译码正确！对照情报选择路线。' : '归档结果已同步，请调整未确认的情报。');

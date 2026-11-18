@@ -89,7 +89,7 @@ function validateAction(body) {
   if (!inputKinds.includes(body.kind) && (!integer(body.expectedVersion) || typeof body.expectedPhase !== 'string')) {
     fail(400, 'INVALID_INPUT', '缺少预期版本或阶段');
   }
-  if ([...eventKinds, ...chapterKinds].includes(body.kind) && ![0, 1, 2, 3].includes(body.chapter)) fail(400, 'INVALID_INPUT', '地点编号错误');
+  if ([...eventKinds, ...chapterKinds].includes(body.kind) && ![0, 1, 2, 3, 4].includes(body.chapter)) fail(400, 'INVALID_INPUT', '地点编号错误');
   if (eventKinds.includes(body.kind) && !['choose', 'start'].includes(body.kind) &&
     (typeof body.attemptId !== 'string' || !/^[0-9a-f-]{36}$/.test(body.attemptId))) {
     fail(400, 'INVALID_INPUT', '尝试编号错误');
@@ -144,7 +144,7 @@ function apply(state, document, body, rewards, now) {
       player.continued = true;
       if (all('continued')) {
         if (!state.records.at(-1).success) state.phase = 'failed';
-        else if (state.chapter >= (state.rulesVersion === 'chapter-games-3' ? 3 : state.rulesVersion === CHAPTER_RULES ? 2 : 1)) state.phase = 'complete';
+        else if (state.chapter >= (state.rulesVersion === 'chapter-games-3' ? 4 : state.rulesVersion === CHAPTER_RULES ? 2 : 1)) state.phase = 'complete';
         else {
           state.chapter += 1;
           state.phase = 'map';
@@ -186,7 +186,7 @@ function apply(state, document, body, rewards, now) {
       if (body.chapter !== state.chapter) fail(409, 'PHASE_MISMATCH', '地点已变化');
       player.read = true;
       if (all('read')) {
-        state.phase = 'event';
+        state.phase = state.chapter === 4 ? 'complete' : 'event';
         if (isChapterRules(state.rulesVersion) && state.chapter === 1) beginCooperation(state);
         if (state.rulesVersion === 'chapter-games-3' && state.chapter === 3) beginCards(state);
       }
@@ -292,7 +292,7 @@ export class GameplayService {
     const document = await this.current(room, token);
     const role = document.state.players[document.seat].role;
     if (!role) fail(409, 'PHASE_MISMATCH', '个人指令尚未生成');
-    return { title: '个人指令', text: document.state.rulesVersion === 'chapter-games-3' ? instructions[role].replace('本次只开放前两个地点', '本次开放前四章') : document.state.rulesVersion === CHAPTER_RULES ? instructions[role].replace('本次只开放前两个地点', '本次开放前三章') : instructions[role] };
+    return { title: '个人指令', text: document.state.rulesVersion === 'chapter-games-3' ? instructions[role].replace('本次只开放前两个地点', '本次开放全部五章') : document.state.rulesVersion === CHAPTER_RULES ? instructions[role].replace('本次只开放前两个地点', '本次开放前三章') : instructions[role] };
   }
 
   async action(body, token) {

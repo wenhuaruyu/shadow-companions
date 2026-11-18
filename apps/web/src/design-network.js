@@ -104,10 +104,10 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     switch (snapshot.phase) {
       case 'lobby': await show(snapshot.players.length === 1 ? '3:80' : mine().ready ? '3:306' : '3:245'); break;
       case 'brief': await show('30:108'); break;
-      case 'map': await show(snapshot.chapter === 3 ? '368:192' : snapshot.chapter === 2 ? '368:120' : snapshot.chapter ? '3:1906' : '3:471'); break;
+      case 'map': await show(snapshot.chapter === 4 ? '443:121' : snapshot.chapter === 3 ? '368:192' : snapshot.chapter === 2 ? '368:120' : snapshot.chapter ? '3:1906' : '3:471'); break;
       case 'story': {
         const saved = sessionStorage.getItem(`anxian.scene.${snapshot.id}.${snapshot.chapter}`);
-        await show(saved || (snapshot.chapter === 3 ? '367:690' : snapshot.chapter === 2 ? '367:81' : snapshot.chapter ? '3:1967' : '3:698')); break;
+        await show(saved || (snapshot.chapter === 4 ? '443:186' : snapshot.chapter === 3 ? '367:690' : snapshot.chapter === 2 ? '367:81' : snapshot.chapter ? '3:1967' : '3:698')); break;
       }
       case 'event':
         if ([0, 2].includes(snapshot.chapter) && mine().taskChoice && !snapshot.attempt?.done) { await game(); break; }
@@ -117,7 +117,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
         break;
       case 'invest': await show(rewardAcknowledged !== snapshot.attempt.id ? (snapshot.attempt.type === 'str' || snapshot.cooperative?.role === 'str') ? '3:1607' : '3:1305' : mine().investment ? '3:1788' : snapshot.chapter ? '3:2574' : '3:1666'); break;
       case 'result': await show(snapshot.records.at(-1).success ? snapshot.chapter === 3 ? (sessionStorage.getItem(`anxian.fourth-ending.${snapshot.id}`) || '367:1094') : snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:562') : snapshot.chapter ? '287:1764' : '3:1847' : '6:2720'); break;
-      case 'complete': await show(snapshot.chapter === 3 ? (sessionStorage.getItem(`anxian.fourth-ending.${snapshot.id}`) || '367:1094') : snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:647') : sessionStorage.getItem(`anxian.epilogue.${snapshot.id}`) || '368:120'); break;
+      case 'complete': await show(snapshot.chapter === 4 ? (sessionStorage.getItem(`anxian.epilogue.${snapshot.id}`) || '443:393') : snapshot.chapter === 3 ? (sessionStorage.getItem(`anxian.fourth-ending.${snapshot.id}`) || '367:1094') : snapshot.chapter === 2 ? (sessionStorage.getItem(`anxian.third-ending.${snapshot.id}`) || '367:647') : sessionStorage.getItem(`anxian.epilogue.${snapshot.id}`) || '368:120'); break;
       case 'failed': await show(snapshot.chapter === 3 ? '6:2720' : '6:2538'); break;
       default: await show('6:2538');
     }
@@ -169,6 +169,10 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     finally { busy = false; }
   }
   function decorate() {
+    if (snapshot?.chapter === 2 && getScene()?.id === '367:647' && mine().continued) {
+      const label = stage.querySelector('[data-node-id="10:270"]');
+      if (label) label.textContent = '等待同伴回到地图…';
+    }
     broadcastGame();
     if ((quickThird || snapshot?.chapter === 2) && getScene()?.id === '368:120') {
       const point = stage.querySelector('[data-node-id="368:146"]');
@@ -308,7 +312,11 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     const current = {
       ...snapshot,
       ...(snapshot.attempt && !snapshot.attempt.done && snapshot.attempt.startedAt !== null ? {
-        attempt: { ...snapshot.attempt, elapsed: Math.min(snapshot.attempt.duration, snapshot.attempt.elapsed + age) }
+        attempt: { ...snapshot.attempt, elapsed: Math.min(snapshot.attempt.duration, snapshot.attempt.elapsed + age),
+          ...(snapshot.attempt.tea && snapshot.attempt.type === 'int' ? { tea: { ...snapshot.attempt.tea,
+            memoryRemaining: Math.max(0, snapshot.attempt.tea.memoryRemaining - age),
+            peekRemaining: Math.max(0, snapshot.attempt.tea.peekRemaining - age)
+          } } : {}) }
       } : {}),
       ...(snapshot.cards ? { cards: { ...snapshot.cards, serverNow: snapshot.cards.serverNow + age } } : {}),
       ...(snapshot.cooperative ? { cooperative: {
@@ -390,11 +398,12 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
       }
     }
     if (snapshot.phase === 'map') {
-      if (snapshot.chapter === 3 && destination === '367:690' || snapshot.chapter === 2 && destination === '367:81' || /銅鑼灣|铜锣湾/.test(name) && snapshot.chapter === 0 || /紅磡|红磡/.test(name) && snapshot.chapter === 1) {
+      if (snapshot.chapter === 4 && destination === '443:186' || snapshot.chapter === 3 && destination === '367:690' || snapshot.chapter === 2 && destination === '367:81' || /銅鑼灣|铜锣湾/.test(name) && snapshot.chapter === 0 || /紅磡|红磡/.test(name) && snapshot.chapter === 1) {
         await action('enter'); return true;
       }
       notice.textContent = '请先完成当前地点'; return true;
     }
+    if (snapshot.chapter === 4 && snapshot.phase === 'story' && current === '443:370' && destination === '443:393') { await action('read'); return true; }
     if (snapshot.chapter === 3 && snapshot.phase === 'story' && current === '367:935' && destination === '367:1094') { await action('read'); return true; }
     if (snapshot.chapter === 2 && snapshot.phase === 'story' && current === '367:382' && destination === '367:562') { await action('read'); return true; }
     if (snapshot.phase === 'story' && ['3:934', '3:2203'].includes(destination)) { await action('read'); return true; }
@@ -429,7 +438,7 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     if (snapshot.phase === 'result') {
       if (destination === '3:1906' || destination === '368:120' || snapshot.chapter === 2 && current === '367:647' && destination === '367:690' || snapshot.chapter === 3 && current === '367:1295' && destination === '443:186' || !snapshot.records.at(-1).success) {
         if (snapshot.chapter === 3 && snapshot.records.at(-1).success) sessionStorage.setItem(`anxian.fourth-ending.${snapshot.id}`, '443:186');
-        if (snapshot.chapter === 2 && snapshot.records.at(-1).success) sessionStorage.setItem(`anxian.third-ending.${snapshot.id}`, '367:690');
+        if (snapshot.chapter === 2 && snapshot.records.at(-1).success) sessionStorage.setItem(`anxian.third-ending.${snapshot.id}`, '367:647');
         await action('continue'); return true;
       }
     }
@@ -440,6 +449,17 @@ export function createDesignNetwork({ show, getScene, stage, notice }) {
     return false;
   }
   async function prepare(scene, container) {
+    if (scene.id === '367:647') {
+      container.querySelector('#node-10_275')?.remove();
+      container.querySelector('[data-node-id="367:670"]')?.remove();
+      const label = container.querySelector('[data-node-id="10:270"]');
+      if (label) label.textContent = '回到地图';
+      const target = container.querySelector('[data-node-id="367:672"]') || container.querySelector('#node-10_269');
+      if (target) {
+        target.dataset.nodeId = '367:672';
+        target.setAttribute('aria-label', '回到地图');
+      }
+    }
     if (snapshot?.chapter === 3 && scene.id === '6:2720') {
       container.querySelector('[data-node-id="280:543"]').textContent = '第四章 · 五里亭查封';
       const lines = container.querySelectorAll('[data-node-id="280:544"] p');
